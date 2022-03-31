@@ -55,6 +55,15 @@ class WebshopApiTest extends TestCase
      */
     public function setUp(): void
     {
+        $config = \Teambank\RatenkaufByEasyCreditApiV3\Configuration::getDefaultConfiguration()
+            ->setHost('https://ratenkauf.easycredit.de')
+            ->setUsername($_ENV['EASYCREDIT_USER'])
+            ->setPassword($_ENV['EASYCREDIT_PASSWORD']);
+
+        $this->apiInstance = new \Teambank\RatenkaufByEasyCreditApiV3\Service\WebshopApi(
+            new \Teambank\RatenkaufByEasyCreditApiV3\Client(['debug'=>false]),
+            $config
+        );
     }
 
     /**
@@ -77,10 +86,11 @@ class WebshopApiTest extends TestCase
      * Get the necessary information about the webshop.
      *
      */
-    public function testApiPaymentV3WebshopGet()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
+    public function testApiPaymentV3WebshopGet() {
+
+        list ($response, $statusCode) = $this->apiInstance->apiPaymentV3WebshopGetWithHttpInfo();
+
+        $this->assertSame(200, $statusCode);
     }
 
     /**
@@ -91,7 +101,29 @@ class WebshopApiTest extends TestCase
      */
     public function testApiPaymentV3WebshopIntegrationcheckPost()
     {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
+        list ($response, $statusCode) = $this->apiInstance->apiPaymentV3WebshopIntegrationcheckPostWithHttpInfo(new \Teambank\RatenkaufByEasyCreditApiV3\Model\IntegrationCheckRequest([
+            'message' => ''
+        ]));
+
+       $this->assertSame(200, $statusCode);
+    }
+
+    public function testApiPaymentV3WebshopIntegrationcheckPostWrongCredentials() {
+        $config = \Teambank\RatenkaufByEasyCreditApiV3\Configuration::getDefaultConfiguration()
+            ->setHost('https://ratenkauf.easycredit.de')
+            ->setUsername($_ENV['EASYCREDIT_USER'])
+            ->setPassword('wrong-password');
+
+        $this->apiInstance = new \Teambank\RatenkaufByEasyCreditApiV3\Service\WebshopApi(
+            new \Teambank\RatenkaufByEasyCreditApiV3\Client(['debug'=>false]),
+            $config
+        );
+
+        $this->expectException(\Teambank\RatenkaufByEasyCreditApiV3\ApiException::class);
+        $this->expectExceptionMessage('Bad credentials');
+
+        list ($response, $statusCode) = $this->apiInstance->apiPaymentV3WebshopIntegrationcheckPostWithHttpInfo(new \Teambank\RatenkaufByEasyCreditApiV3\Model\IntegrationCheckRequest([
+            'message' => ''
+        ]));
     }
 }

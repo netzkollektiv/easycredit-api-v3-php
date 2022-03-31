@@ -1,28 +1,31 @@
-# ratenkaufbyeasycredit-payment-api-v3-php
+# ratenkauf by easyCredit API v3 PHP Library
 
-Ratenkauf Verkauf-V3 API for ratenkauf App
+The ratenkauf by easyCredit API v3 Library is the official PHP library for using the following ratenkauf by easyCredit API's:
 
+ * Payment API v3 (https://ratenkauf.easycredit.de/api/payment/v3/openapi)
+ * Calculator API v3 (https://ratenkauf.easycredit.de/api/ratenrechner/v3/openapi)
+ * Merchant API v3 (https://partner.easycredit-ratenkauf.de/api/merchant/v3/openapi) 
 
 ## Installation & Usage
 
 ### Requirements
 
-PHP 7.2 and later.
+ * PHP >= 7.0
 
 ### Composer
 
-To install the bindings via [Composer](https://getcomposer.org/), add the following to `composer.json`:
+To install the API Library via [Composer](https://getcomposer.org/), add the following to `composer.json`:
 
 ```json
 {
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://github.com/netzkollektiv/ratenkaufbyeasycredit-payment-api-v3-php.git"
+      "url": "https://github.com/netzkollektiv/ratenkaufbyeasycredit-api-v3-php.git"
     }
   ],
   "require": {
-    "netzkollektiv/ratenkaufbyeasycredit-payment-api-v3-php": "*@dev"
+    "netzkollektiv/ratenkaufbyeasycredit-api-v3-php": "*@dev"
   }
 }
 ```
@@ -35,7 +38,7 @@ Download the files and include `autoload.php`:
 
 ```php
 <?php
-require_once('/path/to/ratenkaufbyeasycredit-payment-api-v3-php/vendor/autoload.php');
+require_once('/path/to/ratenkaufbyeasycredit-api-v3-php/vendor/autoload.php');
 ```
 
 ## Getting Started
@@ -48,70 +51,94 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 
-// Configure HTTP basic authorization: basicAuth
-$config = Teambank\RatenkaufByEasyCreditApiV3\Configuration::getDefaultConfiguration()
-              ->setHost('https://ratenkauf.easycredit.de')
-              ->setUsername('1.de.1234.1') // use your "Webshop-ID"
-              ->setPassword('YOUR_API_KEY'); // use your "API-Kennwort"
 
-
-$apiInstance = new Teambank\RatenkaufByEasyCreditApiV3\Api\TransactionApi(
+$apiInstance = new Teambank\RatenkaufByEasyCreditApiV3\Api\InstallmentplanApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
+    new GuzzleHttp\Client()
 );
-$transactionInitRequest = new \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInitRequest(); // \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInitRequest | init request
+$shopIdentifier = 'shopIdentifier_example'; // string | Shop Identifier
+$installmentPlanRequest = new \Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanRequest(); // \Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanRequest | integration check request
 
 try {
-    $result = $apiInstance->apiPaymentV3TransactionPost($transactionInitRequest);
+    $result = $apiInstance->apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPost($shopIdentifier, $installmentPlanRequest);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling TransactionApi->apiPaymentV3TransactionPost: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling InstallmentplanApi->apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPost: ', $e->getMessage(), PHP_EOL;
 }
 
 ```
 
 ## API Endpoints
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://partner.easycredit-ratenkauf.de*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*InstallmentplanApi* | [**apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPost**](docs/Api/InstallmentplanApi.md#apiratenrechnerv3webshopshopidentifierinstallmentplanspost) | **POST** /api/ratenrechner/v3/webshop/{shopIdentifier}/installmentplans | Calculates the installmentplan
+*TransactionApi* | [**apiMerchantV3TransactionGet**](docs/Api/TransactionApi.md#apimerchantv3transactionget) | **GET** /api/merchant/v3/transaction | Find transactions of a merchant according to some search parameters.
+*TransactionApi* | [**apiMerchantV3TransactionTransactionIdCapturePost**](docs/Api/TransactionApi.md#apimerchantv3transactiontransactionidcapturepost) | **POST** /api/merchant/v3/transaction/{transactionId}/capture | Report a capture for a transaction according to its unique functional identifier
+*TransactionApi* | [**apiMerchantV3TransactionTransactionIdGet**](docs/Api/TransactionApi.md#apimerchantv3transactiontransactionidget) | **GET** /api/merchant/v3/transaction/{transactionId} | Retrieve a transaction of a merchant according to a unique functional identifier
+*TransactionApi* | [**apiMerchantV3TransactionTransactionIdRefundPost**](docs/Api/TransactionApi.md#apimerchantv3transactiontransactionidrefundpost) | **POST** /api/merchant/v3/transaction/{transactionId}/refund | Report a refund for a transaction according to its unique functional identifier
 *TransactionApi* | [**apiPaymentV3TransactionPost**](docs/Api/TransactionApi.md#apipaymentv3transactionpost) | **POST** /api/payment/v3/transaction | Initiates a transaction based on the given request
-*TransactionApi* | [**apiPaymentV3TransactionTechnicalTransactionIdAuthorizationGet**](docs/Api/TransactionApi.md#apipaymentv3transactiontechnicaltransactionidauthorizationget) | **GET** /api/payment/v3/transaction/{technicalTransactionId}/authorization | Returns the authorization status of a transaction
+*TransactionApi* | [**apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPost**](docs/Api/TransactionApi.md#apipaymentv3transactiontechnicaltransactionidauthorizationpost) | **POST** /api/payment/v3/transaction/{technicalTransactionId}/authorization | Authorizes a transaction after finishing the process in a webshop
+*TransactionApi* | [**apiPaymentV3TransactionTechnicalTransactionIdGet**](docs/Api/TransactionApi.md#apipaymentv3transactiontechnicaltransactionidget) | **GET** /api/payment/v3/transaction/{technicalTransactionId} | Get the necessary information about the transaction
 *TransactionApi* | [**apiPaymentV3TransactionTechnicalTransactionIdPatch**](docs/Api/TransactionApi.md#apipaymentv3transactiontechnicaltransactionidpatch) | **PATCH** /api/payment/v3/transaction/{technicalTransactionId} | Updates a transaction based on the given request
-*TransactionApi* | [**apiPaymentV3TransactionTechnicalTransactionIdPreAuthorizationPost**](docs/Api/TransactionApi.md#apipaymentv3transactiontechnicaltransactionidpreauthorizationpost) | **POST** /api/payment/v3/transaction/{technicalTransactionId}/preAuthorization | Preauthorizes a transaction after finishing the process in a webshop
-*TransactionApi* | [**apiPaymentV3TransactionTechnicalTransactionIdSummaryGet**](docs/Api/TransactionApi.md#apipaymentv3transactiontechnicaltransactionidsummaryget) | **GET** /api/payment/v3/transaction/{technicalTransactionId}/summary | Get the necessary information regarding the transaction for checkout
 *WebshopApi* | [**apiPaymentV3WebshopGet**](docs/Api/WebshopApi.md#apipaymentv3webshopget) | **GET** /api/payment/v3/webshop | Get the necessary information about the webshop
 *WebshopApi* | [**apiPaymentV3WebshopIntegrationcheckPost**](docs/Api/WebshopApi.md#apipaymentv3webshopintegrationcheckpost) | **POST** /api/payment/v3/webshop/integrationcheck | Verifies the correctness of the merchant&#39;s authentication credentials and, if enabled, the body signature
+*WebshopApi* | [**apiPaymentV3WebshopWebshopIdGet**](docs/Api/WebshopApi.md#apipaymentv3webshopwebshopidget) | **GET** /api/payment/v3/webshop/{webshopId} | Get the necessary information about the webshop
 
 ## Models
 
 - [Address](docs/Model/Address.md)
+- [Article](docs/Model/Article.md)
 - [ArticleNumberItem](docs/Model/ArticleNumberItem.md)
 - [AuthenticationError](docs/Model/AuthenticationError.md)
+- [AuthorizationRequest](docs/Model/AuthorizationRequest.md)
 - [AuthorizationStatusResponse](docs/Model/AuthorizationStatusResponse.md)
 - [Bank](docs/Model/Bank.md)
+- [BankAccountCheck](docs/Model/BankAccountCheck.md)
+- [Booking](docs/Model/Booking.md)
+- [CaptureRequest](docs/Model/CaptureRequest.md)
+- [Consent](docs/Model/Consent.md)
 - [ConstraintViolation](docs/Model/ConstraintViolation.md)
 - [ConstraintViolationViolations](docs/Model/ConstraintViolationViolations.md)
 - [Contact](docs/Model/Contact.md)
 - [Customer](docs/Model/Customer.md)
 - [CustomerRelationship](docs/Model/CustomerRelationship.md)
+- [DeviceIdentToken](docs/Model/DeviceIdentToken.md)
 - [Employment](docs/Model/Employment.md)
+- [InstallmentPlan](docs/Model/InstallmentPlan.md)
+- [InstallmentPlanRequest](docs/Model/InstallmentPlanRequest.md)
+- [InstallmentPlanResponse](docs/Model/InstallmentPlanResponse.md)
 - [IntegrationCheckRequest](docs/Model/IntegrationCheckRequest.md)
 - [IntegrationCheckResponse](docs/Model/IntegrationCheckResponse.md)
+- [InvoiceAddress](docs/Model/InvoiceAddress.md)
+- [InvoiceAddressAllOf](docs/Model/InvoiceAddressAllOf.md)
+- [MTan](docs/Model/MTan.md)
+- [Message](docs/Model/Message.md)
 - [OrderDetails](docs/Model/OrderDetails.md)
+- [PaginationInfo](docs/Model/PaginationInfo.md)
+- [Plan](docs/Model/Plan.md)
 - [RedirectLinks](docs/Model/RedirectLinks.md)
+- [RedirectLinksSI](docs/Model/RedirectLinksSI.md)
+- [Refund](docs/Model/Refund.md)
+- [RefundRequest](docs/Model/RefundRequest.md)
 - [ServerError](docs/Model/ServerError.md)
 - [ShippingAddress](docs/Model/ShippingAddress.md)
 - [ShippingAddressAllOf](docs/Model/ShippingAddressAllOf.md)
 - [ShoppingCartInformationItem](docs/Model/ShoppingCartInformationItem.md)
 - [Shopsystem](docs/Model/Shopsystem.md)
-- [TransactionInitRequest](docs/Model/TransactionInitRequest.md)
+- [Transaction](docs/Model/Transaction.md)
+- [TransactionCustomer](docs/Model/TransactionCustomer.md)
+- [TransactionInformation](docs/Model/TransactionInformation.md)
 - [TransactionInitResponse](docs/Model/TransactionInitResponse.md)
-- [TransactionSummaryResponse](docs/Model/TransactionSummaryResponse.md)
-- [TransactionUpdateRequest](docs/Model/TransactionUpdateRequest.md)
+- [TransactionListInfo](docs/Model/TransactionListInfo.md)
+- [TransactionOrderDetails](docs/Model/TransactionOrderDetails.md)
+- [TransactionResponse](docs/Model/TransactionResponse.md)
+- [TransactionSummary](docs/Model/TransactionSummary.md)
+- [TransactionUpdate](docs/Model/TransactionUpdate.md)
+- [TransmitMtan](docs/Model/TransmitMtan.md)
 - [WebshopResponse](docs/Model/WebshopResponse.md)
 
 ## Authorization
@@ -137,5 +164,5 @@ vendor/bin/phpunit
 
 This PHP package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
-- API version: `V3.68.3`
+- API version: `V3.90.1`
 - Build package: `org.openapitools.codegen.languages.PhpClientCodegen`
