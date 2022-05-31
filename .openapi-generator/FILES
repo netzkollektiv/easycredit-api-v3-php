@@ -1,8 +1,9 @@
 .gitignore
-.php_cs
+.php-cs-fixer.dist.php
 .travis.yml
 README.md
 composer.json
+docs/Api/DocumentApi.md
 docs/Api/InstallmentplanApi.md
 docs/Api/TransactionApi.md
 docs/Api/WebshopApi.md
@@ -18,7 +19,7 @@ docs/Model/Booking.md
 docs/Model/CaptureRequest.md
 docs/Model/Consent.md
 docs/Model/ConstraintViolation.md
-docs/Model/ConstraintViolationViolations.md
+docs/Model/ConstraintViolationViolationsInner.md
 docs/Model/Contact.md
 docs/Model/Customer.md
 docs/Model/CustomerRelationship.md
@@ -74,7 +75,7 @@ src/Model/Booking.php
 src/Model/CaptureRequest.php
 src/Model/Consent.php
 src/Model/ConstraintViolation.php
-src/Model/ConstraintViolationViolations.php
+src/Model/ConstraintViolationViolationsInner.php
 src/Model/Contact.php
 src/Model/Customer.php
 src/Model/CustomerRelationship.php
@@ -114,6 +115,7 @@ src/Model/TransactionUpdate.php
 src/Model/TransmitMtan.php
 src/Model/WebshopResponse.php
 src/ObjectSerializer.php
+src/Service/DocumentApi.php
 src/Service/InstallmentplanApi.php
 src/Service/TransactionApi.php
 src/Service/WebshopApi.php

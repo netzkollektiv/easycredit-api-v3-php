@@ -4,16 +4,15 @@ namespace Teambank\RatenkaufByEasyCreditApiV3\Integration;
 use Teambank\RatenkaufByEasyCreditApiV3\Service\TransactionApi;
 use Teambank\RatenkaufByEasyCreditApiV3\Service\WebshopApi;
 use Teambank\RatenkaufByEasyCreditApiV3\Service\InstallmentplanApi;
-use Teambank\RatenkaufByEasyCreditApiV3\Integration\TransactionInitRequestWrapper;
 use Teambank\RatenkaufByEasyCreditApiV3\Integration\Storage;
 use Teambank\RatenkaufByEasyCreditApiV3\Integration\CheckoutInterface;
 use Teambank\RatenkaufByEasyCreditApiV3\Integration\Util\AddressValidator;
 use Teambank\RatenkaufByEasyCreditApiV3\Integration\Util\PrefixConverter;
 use Teambank\RatenkaufByEasyCreditApiV3\ApiException;
 use Teambank\RatenkaufByEasyCreditApiV3\Integration\InitializationException;
-use Teambank\RatenkaufByEasyCreditApiV3\Integration\TokenException;
-use Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionSummaryResponse;
-use Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformationResponse;
+use Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction;
+use Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionSummary;
+use Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformation;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\IntegrationCheckRequest;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanRequest;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\Article;
@@ -44,10 +43,8 @@ class Checkout implements CheckoutInterface {
     }
 
     public function start(
-        TransactionInitRequestWrapper $wrappedRequest
+        Transaction $request
     ) {
-        $request = $wrappedRequest->getTransactionInitRequest();
-
         $this->storage
             ->set('uniqid', uniqid());
 
@@ -71,7 +68,7 @@ class Checkout implements CheckoutInterface {
         try {
             $this->_getToken();
             return true;
-        } catch (TokenException $e) {
+        } catch (InitializationException $e) {
             return false;
         }
     }
@@ -103,7 +100,7 @@ class Checkout implements CheckoutInterface {
             $this->_getToken()
         );
 
-        if ($result->getDecision()->getDecisionOutcome() === TransactionSummaryResponse::DECISION_OUTCOME_POSITIVE) {
+        if ($result->getDecision()->getDecisionOutcome() === TransactionSummary::DECISION_OUTCOME_POSITIVE) {
             $this->storage->set(
                 'interest_amount',
                 (float) $result->getDecision()->getInterest()
@@ -114,7 +111,7 @@ class Checkout implements CheckoutInterface {
             return $result;
         }
 
-        if ($result->getStatus() == TransactionInformationResponse::STATUS_OPEN) {
+        if ($result->getStatus() == TransactionInformation::STATUS_OPEN) {
             throw new InitializationException('ratenkauf by easyCredit payment terminal was not successfully finished');
         }
     }
@@ -123,7 +120,7 @@ class Checkout implements CheckoutInterface {
         $summary = json_decode($this->storage->get('summary'));
         if ($summary &&
             isset($summary->decisionOutcome) && 
-            TransactionSummaryResponse::DECISION_OUTCOME_POSITIVE == $summary->decisionOutcome
+            TransactionSummary::DECISION_OUTCOME_POSITIVE == $summary->decisionOutcome
         ) {
             return true;
         }
@@ -134,7 +131,9 @@ class Checkout implements CheckoutInterface {
         try {
             list($response, $statusCode) = $this->transactionApi->apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPost(
                 $this->_getToken(),
-                new \Teambank\RatenkaufByEasyCreditApiV3\Model\AuthorizationRequest()
+                new \Teambank\RatenkaufByEasyCreditApiV3\Model\AuthorizationRequest([
+                    'orderId' => $orderId
+                ])
             );
 
             if ($statusCode === 202) {
@@ -185,26 +184,26 @@ class Checkout implements CheckoutInterface {
         }
     }
 
-    public function isAvailable(TransactionInitRequestWrapper $wrappedRequest) {
+    public function isAvailable(Transaction $request, $checkAmount = false) {
 
-        $this->addressValidator->validate($wrappedRequest);
+        $this->addressValidator->validate($request);
 
-        $request = $wrappedRequest->getTransactionInitRequest();
-        try {
-            $this->getInstallmentValues($request->getOrderDetails()->getOrderValue());
-        } catch (ApiException $e) {
-            if ($e->getCode() === 400) {
-                throw new AmountOutOfRange();
+        if ($checkAmount) {
+            $request = $request->getTransaction();
+            try {
+                $this->getInstallmentValues($request->getOrderDetails()->getOrderValue());
+            } catch (ApiException $e) {
+                if ($e->getCode() === 400) {
+                    throw new AmountOutOfRange();
+                }
+                throw $e;
             }
-            throw $e;
         }
 
         return true;
     }
 
-    public function verifyAddress(TransactionInitRequestWrapper $wrappedRequest, $preCheck = false) {
-        $request = $wrappedRequest->getTransactionInitRequest();
-
+    public function verifyAddress(Transaction $request, $preCheck = false) {
         $initialHash = $this->storage->get('address_hash');
 
         $billingHash = null;
@@ -224,8 +223,7 @@ class Checkout implements CheckoutInterface {
         );
     }
 
-    public function isAmountValid(TransactionInitRequestWrapper $wrappedRequest) {
-        $request = $wrappedRequest->getTransactionInitRequest();
+    public function isAmountValid(Transaction $request) {
 
         $amount = (float) $request->getOrderDetails()->getOrderValue();
 
@@ -243,9 +241,9 @@ class Checkout implements CheckoutInterface {
         return true;
     }
 
-    public function isValid(TransactionInitRequestWrapper $wrappedRequest) {
-        return $this->isAmountValid($wrappedRequest) &&
-            $this->verifyAddress($wrappedRequest);
+    public function isValid(Transaction $request) {
+        return $this->isAmountValid($request) &&
+            $this->verifyAddress($request);
     }
 
     public function isPrefixValid($prefix) {
