@@ -1,10 +1,10 @@
-# # ConstraintViolation
+# # ConstraintViolationViolationsInner
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**title** | **string** |  |
-**violations** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolationViolationsInner[]**](ConstraintViolationViolationsInner.md) |  |
+**field** | **string** |  |
+**message** | **string** |  |
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

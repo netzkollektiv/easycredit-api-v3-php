@@ -1,6 +1,6 @@
 <?php
 /**
- * InstallmentplanApi
+ * DocumentApi
  *
  * @category Class
  * @package  Teambank\RatenkaufByEasyCreditApiV3
@@ -24,12 +24,12 @@ use Teambank\RatenkaufByEasyCreditApiV3\Client;
 use GuzzleHttp\Psr7\Request;
 
 /**
- * InstallmentplanApi Class
+ * DocumentApi Class
  *
  * @category Class
  * @package  Teambank\RatenkaufByEasyCreditApiV3
  */
-class InstallmentplanApi
+class DocumentApi
 {
     /**
      * @var ClientInterface
@@ -98,38 +98,44 @@ class InstallmentplanApi
     }
 
     /**
-     * Operation apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPost
+     * Operation apiMerchantV3DocumentsGet
      *
-     * Calculates the installmentplan
+     * Download billing documents of a merchant.
      *
-     * @param  string $shopIdentifier Shop Identifier (required)
-     * @param  \Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanRequest $installmentPlanRequest integration check request (optional)
+     * @param  \DateTime $billingDateFrom billingDateFrom (optional)
+     * @param  \DateTime $billingDateTo billingDateTo (optional)
+     * @param  string[] $documentType documentType (optional)
+     * @param  string[] $webshopId webshopId (optional)
+     * @param  string[] $fileType fileType (optional)
      *
      * @throws \Teambank\RatenkaufByEasyCreditApiV3\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanResponse|\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation|\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation
+     * @return \SplFileObject|\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation|\Teambank\RatenkaufByEasyCreditApiV3\Model\AuthenticationError|\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation
      */
-    public function apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPost($shopIdentifier, $installmentPlanRequest = null)
+    public function apiMerchantV3DocumentsGet($billingDateFrom = null, $billingDateTo = null, $documentType = null, $webshopId = null, $fileType = null)
     {
-        list($response) = $this->apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPostWithHttpInfo($shopIdentifier, $installmentPlanRequest);
+        list($response) = $this->apiMerchantV3DocumentsGetWithHttpInfo($billingDateFrom, $billingDateTo, $documentType, $webshopId, $fileType);
         return $response;
     }
 
     /**
-     * Operation apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPostWithHttpInfo
+     * Operation apiMerchantV3DocumentsGetWithHttpInfo
      *
-     * Calculates the installmentplan
+     * Download billing documents of a merchant.
      *
-     * @param  string $shopIdentifier Shop Identifier (required)
-     * @param  \Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanRequest $installmentPlanRequest integration check request (optional)
+     * @param  \DateTime $billingDateFrom (optional)
+     * @param  \DateTime $billingDateTo (optional)
+     * @param  string[] $documentType (optional)
+     * @param  string[] $webshopId (optional)
+     * @param  string[] $fileType (optional)
      *
      * @throws \Teambank\RatenkaufByEasyCreditApiV3\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanResponse|\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation|\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \SplFileObject|\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation|\Teambank\RatenkaufByEasyCreditApiV3\Model\AuthenticationError|\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation, HTTP status code, HTTP response headers (array of strings)
      */
-    public function apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPostWithHttpInfo($shopIdentifier, $installmentPlanRequest = null)
+    public function apiMerchantV3DocumentsGetWithHttpInfo($billingDateFrom = null, $billingDateTo = null, $documentType = null, $webshopId = null, $fileType = null)
     {
-        $request = $this->apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPostRequest($shopIdentifier, $installmentPlanRequest);
+        $request = $this->apiMerchantV3DocumentsGetRequest($billingDateFrom, $billingDateTo, $documentType, $webshopId, $fileType);
 
         try {
             // $options = $this->createHttpClientOption();
@@ -168,14 +174,14 @@ class InstallmentplanApi
 
             switch($statusCode) {
                 case 200:
-                    if ('\Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanResponse' === '\SplFileObject') {
+                    if ('\SplFileObject' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanResponse', []),
+                        ObjectSerializer::deserialize($content, '\SplFileObject', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -191,7 +197,19 @@ class InstallmentplanApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
-                case 404:
+                case 401:
+                    if ('\Teambank\RatenkaufByEasyCreditApiV3\Model\AuthenticationError' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Teambank\RatenkaufByEasyCreditApiV3\Model\AuthenticationError', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
                     if ('\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -205,7 +223,7 @@ class InstallmentplanApi
                     ];
             }
 
-            $returnType = '\Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanResponse';
+            $returnType = '\SplFileObject';
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
@@ -223,7 +241,7 @@ class InstallmentplanApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanResponse',
+                        '\SplFileObject',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -236,7 +254,15 @@ class InstallmentplanApi
                     );
                     $e->setResponseObject($data);
                     break;
-                case 404:
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Teambank\RatenkaufByEasyCreditApiV3\Model\AuthenticationError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation',
@@ -250,63 +276,101 @@ class InstallmentplanApi
     }
 
     /**
-     * Create request for operation 'apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPost'
+     * Create request for operation 'apiMerchantV3DocumentsGet'
      *
-     * @param  string $shopIdentifier Shop Identifier (required)
-     * @param  \Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanRequest $installmentPlanRequest integration check request (optional)
+     * @param  \DateTime $billingDateFrom (optional)
+     * @param  \DateTime $billingDateTo (optional)
+     * @param  string[] $documentType (optional)
+     * @param  string[] $webshopId (optional)
+     * @param  string[] $fileType (optional)
      *
      * @throws \InvalidArgumentException
      * @return Request
      */
-    public function apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPostRequest($shopIdentifier, $installmentPlanRequest = null)
+    public function apiMerchantV3DocumentsGetRequest($billingDateFrom = null, $billingDateTo = null, $documentType = null, $webshopId = null, $fileType = null)
     {
-        // verify the required parameter 'shopIdentifier' is set
-        if ($shopIdentifier === null || (is_array($shopIdentifier) && count($shopIdentifier) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $shopIdentifier when calling apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPost'
-            );
-        }
 
-        $resourcePath = '/api/ratenrechner/v3/webshop/{shopIdentifier}/installmentplans';
+        $resourcePath = '/api/merchant/v3/documents';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
 
-
-
-        // path params
-        if ($shopIdentifier !== null) {
-            $resourcePath = str_replace(
-                '{' . 'shopIdentifier' . '}',
-                ObjectSerializer::toPathValue($shopIdentifier),
-                $resourcePath
-            );
+        // query params
+        if ($billingDateFrom !== null) {
+            if('form' === 'form' && is_array($billingDateFrom)) {
+                foreach($billingDateFrom as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['billingDateFrom'] = $billingDateFrom;
+            }
         }
+        // query params
+        if ($billingDateTo !== null) {
+            if('form' === 'form' && is_array($billingDateTo)) {
+                foreach($billingDateTo as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['billingDateTo'] = $billingDateTo;
+            }
+        }
+        // query params
+        if ($documentType !== null) {
+            if('form' === 'form' && is_array($documentType)) {
+                foreach($documentType as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['documentType'] = $documentType;
+            }
+        }
+        // query params
+        if ($webshopId !== null) {
+            if('form' === 'form' && is_array($webshopId)) {
+                foreach($webshopId as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['webshopId'] = $webshopId;
+            }
+        }
+        // query params
+        if ($fileType !== null) {
+            if('form' === 'form' && is_array($fileType)) {
+                foreach($fileType as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['fileType'] = $fileType;
+            }
+        }
+
+
 
         /*
         */
 
         if ($multipart) {
             $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/problem+json']
+                ['application/zip', 'application/problem+json']
             );
         } else {
             $headers = $this->headerSelector->selectHeaders(
-                ['application/problem+json'],
-                ['application/json']
+                ['application/zip', 'application/problem+json'],
+                []
             );
         }
 
         // for model (json/xml)
-        if (isset($installmentPlanRequest)) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($installmentPlanRequest));
-            } else {
-                $httpBody = $installmentPlanRequest;
-            }
-        } elseif (count($formParams) > 0) {
+        if (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -330,6 +394,10 @@ class InstallmentplanApi
             }
         }
 
+        // this endpoint requires Bearer (JWT) authentication (access token)
+        if ($this->config->getAccessToken() !== null) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {
@@ -344,7 +412,7 @@ class InstallmentplanApi
 
         $query = http_build_query($queryParams);
         return new Request(
-            'POST',
+            'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

@@ -4,14 +4,13 @@ namespace Teambank\RatenkaufByEasyCreditApiV3\Integration;
 use Teambank\RatenkaufByEasyCreditApiV3\Service\TransactionApi;
 use Teambank\RatenkaufByEasyCreditApiV3\Service\WebshopApi;
 use Teambank\RatenkaufByEasyCreditApiV3\Service\InstallmentplanApi;
-use Teambank\RatenkaufByEasyCreditApiV3\Integration\TransactionInitRequestWrapper;
 use Teambank\RatenkaufByEasyCreditApiV3\Integration\Storage;
 use Teambank\RatenkaufByEasyCreditApiV3\Integration\CheckoutInterface;
 use Teambank\RatenkaufByEasyCreditApiV3\Integration\Util\AddressValidator;
 use Teambank\RatenkaufByEasyCreditApiV3\Integration\Util\PrefixConverter;
 use Teambank\RatenkaufByEasyCreditApiV3\ApiException;
 use Teambank\RatenkaufByEasyCreditApiV3\Integration\InitializationException;
-use Teambank\RatenkaufByEasyCreditApiV3\Integration\TokenException;
+use Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInitRequest;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionSummaryResponse;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformationResponse;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\IntegrationCheckRequest;
@@ -44,10 +43,8 @@ class Checkout implements CheckoutInterface {
     }
 
     public function start(
-        TransactionInitRequestWrapper $wrappedRequest
+        TransactionInitRequest $request
     ) {
-        $request = $wrappedRequest->getTransactionInitRequest();
-
         $this->storage
             ->set('uniqid', uniqid());
 
@@ -71,7 +68,7 @@ class Checkout implements CheckoutInterface {
         try {
             $this->_getToken();
             return true;
-        } catch (TokenException $e) {
+        } catch (InitializationException $e) {
             return false;
         }
     }
@@ -134,7 +131,9 @@ class Checkout implements CheckoutInterface {
         try {
             list($response, $statusCode) = $this->transactionApi->apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPost(
                 $this->_getToken(),
-                new \Teambank\RatenkaufByEasyCreditApiV3\Model\AuthorizationRequest()
+                new \Teambank\RatenkaufByEasyCreditApiV3\Model\AuthorizationRequest([
+                    'orderId' => $orderId
+                ])
             );
 
             if ($statusCode === 202) {
@@ -185,26 +184,26 @@ class Checkout implements CheckoutInterface {
         }
     }
 
-    public function isAvailable(TransactionInitRequestWrapper $wrappedRequest) {
+    public function isAvailable(TransactionInitRequest $request, $checkAmount = false) {
 
-        $this->addressValidator->validate($wrappedRequest);
+        $this->addressValidator->validate($request);
 
-        $request = $wrappedRequest->getTransactionInitRequest();
-        try {
-            $this->getInstallmentValues($request->getOrderDetails()->getOrderValue());
-        } catch (ApiException $e) {
-            if ($e->getCode() === 400) {
-                throw new AmountOutOfRange();
+        if ($checkAmount) {
+            $request = $request->getTransactionInitRequest();
+            try {
+                $this->getInstallmentValues($request->getOrderDetails()->getOrderValue());
+            } catch (ApiException $e) {
+                if ($e->getCode() === 400) {
+                    throw new AmountOutOfRange();
+                }
+                throw $e;
             }
-            throw $e;
         }
 
         return true;
     }
 
-    public function verifyAddress(TransactionInitRequestWrapper $wrappedRequest, $preCheck = false) {
-        $request = $wrappedRequest->getTransactionInitRequest();
-
+    public function verifyAddress(TransactionInitRequest $request, $preCheck = false) {
         $initialHash = $this->storage->get('address_hash');
 
         $billingHash = null;
@@ -224,8 +223,7 @@ class Checkout implements CheckoutInterface {
         );
     }
 
-    public function isAmountValid(TransactionInitRequestWrapper $wrappedRequest) {
-        $request = $wrappedRequest->getTransactionInitRequest();
+    public function isAmountValid(TransactionInitRequest $request) {
 
         $amount = (float) $request->getOrderDetails()->getOrderValue();
 
@@ -243,9 +241,9 @@ class Checkout implements CheckoutInterface {
         return true;
     }
 
-    public function isValid(TransactionInitRequestWrapper $wrappedRequest) {
-        return $this->isAmountValid($wrappedRequest) &&
-            $this->verifyAddress($wrappedRequest);
+    public function isValid(TransactionInitRequest $request) {
+        return $this->isAmountValid($request) &&
+            $this->verifyAddress($request);
     }
 
     public function isPrefixValid($prefix) {

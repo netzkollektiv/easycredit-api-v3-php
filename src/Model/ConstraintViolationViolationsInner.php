@@ -1,6 +1,6 @@
 <?php
 /**
- * MTan
+ * ConstraintViolationViolationsInner
  *
  * @category Class
  * @package  Teambank\RatenkaufByEasyCreditApiV3
@@ -18,7 +18,7 @@ use \ArrayAccess;
 use \Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
 
 /**
- * MTan Class Doc Comment
+ * ConstraintViolationViolationsInner Class Doc Comment
  *
  * @category Class
  * @package  Teambank\RatenkaufByEasyCreditApiV3
@@ -26,7 +26,7 @@ use \Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class MTan implements ModelInterface, ArrayAccess, \JsonSerializable
+class ConstraintViolationViolationsInner implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     const DISCRIMINATOR = null;
 
@@ -35,7 +35,7 @@ class MTan implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'MTan';
+    protected static $openAPIModelName = 'ConstraintViolation_violations_inner';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -43,12 +43,8 @@ class MTan implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'required' => 'bool',
-        'status' => 'string',
-        'remainingAttempts' => 'int',
-        'successful' => 'bool',
-        'mobilePhoneNumberInvalid' => 'bool',
-        'skipMobilePhoneNumberValidation' => 'bool'
+        'field' => 'string',
+        'message' => 'string'
     ];
 
     /**
@@ -59,12 +55,8 @@ class MTan implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'required' => null,
-        'status' => null,
-        'remainingAttempts' => null,
-        'successful' => null,
-        'mobilePhoneNumberInvalid' => null,
-        'skipMobilePhoneNumberValidation' => null
+        'field' => null,
+        'message' => null
     ];
 
     /**
@@ -94,12 +86,8 @@ class MTan implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'required' => 'required',
-        'status' => 'status',
-        'remainingAttempts' => 'remainingAttempts',
-        'successful' => 'successful',
-        'mobilePhoneNumberInvalid' => 'mobilePhoneNumberInvalid',
-        'skipMobilePhoneNumberValidation' => 'skipMobilePhoneNumberValidation'
+        'field' => 'field',
+        'message' => 'message'
     ];
 
     /**
@@ -108,12 +96,8 @@ class MTan implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'required' => 'setRequired',
-        'status' => 'setStatus',
-        'remainingAttempts' => 'setRemainingAttempts',
-        'successful' => 'setSuccessful',
-        'mobilePhoneNumberInvalid' => 'setMobilePhoneNumberInvalid',
-        'skipMobilePhoneNumberValidation' => 'setSkipMobilePhoneNumberValidation'
+        'field' => 'setField',
+        'message' => 'setMessage'
     ];
 
     /**
@@ -122,12 +106,8 @@ class MTan implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'required' => 'getRequired',
-        'status' => 'getStatus',
-        'remainingAttempts' => 'getRemainingAttempts',
-        'successful' => 'getSuccessful',
-        'mobilePhoneNumberInvalid' => 'getMobilePhoneNumberInvalid',
-        'skipMobilePhoneNumberValidation' => 'getSkipMobilePhoneNumberValidation'
+        'field' => 'getField',
+        'message' => 'getMessage'
     ];
 
     /**
@@ -171,23 +151,6 @@ class MTan implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
-    const STATUS_PENDING = 'PENDING';
-    const STATUS_FINISHED = 'FINISHED';
-    const STATUS_FAILED = 'FAILED';
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getStatusAllowableValues()
-    {
-        return [
-            self::STATUS_PENDING,
-            self::STATUS_FINISHED,
-            self::STATUS_FAILED,
-        ];
-    }
 
     /**
      * Associative array for storing property values
@@ -204,12 +167,8 @@ class MTan implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['required'] = $data['required'] ?? null;
-        $this->container['status'] = $data['status'] ?? null;
-        $this->container['remainingAttempts'] = $data['remainingAttempts'] ?? null;
-        $this->container['successful'] = $data['successful'] ?? null;
-        $this->container['mobilePhoneNumberInvalid'] = $data['mobilePhoneNumberInvalid'] ?? null;
-        $this->container['skipMobilePhoneNumberValidation'] = $data['skipMobilePhoneNumberValidation'] ?? null;
+        $this->container['field'] = $data['field'] ?? null;
+        $this->container['message'] = $data['message'] ?? null;
     }
 
     /**
@@ -221,15 +180,12 @@ class MTan implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        $allowedValues = $this->getStatusAllowableValues();
-        if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'status', must be one of '%s'",
-                $this->container['status'],
-                implode("', '", $allowedValues)
-            );
+        if ($this->container['field'] === null) {
+            $invalidProperties[] = "'field' can't be null";
         }
-
+        if ($this->container['message'] === null) {
+            $invalidProperties[] = "'message' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -246,155 +202,49 @@ class MTan implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets required
+     * Gets field
      *
-     * @return bool|null
+     * @return string
      */
-    public function getRequired()
+    public function getField()
     {
-        return $this->container['required'];
+        return $this->container['field'];
     }
 
     /**
-     * Sets required
+     * Sets field
      *
-     * @param bool|null $required required
+     * @param string $field field
      *
      * @return self
      */
-    public function setRequired($required)
+    public function setField($field)
     {
-        $this->container['required'] = $required;
+        $this->container['field'] = $field;
 
         return $this;
     }
 
     /**
-     * Gets status
+     * Gets message
      *
-     * @return string|null
+     * @return string
      */
-    public function getStatus()
+    public function getMessage()
     {
-        return $this->container['status'];
+        return $this->container['message'];
     }
 
     /**
-     * Sets status
+     * Sets message
      *
-     * @param string|null $status status
+     * @param string $message message
      *
      * @return self
      */
-    public function setStatus($status)
+    public function setMessage($message)
     {
-        $allowedValues = $this->getStatusAllowableValues();
-        if (!is_null($status) && !in_array($status, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'status', must be one of '%s'",
-                    $status,
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        $this->container['status'] = $status;
-
-        return $this;
-    }
-
-    /**
-     * Gets remainingAttempts
-     *
-     * @return int|null
-     */
-    public function getRemainingAttempts()
-    {
-        return $this->container['remainingAttempts'];
-    }
-
-    /**
-     * Sets remainingAttempts
-     *
-     * @param int|null $remainingAttempts remainingAttempts
-     *
-     * @return self
-     */
-    public function setRemainingAttempts($remainingAttempts)
-    {
-        $this->container['remainingAttempts'] = $remainingAttempts;
-
-        return $this;
-    }
-
-    /**
-     * Gets successful
-     *
-     * @return bool|null
-     */
-    public function getSuccessful()
-    {
-        return $this->container['successful'];
-    }
-
-    /**
-     * Sets successful
-     *
-     * @param bool|null $successful successful
-     *
-     * @return self
-     */
-    public function setSuccessful($successful)
-    {
-        $this->container['successful'] = $successful;
-
-        return $this;
-    }
-
-    /**
-     * Gets mobilePhoneNumberInvalid
-     *
-     * @return bool|null
-     */
-    public function getMobilePhoneNumberInvalid()
-    {
-        return $this->container['mobilePhoneNumberInvalid'];
-    }
-
-    /**
-     * Sets mobilePhoneNumberInvalid
-     *
-     * @param bool|null $mobilePhoneNumberInvalid mobilePhoneNumberInvalid
-     *
-     * @return self
-     */
-    public function setMobilePhoneNumberInvalid($mobilePhoneNumberInvalid)
-    {
-        $this->container['mobilePhoneNumberInvalid'] = $mobilePhoneNumberInvalid;
-
-        return $this;
-    }
-
-    /**
-     * Gets skipMobilePhoneNumberValidation
-     *
-     * @return bool|null
-     */
-    public function getSkipMobilePhoneNumberValidation()
-    {
-        return $this->container['skipMobilePhoneNumberValidation'];
-    }
-
-    /**
-     * Sets skipMobilePhoneNumberValidation
-     *
-     * @param bool|null $skipMobilePhoneNumberValidation skipMobilePhoneNumberValidation
-     *
-     * @return self
-     */
-    public function setSkipMobilePhoneNumberValidation($skipMobilePhoneNumberValidation)
-    {
-        $this->container['skipMobilePhoneNumberValidation'] = $skipMobilePhoneNumberValidation;
+        $this->container['message'] = $message;
 
         return $this;
     }

@@ -1,7 +1,7 @@
 <?php
 namespace Teambank\RatenkaufByEasyCreditApiV3\Integration\Util;
 
-use Teambank\RatenkaufByEasyCreditApiV3\Integration\TransactionInitRequestWrapper;
+use Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInitRequest;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\Address;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\ShippingAddress;
 use Teambank\RatenkaufByEasyCreditApiV3\Integration\ValidationException;
@@ -9,9 +9,7 @@ use Teambank\RatenkaufByEasyCreditApiV3\Integration\AddressValidationException;
 
 class AddressValidator {
 
-    protected function isCustomerSameAsBilling(TransactionInitRequestWrapper $wrappedRequest) {
-        $request = $wrappedRequest->getTransactionInitRequest();
-
+    protected function isCustomerSameAsBilling(TransactionInitRequest $request) {
         if (!$request->getCustomerRelationship()->getOrderDoneWithLogin()) {
             return true;
         }
@@ -31,9 +29,7 @@ class AddressValidator {
         ));
     }
 
-    public function addressesEqual(TransactionInitRequestWrapper $wrappedRequest) {
-        $request = $wrappedRequest->getTransactionInitRequest();
-
+    public function addressesEqual(TransactionInitRequest $request) {
         $diff = array_diff_assoc(
             $this->convert($request->getOrderDetails()->getShippingAddress(), true), 
             $this->convert($request->getOrderDetails()->getInvoiceAddress(), true)
@@ -79,7 +75,7 @@ class AddressValidator {
             throw new AddressValidationException('Zur Zahlung mit ratenkauf by easyCredit muss die Rechnungsadresse mit der Lieferadresse übereinstimmen.');
         }
 
-        $company = $request->getCompany();
+        $company = $request->getCustomer()->getCompanyName();
         if (trim($company) != '') {
             throw new ValidationException('ratenkauf by easyCredit ist nur für Privatpersonen möglich.');
         }
