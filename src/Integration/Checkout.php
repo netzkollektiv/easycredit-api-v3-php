@@ -42,8 +42,11 @@ class Checkout implements CheckoutInterface {
         return $this->storage->get('redirect_url');
     }
 
+    /**
+     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInitRequest $request
+     */
     public function start(
-        TransactionInitRequest $request
+        $request
     ) {
         $this->storage
             ->set('uniqid', uniqid());
@@ -184,7 +187,10 @@ class Checkout implements CheckoutInterface {
         }
     }
 
-    public function isAvailable(TransactionInitRequest $request, $checkAmount = false) {
+    /**
+     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInitRequest $request
+     */
+    public function isAvailable($request, $checkAmount = false) {
 
         $this->addressValidator->validate($request);
 
@@ -203,7 +209,10 @@ class Checkout implements CheckoutInterface {
         return true;
     }
 
-    public function verifyAddress(TransactionInitRequest $request, $preCheck = false) {
+    /**
+     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInitRequest $request
+     */
+    public function verifyAddress($request, $preCheck = false) {
         $initialHash = $this->storage->get('address_hash');
 
         $billingHash = null;
@@ -223,7 +232,10 @@ class Checkout implements CheckoutInterface {
         );
     }
 
-    public function isAmountValid(TransactionInitRequest $request) {
+    /**
+     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInitRequest $request
+     */
+    public function isAmountValid($request) {
 
         $amount = (float) $request->getOrderDetails()->getOrderValue();
 
@@ -241,7 +253,10 @@ class Checkout implements CheckoutInterface {
         return true;
     }
 
-    public function isValid(TransactionInitRequest $request) {
+    /**
+     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInitRequest $request
+     */
+    public function isValid($request) {
         return $this->isAmountValid($request) &&
             $this->verifyAddress($request);
     }

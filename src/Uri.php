@@ -41,9 +41,9 @@ class Uri implements UriInterface, \JsonSerializable
      * we apply this default host when no host is given yet to form a
      * valid URI.
      */
-    private const HTTP_DEFAULT_HOST = 'localhost';
+    const HTTP_DEFAULT_HOST = 'localhost';
 
-    private const DEFAULT_PORTS = [
+    const DEFAULT_PORTS = [
         'http'  => 80,
         'https' => 443,
         'ftp' => 21,
@@ -62,15 +62,15 @@ class Uri implements UriInterface, \JsonSerializable
      *
      * @link https://tools.ietf.org/html/rfc3986#section-2.3
      */
-    private const CHAR_UNRESERVED = 'a-zA-Z0-9_\-\.~';
+    const CHAR_UNRESERVED = 'a-zA-Z0-9_\-\.~';
 
     /**
      * Sub-delims for use in a regex.
      *
      * @link https://tools.ietf.org/html/rfc3986#section-2.2
      */
-    private const CHAR_SUB_DELIMS = '!\$&\'\(\)\*\+,;=';
-    private const QUERY_SEPARATORS_REPLACEMENT = ['=' => '%3D', '&' => '%26'];
+    const CHAR_SUB_DELIMS = '!\$&\'\(\)\*\+,;=';
+    const QUERY_SEPARATORS_REPLACEMENT = ['=' => '%3D', '&' => '%26'];
 
     /** @var string Uri scheme. */
     private $scheme = '';
@@ -181,8 +181,13 @@ class Uri implements UriInterface, \JsonSerializable
      * that format).
      *
      * @link https://tools.ietf.org/html/rfc3986#section-5.3
+     * @param string|null $scheme
+     * @param string|null $authority
+     * @param string $path
+     * @param string|null $query
+     * @param string|null $fragment
      */
-    public static function composeComponents(?string $scheme, ?string $authority, string $path, ?string $query, ?string $fragment): string
+    public static function composeComponents($scheme, $authority, $path, $query, $fragment): string
     {
         $uri = '';
 
@@ -213,8 +218,9 @@ class Uri implements UriInterface, \JsonSerializable
      *
      * `Psr\Http\Message\UriInterface::getPort` may return null or the standard port. This method can be used
      * independently of the implementation.
+     * @param \Psr\Http\Message\UriInterface $uri
      */
-    public static function isDefaultPort(UriInterface $uri): bool
+    public static function isDefaultPort($uri): bool
     {
         return $uri->getPort() === null
             || (isset(self::DEFAULT_PORTS[$uri->getScheme()]) && $uri->getPort() === self::DEFAULT_PORTS[$uri->getScheme()]);
@@ -234,8 +240,9 @@ class Uri implements UriInterface, \JsonSerializable
      * @see Uri::isAbsolutePathReference
      * @see Uri::isRelativePathReference
      * @link https://tools.ietf.org/html/rfc3986#section-4
+     * @param \Psr\Http\Message\UriInterface $uri
      */
-    public static function isAbsolute(UriInterface $uri): bool
+    public static function isAbsolute($uri): bool
     {
         return $uri->getScheme() !== '';
     }
@@ -246,8 +253,9 @@ class Uri implements UriInterface, \JsonSerializable
      * A relative reference that begins with two slash characters is termed an network-path reference.
      *
      * @link https://tools.ietf.org/html/rfc3986#section-4.2
+     * @param \Psr\Http\Message\UriInterface $uri
      */
-    public static function isNetworkPathReference(UriInterface $uri): bool
+    public static function isNetworkPathReference($uri): bool
     {
         return $uri->getScheme() === '' && $uri->getAuthority() !== '';
     }
@@ -258,8 +266,9 @@ class Uri implements UriInterface, \JsonSerializable
      * A relative reference that begins with a single slash character is termed an absolute-path reference.
      *
      * @link https://tools.ietf.org/html/rfc3986#section-4.2
+     * @param \Psr\Http\Message\UriInterface $uri
      */
-    public static function isAbsolutePathReference(UriInterface $uri): bool
+    public static function isAbsolutePathReference($uri): bool
     {
         return $uri->getScheme() === ''
             && $uri->getAuthority() === ''
@@ -273,8 +282,9 @@ class Uri implements UriInterface, \JsonSerializable
      * A relative reference that does not begin with a slash character is termed a relative-path reference.
      *
      * @link https://tools.ietf.org/html/rfc3986#section-4.2
+     * @param \Psr\Http\Message\UriInterface $uri
      */
-    public static function isRelativePathReference(UriInterface $uri): bool
+    public static function isRelativePathReference($uri): bool
     {
         return $uri->getScheme() === ''
             && $uri->getAuthority() === ''
@@ -288,12 +298,12 @@ class Uri implements UriInterface, \JsonSerializable
      * component, identical to the base URI. When no base URI is given, only an empty
      * URI reference (apart from its fragment) is considered a same-document reference.
      *
-     * @param UriInterface      $uri  The URI to check
-     * @param UriInterface|null $base An optional base URI to compare against
+     * @param \Psr\Http\Message\UriInterface $uri The URI to check
+     * @param \Psr\Http\Message\UriInterface|null $base An optional base URI to compare against
      *
      * @link https://tools.ietf.org/html/rfc3986#section-4.4
      */
-    public static function isSameDocumentReference(UriInterface $uri, UriInterface $base = null): bool
+    public static function isSameDocumentReference($uri, $base = null): bool
     {
         if ($base !== null) {
             $uri = UriResolver::resolve($base, $uri);
@@ -313,10 +323,10 @@ class Uri implements UriInterface, \JsonSerializable
      * Any existing query string values that exactly match the provided key are
      * removed.
      *
-     * @param UriInterface $uri URI to use as a base.
+     * @param \Psr\Http\Message\UriInterface $uri URI to use as a base.
      * @param string       $key Query string key to remove.
      */
-    public static function withoutQueryValue(UriInterface $uri, string $key): UriInterface
+    public static function withoutQueryValue($uri, $key): UriInterface
     {
         $result = self::getFilteredQueryString($uri, [$key]);
 
@@ -332,11 +342,11 @@ class Uri implements UriInterface, \JsonSerializable
      * A value of null will set the query string key without a value, e.g. "key"
      * instead of "key=value".
      *
-     * @param UriInterface $uri   URI to use as a base.
+     * @param \Psr\Http\Message\UriInterface $uri URI to use as a base.
      * @param string       $key   Key to set.
      * @param string|null  $value Value to set
      */
-    public static function withQueryValue(UriInterface $uri, string $key, ?string $value): UriInterface
+    public static function withQueryValue($uri, $key, $value): UriInterface
     {
         $result = self::getFilteredQueryString($uri, [$key]);
 
@@ -350,10 +360,10 @@ class Uri implements UriInterface, \JsonSerializable
      *
      * It has the same behavior as withQueryValue() but for an associative array of key => value.
      *
-     * @param UriInterface               $uri           URI to use as a base.
+     * @param \Psr\Http\Message\UriInterface $uri URI to use as a base.
      * @param array<string, string|null> $keyValueArray Associative array of key and values
      */
-    public static function withQueryValues(UriInterface $uri, array $keyValueArray): UriInterface
+    public static function withQueryValues($uri, $keyValueArray): UriInterface
     {
         $result = self::getFilteredQueryString($uri, array_keys($keyValueArray));
 
@@ -370,8 +380,9 @@ class Uri implements UriInterface, \JsonSerializable
      * @link http://php.net/manual/en/function.parse-url.php
      *
      * @throws MalformedUriException If the components do not form a valid URI.
+     * @param mixed[] $parts
      */
-    public static function fromParts(array $parts): UriInterface
+    public static function fromParts($parts): UriInterface
     {
         $uri = new self();
         $uri->applyParts($parts);
@@ -409,7 +420,10 @@ class Uri implements UriInterface, \JsonSerializable
         return $this->host;
     }
 
-    public function getPort(): ?int
+    /**
+     * @return int|null
+     */
+    public function getPort()
     {
         return $this->port;
     }
@@ -553,8 +567,9 @@ class Uri implements UriInterface, \JsonSerializable
      * Apply parse_url parts to a URI.
      *
      * @param array $parts Array of parse_url parts to apply.
+     * @return void
      */
-    private function applyParts(array $parts): void
+    private function applyParts(array $parts)
     {
         $this->scheme = isset($parts['scheme'])
             ? $this->filterScheme($parts['scheme'])
@@ -634,8 +649,9 @@ class Uri implements UriInterface, \JsonSerializable
      * @param mixed $port
      *
      * @throws \InvalidArgumentException If the port is invalid.
+     * @return int|null
      */
-    private function filterPort($port): ?int
+    private function filterPort($port)
     {
         if ($port === null) {
             return null;
@@ -671,7 +687,10 @@ class Uri implements UriInterface, \JsonSerializable
         });
     }
 
-    private static function generateQueryString(string $key, ?string $value): string
+    /**
+     * @param string|null $value
+     */
+    private static function generateQueryString(string $key, $value): string
     {
         // Query string separators ("=", "&") within the key or value need to be encoded
         // (while preventing double-encoding) before setting the query string. All other
@@ -685,7 +704,10 @@ class Uri implements UriInterface, \JsonSerializable
         return $queryString;
     }
 
-    private function removeDefaultPort(): void
+    /**
+     * @return void
+     */
+    private function removeDefaultPort()
     {
         if ($this->port !== null && self::isDefaultPort($this)) {
             $this->port = null;
@@ -737,7 +759,10 @@ class Uri implements UriInterface, \JsonSerializable
         return rawurlencode($match[0]);
     }
 
-    private function validateState(): void
+    /**
+     * @return void
+     */
+    private function validateState()
     {
         if ($this->host === '' && ($this->scheme === 'http' || $this->scheme === 'https')) {
             $this->host = self::HTTP_DEFAULT_HOST;

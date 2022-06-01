@@ -123,7 +123,10 @@ class Request implements RequestInterface {
         return $this->uri;
     }
 
-    public function withUri(UriInterface $uri, $preserveHost = false): RequestInterface
+    /**
+     * @param \Psr\Http\Message\UriInterface $uri
+     */
+    public function withUri($uri, $preserveHost = false): RequestInterface
     {
         if ($uri === $this->uri) {
             return $this;
@@ -139,7 +142,10 @@ class Request implements RequestInterface {
         return $new;
     }
 
-    private function updateHostFromUri(): void
+    /**
+     * @return void
+     */
+    private function updateHostFromUri()
     {
         $host = $this->uri->getHost();
 
@@ -164,8 +170,9 @@ class Request implements RequestInterface {
 
     /**
      * @param mixed $method
+     * @return void
      */
-    private function assertMethod($method): void
+    private function assertMethod($method)
     {
         if (!is_string($method) || $method === '') {
             throw new InvalidArgumentException('Method must be a non-empty string.');

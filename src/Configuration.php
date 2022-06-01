@@ -367,7 +367,7 @@ class Configuration
      *
      * @return void
      */
-    public static function setDefaultConfiguration(Configuration $config)
+    public static function setDefaultConfiguration($config)
     {
         self::$defaultConfiguration = $config;
     }

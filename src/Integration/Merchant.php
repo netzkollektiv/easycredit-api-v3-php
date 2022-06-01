@@ -21,16 +21,26 @@ class Merchant implements MerchantInterface {
         return $this->transactionApi->apiMerchantV3TransactionTransactionIdGet($transactionId);
     }
 
-    public function searchTransactions(array $params = []) {
+    /**
+     * @param mixed[] $params
+     */
+    public function searchTransactions($params = []) {
         return call_user_func_array([$this->transactionApi, 'apiMerchantV3TransactionGet'], $params);
     }
 
-    public function confirmShipment(string $transactionId, $trackingNumber = null) {
+    /**
+     * @param string $transactionId
+     */
+    public function confirmShipment($transactionId, $trackingNumber = null) {
         $captureRequest = new CaptureRequest(['trackingNumber' => $trackingNumber]);
         return call_user_func_array([$this->transactionApi, 'apiMerchantV3TransactionTransactionIdCapturePost'],[$transactionId, $captureRequest]);
     }
 
-    public function cancelOrder(string $transactionId, float $amount = null) {
+    /**
+     * @param string $transactionId
+     * @param float|null $amount
+     */
+    public function cancelOrder($transactionId, $amount = null) {
         $refundRequest = null;
         if ($amount !== null) {
             $refundRequest = new RefundRequest(['value' => $amount]);

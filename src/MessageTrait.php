@@ -147,7 +147,10 @@ trait MessageTrait
         return $this->stream;
     }
 
-    public function withBody(StreamInterface $body): MessageInterface
+    /**
+     * @param \Psr\Http\Message\StreamInterface $body
+     */
+    public function withBody($body): MessageInterface
     {
         if ($body === $this->stream) {
             return $this;
@@ -160,8 +163,9 @@ trait MessageTrait
 
     /**
      * @param array<string|int, string|string[]> $headers
+     * @return void
      */
-    private function setHeaders(array $headers): void
+    private function setHeaders(array $headers)
     {
         $this->headerNames = $this->headers = [];
         foreach ($headers as $header => $value) {
@@ -233,8 +237,9 @@ trait MessageTrait
      * @see https://tools.ietf.org/html/rfc7230#section-3.2
      *
      * @param mixed $header
+     * @return void
      */
-    private function assertHeader($header): void
+    private function assertHeader($header)
     {
         if (!is_string($header)) {
             throw new \InvalidArgumentException(sprintf(
