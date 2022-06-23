@@ -4,6 +4,7 @@ namespace Teambank\RatenkaufByEasyCreditApiV3\Integration\Util;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\Address;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\ShippingAddress;
+use Teambank\RatenkaufByEasyCreditApiV3\Model\ModelInterface;
 use Teambank\RatenkaufByEasyCreditApiV3\Integration\ValidationException;
 use Teambank\RatenkaufByEasyCreditApiV3\Integration\AddressValidationException;
 
@@ -23,10 +24,8 @@ class AddressValidator {
         return true;
     }
 
-    public function hashAddress($address) {
-        return sha1(json_encode(
-            get_object_vars($address)
-        ));
+    public function hashAddress(ModelInterface $address) {
+        return sha1((string) $address);
     }
 
     public function addressesEqual(Transaction $request) {
