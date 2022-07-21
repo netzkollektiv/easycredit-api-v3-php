@@ -9,6 +9,10 @@ Name | Type | Description | Notes
 **interestRate** | **float** |  | [optional]
 **availability** | **bool** | true if financing is available from this webshop | [optional]
 **testMode** | **bool** | true if the webshop is in test mode | [optional]
-**privacyApprovalForm** | **string** | form for privacy approval | [optional]
+**privacyApprovalForm** | **string** | form for privacy approval (zustimmungDatenuebertragungPaymentPage) | [optional]
+**declarationOfConsent** | **string** | (zustimmungEinwilligungserklaerungPaymentPage) | [optional]
+**illustrativeExample** | **string** | (repraesentativesBeispiel) | [optional]
+**productDetails** | **string** | (produktangaben) | [optional]
+**uuid** | **string** | request-id | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

@@ -5,13 +5,12 @@ use Teambank\RatenkaufByEasyCreditApiV3\Service\TransactionApi;
 use Teambank\RatenkaufByEasyCreditApiV3\ApiException;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\CaptureRequest;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\RefundRequest;
-use Psr\Log\LoggerInterface;
 
 class Merchant implements MerchantInterface {
 
     public function __construct(
         TransactionApi $transactionApi,
-        LoggerInterface $logger
+        $logger
     ) {
         $this->transactionApi = $transactionApi;
         $this->logger = $logger;

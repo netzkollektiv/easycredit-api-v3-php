@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**email** | **string** |  |
+**email** | **string** |  | [optional]
 **mobilePhoneNumber** | **string** | Required in Ratenkauf process. Can be added later if not presented when initializing. | [optional]
 **phoneNumber** | **string** | Customer phone number. | [optional]
 **phoneNumbersConfirmed** | **bool** | true if the fields mobile phone number and phone number should not be validated. | [optional]

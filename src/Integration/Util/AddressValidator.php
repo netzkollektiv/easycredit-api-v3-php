@@ -16,8 +16,8 @@ class AddressValidator {
         }
 
         if (
-            trim($request->getCustomer()->getFirstName()) != trim($request->getOrderDetails()->getInvoiceAddress()->getFirstName()) ||
-            trim($request->getCustomer()->getLastName()) != trim($request->getOrderDetails()->getInvoiceAddress()->getLastName())
+            trim((string)$request->getCustomer()->getFirstName()) != trim((string)$request->getOrderDetails()->getInvoiceAddress()->getFirstName()) ||
+            trim((string)$request->getCustomer()->getLastName()) != trim((string)$request->getOrderDetails()->getInvoiceAddress()->getLastName())
         ) {
             return false;
         }
@@ -75,7 +75,7 @@ class AddressValidator {
         }
 
         $company = $request->getCustomer()->getCompanyName();
-        if (trim($company) != '') {
+        if (trim((string) $company) != '') {
             throw new ValidationException('ratenkauf by easyCredit ist nur für Privatpersonen möglich.');
         }
     }

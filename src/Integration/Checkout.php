@@ -16,7 +16,6 @@ use Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformation;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\IntegrationCheckRequest;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanRequest;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\Article;
-use Psr\Log\LoggerInterface;
 
 class Checkout implements CheckoutInterface {
 
@@ -27,7 +26,7 @@ class Checkout implements CheckoutInterface {
         StorageInterface $storage,
         AddressValidator $addressValidator,
         PrefixConverter $prefixConverter,
-        LoggerInterface $logger
+        $logger
     ) {
         $this->webshopApi = $webshopApi;
         $this->transactionApi = $transactionApi;
