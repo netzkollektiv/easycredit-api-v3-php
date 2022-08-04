@@ -81,18 +81,6 @@ class Checkout implements CheckoutInterface {
         return $token;
     }
     
-    /*public function isAccepted() {
-        try {
-            list($response, $statusCode) = $this->transactionApi->apiPaymentV3TransactionTechnicalTransactionIdPreAuthorizationPostWithHttpInfo(
-                $this->_getToken()
-            );
-
-            return ($statusCode === 202);
-        } catch (ApiException $e) {
-            return false;
-        }
-    }*/
-
     public function loadTransaction() {
 
         $result = $this->transactionApi->apiPaymentV3TransactionTechnicalTransactionIdGet(
@@ -224,15 +212,15 @@ class Checkout implements CheckoutInterface {
 
     public function isAmountValid(Transaction $request) {
 
-        $amount = (float) $request->getOrderDetails()->getOrderValue();
-
-        $authorizedAmount = (float) $this->storage->get('authorized_amount');
-        $interestAmount = (float) $this->storage->get('interest_amount');
+        $amount = $request->getOrderDetails()->getOrderValue();
+        $authorizedAmount = $this->storage->get('authorized_amount');
+        $interestAmount = $this->storage->get('interest_amount');
 
         if (
-            $authorizedAmount > 0
-            && $interestAmount > 0
-            && round($amount, 2) != round($authorizedAmount + $interestAmount, 2)
+            $amount === null ||
+            $authorizedAmount === null ||
+            $interestAmount === null ||
+            round((float) $amount, 2) !== round((float) $authorizedAmount + (float) $interestAmount, 2)
         ) {
             $this->logger->debug('amount not valid: '.$amount.' (amount) !== '.$authorizedAmount.' (authorized) + '.$interestAmount.' (interest)');
             return false;
