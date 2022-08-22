@@ -21,7 +21,7 @@ class PrefixConverter {
             Customer::GENDER_NO_GENDER => $this->nonePatterns	
         ] as $gender => $patterns) {
 			foreach ($patterns as $pattern) {
-				if (stripos(trim($prefix), $pattern) !== false) {
+				if (strcasecmp(trim($prefix,". \n\r\t\v\x00"), $pattern) === 0) {
 					return $gender;
             	}
 			}
