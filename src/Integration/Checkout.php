@@ -81,26 +81,31 @@ class Checkout implements CheckoutInterface {
         return $token;
     }
     
-    public function loadTransaction() {
+    public function loadTransaction($txId = null) {
+        if ($txId === null) {
+            $txId = $this->_getToken();
+        }
 
         $result = $this->transactionApi->apiPaymentV3TransactionTechnicalTransactionIdGet(
-            $this->_getToken()
+            $txId
         );
 
-        if ($result->getDecision()->getDecisionOutcome() === TransactionSummary::DECISION_OUTCOME_POSITIVE) {
-            $this->storage->set(
-                'interest_amount',
-                (float) $result->getDecision()->getInterest()
-            )->set(
-                'summary',
-                json_encode($result->getDecision()->jsonSerialize())
-            );
-            return $result;
-        }
+        switch ($result->getStatus()) {
+            case TransactionInformation::STATUS_OPEN:
+            case TransactionInformation::STATUS_DECLINED:
+            case TransactionInformation::STATUS_EXPIRED:
+                throw new InitializationException('easyCredit-Ratenkauf transaction is not valid, status: '.$result->getStatus());
 
-        if ($result->getStatus() == TransactionInformation::STATUS_OPEN) {
-            throw new InitializationException('ratenkauf by easyCredit payment terminal was not successfully finished');
+            case TransactionInformation::STATUS_PREAUTHORIZED:
+                $this->storage->set(
+                    'interest_amount',
+                    (float) $result->getDecision()->getInterest()
+                )->set(
+                    'summary',
+                    json_encode($result->getDecision()->jsonSerialize())
+                );
         }
+        return $result;
     }
 
     public function isApproved() {
@@ -116,14 +121,13 @@ class Checkout implements CheckoutInterface {
 
     public function authorize($orderId = null) {
         try {
-            list($response, $statusCode) = $this->transactionApi->apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPost(
+            list($response, $statusCode) = $this->transactionApi->apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPostWithHttpInfo(
                 $this->_getToken(),
                 new \Teambank\RatenkaufByEasyCreditApiV3\Model\AuthorizationRequest([
                     'orderId' => $orderId
                 ])
             );
-
-            if ($statusCode === 202) {
+            if ((int) $statusCode === 202) {
                 $this->storage->set(
                     'is_authorized', 1
                 );              
