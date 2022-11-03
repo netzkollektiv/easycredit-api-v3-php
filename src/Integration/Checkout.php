@@ -76,7 +76,7 @@ class Checkout implements CheckoutInterface {
         $token = $this->storage->get('token');
 
         if (empty($token)) {
-            throw new InitializationException('ratenkauf by easyCredit payment was not initialized');
+            throw new InitializationException('easyCredit-Ratenkauf payment was not initialized');
         }
         return $token;
     }
