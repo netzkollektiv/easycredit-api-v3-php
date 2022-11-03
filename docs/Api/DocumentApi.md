@@ -1,10 +1,10 @@
 # Teambank\RatenkaufByEasyCreditApiV3\DocumentApi
 
-All URIs are relative to https://partner.easycredit-ratenkauf.de.
+All URIs are relative to https://partner.easycredit-ratenkauf.de, except if the operation defines another base path.
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**apiMerchantV3DocumentsGet()**](DocumentApi.md#apiMerchantV3DocumentsGet) | **GET** /api/merchant/v3/documents | Download billing documents of a merchant.
+| Method | HTTP request | Description |
+| ------------- | ------------- | ------------- |
+| [**apiMerchantV3DocumentsGet()**](DocumentApi.md#apiMerchantV3DocumentsGet) | **GET** /api/merchant/v3/documents | Download billing documents of a merchant. |
 
 
 ## `apiMerchantV3DocumentsGet()`
@@ -52,12 +52,12 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **billingDateFrom** | **\DateTime**| set by default to the last month if not specified | [optional]
- **billingDateTo** | **\DateTime**| set by default to billingDateFrom + one month if not specified | [optional]
- **documentType** | [**string[]**](../Model/string.md)| set by default to all options if not specified | [optional]
- **fileType** | [**string[]**](../Model/string.md)| set by default to all options if not specified | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **billingDateFrom** | **\DateTime**| set by default to the last month if not specified | [optional] |
+| **billingDateTo** | **\DateTime**| set by default to billingDateFrom + one month if not specified | [optional] |
+| **documentType** | [**string[]**](../Model/string.md)| set by default to all options if not specified | [optional] |
+| **fileType** | [**string[]**](../Model/string.md)| set by default to all options if not specified | [optional] |
 
 ### Return type
 

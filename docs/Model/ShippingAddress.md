@@ -11,5 +11,6 @@ Name | Type | Description | Notes
 **country** | **string** | Country as 2-digit ISO code |
 **firstName** | **string** | Should match with the first name given in the person data |
 **lastName** | **string** | Should match with the last name given in the person data |
+**packageStation** | **bool** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

@@ -1,10 +1,10 @@
 # Teambank\RatenkaufByEasyCreditApiV3\InstallmentplanApi
 
-All URIs are relative to https://partner.easycredit-ratenkauf.de.
+All URIs are relative to https://partner.easycredit-ratenkauf.de, except if the operation defines another base path.
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPost()**](InstallmentplanApi.md#apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPost) | **POST** /api/ratenrechner/v3/webshop/{shopIdentifier}/installmentplans | Calculates the installmentplan
+| Method | HTTP request | Description |
+| ------------- | ------------- | ------------- |
+| [**apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPost()**](InstallmentplanApi.md#apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPost) | **POST** /api/ratenrechner/v3/webshop/{shopIdentifier}/installmentplans | Calculates the installmentplan |
 
 
 ## `apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPost()`
@@ -43,10 +43,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **shopIdentifier** | **string**| Shop Identifier |
- **installmentPlanRequest** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanRequest**](../Model/InstallmentPlanRequest.md)| integration check request | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **shopIdentifier** | **string**| Shop Identifier | |
+| **installmentPlanRequest** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanRequest**](../Model/InstallmentPlanRequest.md)| integration check request | [optional] |
 
 ### Return type
 

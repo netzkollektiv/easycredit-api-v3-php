@@ -4,10 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**example** | **string** | An example calculation for the installment plan | [optional]
-**articleIdentifier** | **string** | article name or article Id | [optional]
-**url** | **string** | Url leading to the widget providing more detailed information for an article and its installmentplan | [optional]
-**plans** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\Plan[]**](Plan.md) |  | [optional]
-**errors** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation**](ConstraintViolation.md) |  | [optional]
+**totalValuePlan** | **float** | Amount of the installment plan total value in € ( &#x3D; Gesamtsumme in €) | [optional]
+**interests** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\Interests**](Interests.md) |  | [optional]
+**paymentPlan** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentPlan**](PaymentPlan.md) |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

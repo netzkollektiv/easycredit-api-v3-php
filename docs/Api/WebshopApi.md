@@ -1,12 +1,12 @@
 # Teambank\RatenkaufByEasyCreditApiV3\WebshopApi
 
-All URIs are relative to https://partner.easycredit-ratenkauf.de.
+All URIs are relative to https://partner.easycredit-ratenkauf.de, except if the operation defines another base path.
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**apiPaymentV3WebshopGet()**](WebshopApi.md#apiPaymentV3WebshopGet) | **GET** /api/payment/v3/webshop | Get the necessary information about the webshop
-[**apiPaymentV3WebshopIntegrationcheckPost()**](WebshopApi.md#apiPaymentV3WebshopIntegrationcheckPost) | **POST** /api/payment/v3/webshop/integrationcheck | Verifies the correctness of the merchant&#39;s authentication credentials and, if enabled, the body signature
-[**apiPaymentV3WebshopWebshopIdGet()**](WebshopApi.md#apiPaymentV3WebshopWebshopIdGet) | **GET** /api/payment/v3/webshop/{webshopId} | Get the necessary information about the webshop
+| Method | HTTP request | Description |
+| ------------- | ------------- | ------------- |
+| [**apiPaymentV3WebshopGet()**](WebshopApi.md#apiPaymentV3WebshopGet) | **GET** /api/payment/v3/webshop | Get the necessary information about the webshop |
+| [**apiPaymentV3WebshopIntegrationcheckPost()**](WebshopApi.md#apiPaymentV3WebshopIntegrationcheckPost) | **POST** /api/payment/v3/webshop/integrationcheck | Verifies the correctness of the merchant&#39;s authentication credentials and, if enabled, the body signature |
+| [**apiPaymentV3WebshopWebshopIdGet()**](WebshopApi.md#apiPaymentV3WebshopWebshopIdGet) | **GET** /api/payment/v3/webshop/{webshopId} | Get the necessary information about the webshop |
 
 
 ## `apiPaymentV3WebshopGet()`
@@ -111,9 +111,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **integrationCheckRequest** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\IntegrationCheckRequest**](../Model/IntegrationCheckRequest.md)| integration check request | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **integrationCheckRequest** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\IntegrationCheckRequest**](../Model/IntegrationCheckRequest.md)| integration check request | [optional] |
 
 ### Return type
 
@@ -167,9 +167,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **webshopId** | **string**| Identifier of a webshop |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **webshopId** | **string**| Identifier of a webshop | |
 
 ### Return type
 

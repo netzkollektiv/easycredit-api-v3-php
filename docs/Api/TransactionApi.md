@@ -1,17 +1,17 @@
 # Teambank\RatenkaufByEasyCreditApiV3\TransactionApi
 
-All URIs are relative to https://partner.easycredit-ratenkauf.de.
+All URIs are relative to https://partner.easycredit-ratenkauf.de, except if the operation defines another base path.
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**apiMerchantV3TransactionGet()**](TransactionApi.md#apiMerchantV3TransactionGet) | **GET** /api/merchant/v3/transaction | Find transactions of a merchant according to some search parameters.
-[**apiMerchantV3TransactionTransactionIdCapturePost()**](TransactionApi.md#apiMerchantV3TransactionTransactionIdCapturePost) | **POST** /api/merchant/v3/transaction/{transactionId}/capture | Report a capture for a transaction according to its unique functional identifier
-[**apiMerchantV3TransactionTransactionIdGet()**](TransactionApi.md#apiMerchantV3TransactionTransactionIdGet) | **GET** /api/merchant/v3/transaction/{transactionId} | Retrieve a transaction of a merchant according to a unique functional identifier
-[**apiMerchantV3TransactionTransactionIdRefundPost()**](TransactionApi.md#apiMerchantV3TransactionTransactionIdRefundPost) | **POST** /api/merchant/v3/transaction/{transactionId}/refund | Report a refund for a transaction according to its unique functional identifier
-[**apiPaymentV3TransactionPost()**](TransactionApi.md#apiPaymentV3TransactionPost) | **POST** /api/payment/v3/transaction | Initiates a transaction based on the given request
-[**apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPost()**](TransactionApi.md#apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPost) | **POST** /api/payment/v3/transaction/{technicalTransactionId}/authorization | Authorizes a transaction after finishing the process in a webshop
-[**apiPaymentV3TransactionTechnicalTransactionIdGet()**](TransactionApi.md#apiPaymentV3TransactionTechnicalTransactionIdGet) | **GET** /api/payment/v3/transaction/{technicalTransactionId} | Get the necessary information about the transaction
-[**apiPaymentV3TransactionTechnicalTransactionIdPatch()**](TransactionApi.md#apiPaymentV3TransactionTechnicalTransactionIdPatch) | **PATCH** /api/payment/v3/transaction/{technicalTransactionId} | Updates a transaction based on the given request
+| Method | HTTP request | Description |
+| ------------- | ------------- | ------------- |
+| [**apiMerchantV3TransactionGet()**](TransactionApi.md#apiMerchantV3TransactionGet) | **GET** /api/merchant/v3/transaction | Find transactions of a merchant according to some search parameters. |
+| [**apiMerchantV3TransactionTransactionIdCapturePost()**](TransactionApi.md#apiMerchantV3TransactionTransactionIdCapturePost) | **POST** /api/merchant/v3/transaction/{transactionId}/capture | Report a capture for a transaction according to its unique functional identifier |
+| [**apiMerchantV3TransactionTransactionIdGet()**](TransactionApi.md#apiMerchantV3TransactionTransactionIdGet) | **GET** /api/merchant/v3/transaction/{transactionId} | Retrieve a transaction of a merchant according to a unique functional identifier |
+| [**apiMerchantV3TransactionTransactionIdRefundPost()**](TransactionApi.md#apiMerchantV3TransactionTransactionIdRefundPost) | **POST** /api/merchant/v3/transaction/{transactionId}/refund | Report a refund for a transaction according to its unique functional identifier |
+| [**apiPaymentV3TransactionPost()**](TransactionApi.md#apiPaymentV3TransactionPost) | **POST** /api/payment/v3/transaction | Initiates a transaction based on the given request |
+| [**apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPost()**](TransactionApi.md#apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPost) | **POST** /api/payment/v3/transaction/{technicalTransactionId}/authorization | Authorizes a transaction after finishing the process in a webshop |
+| [**apiPaymentV3TransactionTechnicalTransactionIdGet()**](TransactionApi.md#apiPaymentV3TransactionTechnicalTransactionIdGet) | **GET** /api/payment/v3/transaction/{technicalTransactionId} | Get the necessary information about the transaction |
+| [**apiPaymentV3TransactionTechnicalTransactionIdPatch()**](TransactionApi.md#apiPaymentV3TransactionTechnicalTransactionIdPatch) | **PATCH** /api/payment/v3/transaction/{technicalTransactionId} | Updates a transaction based on the given request |
 
 
 ## `apiMerchantV3TransactionGet()`
@@ -64,17 +64,17 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **firstname** | **string**|  | [optional]
- **lastname** | **string**|  | [optional]
- **orderId** | **string**|  | [optional]
- **pageSize** | **int**|  | [optional] [default to 100]
- **page** | **int**|  | [optional]
- **status** | [**string[]**](../Model/string.md)|  | [optional]
- **minOrderValue** | **float**|  | [optional]
- **maxOrderValue** | **float**|  | [optional]
- **tId** | [**string[]**](../Model/string.md)| Multiple unique functional transaction identifier (consists of 6 characters) provided through the query | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **firstname** | **string**|  | [optional] |
+| **lastname** | **string**|  | [optional] |
+| **orderId** | **string**|  | [optional] |
+| **pageSize** | **int**|  | [optional] [default to 100] |
+| **page** | **int**|  | [optional] |
+| **status** | [**string[]**](../Model/string.md)|  | [optional] |
+| **minOrderValue** | **float**|  | [optional] |
+| **maxOrderValue** | **float**|  | [optional] |
+| **tId** | [**string[]**](../Model/string.md)| Multiple unique functional transaction identifier (consists of 6 characters) provided through the query | [optional] |
 
 ### Return type
 
@@ -135,10 +135,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **transactionId** | **string**| Unique functional transaction identifier (consists of 6 characters) |
- **captureRequest** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\CaptureRequest**](../Model/CaptureRequest.md)| Capture Request Object | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **transactionId** | **string**| Unique functional transaction identifier (consists of 6 characters) | |
+| **captureRequest** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\CaptureRequest**](../Model/CaptureRequest.md)| Capture Request Object | [optional] |
 
 ### Return type
 
@@ -199,9 +199,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **transactionId** | **string**| Unique functional transaction identifier (consists of 6 characters) |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **transactionId** | **string**| Unique functional transaction identifier (consists of 6 characters) | |
 
 ### Return type
 
@@ -228,7 +228,7 @@ apiMerchantV3TransactionTransactionIdRefundPost($transactionId, $refundRequest)
 
 Report a refund for a transaction according to its unique functional identifier
 
-Reports a refund for the specified merchant's transaction. Currently there can only be one active refund.
+Reports a refund for the specified merchant's transaction. There can be multiple active refunds.
 
 ### Example
 
@@ -262,10 +262,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **transactionId** | **string**| Unique functional transaction identifier (consists of 6 characters) |
- **refundRequest** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\RefundRequest**](../Model/RefundRequest.md)| Refund Request Object | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **transactionId** | **string**| Unique functional transaction identifier (consists of 6 characters) | |
+| **refundRequest** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\RefundRequest**](../Model/RefundRequest.md)| Refund Request Object | [optional] |
 
 ### Return type
 
@@ -326,9 +326,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **transaction** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction**](../Model/Transaction.md)| init request | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **transaction** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction**](../Model/Transaction.md)| init request | [optional] |
 
 ### Return type
 
@@ -389,10 +389,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **technicalTransactionId** | **string**| Unique TeamBank transaction identifier |
- **authorizationRequest** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\AuthorizationRequest**](../Model/AuthorizationRequest.md)| authorization request | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **technicalTransactionId** | **string**| Unique TeamBank transaction identifier | |
+| **authorizationRequest** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\AuthorizationRequest**](../Model/AuthorizationRequest.md)| authorization request | [optional] |
 
 ### Return type
 
@@ -453,9 +453,9 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **technicalTransactionId** | **string**| Unique TeamBank transaction identifier |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **technicalTransactionId** | **string**| Unique TeamBank transaction identifier | |
 
 ### Return type
 
@@ -517,10 +517,10 @@ try {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **technicalTransactionId** | **string**| Unique TeamBank transaction identifier |
- **transactionUpdate** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionUpdate**](../Model/TransactionUpdate.md)| update request | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **technicalTransactionId** | **string**| Unique TeamBank transaction identifier | |
+| **transactionUpdate** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionUpdate**](../Model/TransactionUpdate.md)| update request | [optional] |
 
 ### Return type
 
