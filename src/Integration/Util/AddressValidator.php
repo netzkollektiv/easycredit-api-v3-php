@@ -24,7 +24,7 @@ class AddressValidator {
         return true;
     }
 
-    public function hashAddress(ModelInterface $address) {
+    public function hashAddress($address) {
         return sha1((string) $address);
     }
 
