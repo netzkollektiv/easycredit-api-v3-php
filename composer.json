@@ -1,6 +1,6 @@
 {
     "name": "netzkollektiv/ratenkaufbyeasycredit-api-v3-php",
-    "version": "1.3.5",
+    "version": "1.3.6",
     "description": "Transaction-V3 API for Merchant Portal  Ratenkauf Verkauf-V3 API for ratenkauf App  Ratenkauf Ratenrechner-V3 API for ratenkauf App",
     "keywords": [
         "ratenkaufbyeasycredit",

@@ -59,6 +59,13 @@ class Checkout implements CheckoutInterface {
         return $this;
     }
 
+    public function finalizeExpress(
+        Transaction $request
+    ) {
+       $this->storage
+            ->set('address_hash', $this->addressValidator->hashAddress($request->getOrderDetails()->getShippingAddress()));
+    }
+
     public function getConfig() {
         return $this->_api->getConfig();
     }
