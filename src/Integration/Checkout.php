@@ -19,6 +19,14 @@ use Teambank\RatenkaufByEasyCreditApiV3\Model\Article;
 
 class Checkout implements CheckoutInterface {
 
+    protected $webshopApi;
+    protected $transactionApi;
+    protected $installmentplanApi;
+    protected $storage;
+    protected $addressValidator;
+    protected $prefixConverter;
+    protected $logger;
+
     public function __construct(
         WebshopApi $webshopApi,
         TransactionApi $transactionApi,
