@@ -13,6 +13,7 @@ use Teambank\RatenkaufByEasyCreditApiV3\Integration\InitializationException;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionSummary;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformation;
+use Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionUpdate;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\IntegrationCheckRequest;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanRequest;
 use Teambank\RatenkaufByEasyCreditApiV3\Model\Article;
@@ -65,6 +66,31 @@ class Checkout implements CheckoutInterface {
             ->set('redirect_url', $result->getRedirectUrl());
 
         return $this;
+    }
+
+    public function update(
+        Transaction $request
+    ) {
+
+        $orderDetails = $request->getOrderDetails();
+
+        $result = $this->transactionApi->apiPaymentV3TransactionTechnicalTransactionIdPatch(
+            $this->storage->get('token'),
+            new TransactionUpdate([
+                'orderValue' => round($orderDetails->getOrderValue() - $this->storage->get('interest_amount'), 2),
+                'numberOfProductsInShoppingCart' => $orderDetails->getNumberOfProductsInShoppingCart(), 
+                'orderId' => $orderDetails->getOrderId(), 
+                'shoppingCartInformation' => $orderDetails->getShoppingCartInformation(), 
+                'financingTerm' => $request->getFinancingTerm() 
+            ])
+        );
+
+        $this->storage
+            ->set('authorized_amount', $result->getOrderValue())
+            ->set('interest_amount', (float) $result->getInterest())
+            ->set('summary', json_encode($result->jsonSerialize()));
+
+        return $result;
     }
 
     public function finalizeExpress(
