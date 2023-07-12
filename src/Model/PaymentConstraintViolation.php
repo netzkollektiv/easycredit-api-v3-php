@@ -1,6 +1,6 @@
 <?php
 /**
- * Bank
+ * PaymentConstraintViolation
  *
  * @category Class
  * @package  Teambank\RatenkaufByEasyCreditApiV3
@@ -18,16 +18,15 @@ use \ArrayAccess;
 use \Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
 
 /**
- * Bank Class Doc Comment
+ * PaymentConstraintViolation Class Doc Comment
  *
  * @category Class
- * @description International Bank Account Number
  * @package  Teambank\RatenkaufByEasyCreditApiV3
  * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class Bank implements ModelInterface, ArrayAccess, \JsonSerializable
+class PaymentConstraintViolation implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     const DISCRIMINATOR = null;
 
@@ -36,7 +35,7 @@ class Bank implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'Bank';
+    protected static $openAPIModelName = 'PaymentConstraintViolation';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -44,8 +43,8 @@ class Bank implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'iban' => 'string',
-        'bic' => 'string'
+        'title' => 'string',
+        'violations' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolationViolationsInner[]'
     ];
 
     /**
@@ -56,8 +55,8 @@ class Bank implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'iban' => null,
-        'bic' => null
+        'title' => null,
+        'violations' => null
     ];
 
     /**
@@ -87,8 +86,8 @@ class Bank implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'iban' => 'iban',
-        'bic' => 'bic'
+        'title' => 'title',
+        'violations' => 'violations'
     ];
 
     /**
@@ -97,8 +96,8 @@ class Bank implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'iban' => 'setIban',
-        'bic' => 'setBic'
+        'title' => 'setTitle',
+        'violations' => 'setViolations'
     ];
 
     /**
@@ -107,8 +106,8 @@ class Bank implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'iban' => 'getIban',
-        'bic' => 'getBic'
+        'title' => 'getTitle',
+        'violations' => 'getViolations'
     ];
 
     /**
@@ -168,8 +167,8 @@ class Bank implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['iban'] = $data['iban'] ?? null;
-        $this->container['bic'] = $data['bic'] ?? null;
+        $this->container['title'] = $data['title'] ?? null;
+        $this->container['violations'] = $data['violations'] ?? null;
     }
 
     /**
@@ -181,6 +180,12 @@ class Bank implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['title'] === null) {
+            $invalidProperties[] = "'title' can't be null";
+        }
+        if ($this->container['violations'] === null) {
+            $invalidProperties[] = "'violations' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -197,49 +202,49 @@ class Bank implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets iban
+     * Gets title
      *
-     * @return string|null
+     * @return string
      */
-    public function getIban()
+    public function getTitle()
     {
-        return $this->container['iban'];
+        return $this->container['title'];
     }
 
     /**
-     * Sets iban
+     * Sets title
      *
-     * @param string|null $iban iban
+     * @param string $title title
      *
      * @return self
      */
-    public function setIban($iban)
+    public function setTitle($title)
     {
-        $this->container['iban'] = $iban;
+        $this->container['title'] = $title;
 
         return $this;
     }
 
     /**
-     * Gets bic
+     * Gets violations
      *
-     * @return string|null
+     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolationViolationsInner[]
      */
-    public function getBic()
+    public function getViolations()
     {
-        return $this->container['bic'];
+        return $this->container['violations'];
     }
 
     /**
-     * Sets bic
+     * Sets violations
      *
-     * @param string|null $bic bic
+     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolationViolationsInner[] $violations violations
      *
      * @return self
      */
-    public function setBic($bic)
+    public function setViolations($violations)
     {
-        $this->container['bic'] = $bic;
+        $this->container['violations'] = $violations;
 
         return $this;
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Bank
+ * PaymentConstraintViolationViolationsInner
  *
  * @category Class
  * @package  Teambank\RatenkaufByEasyCreditApiV3
@@ -18,16 +18,15 @@ use \ArrayAccess;
 use \Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
 
 /**
- * Bank Class Doc Comment
+ * PaymentConstraintViolationViolationsInner Class Doc Comment
  *
  * @category Class
- * @description International Bank Account Number
  * @package  Teambank\RatenkaufByEasyCreditApiV3
  * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class Bank implements ModelInterface, ArrayAccess, \JsonSerializable
+class PaymentConstraintViolationViolationsInner implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     const DISCRIMINATOR = null;
 
@@ -36,7 +35,7 @@ class Bank implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'Bank';
+    protected static $openAPIModelName = 'PaymentConstraintViolation_violations_inner';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -44,8 +43,9 @@ class Bank implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'iban' => 'string',
-        'bic' => 'string'
+        'field' => 'string',
+        'message' => 'string',
+        'messageDE' => 'string'
     ];
 
     /**
@@ -56,8 +56,9 @@ class Bank implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'iban' => null,
-        'bic' => null
+        'field' => null,
+        'message' => null,
+        'messageDE' => null
     ];
 
     /**
@@ -87,8 +88,9 @@ class Bank implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'iban' => 'iban',
-        'bic' => 'bic'
+        'field' => 'field',
+        'message' => 'message',
+        'messageDE' => 'messageDE'
     ];
 
     /**
@@ -97,8 +99,9 @@ class Bank implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'iban' => 'setIban',
-        'bic' => 'setBic'
+        'field' => 'setField',
+        'message' => 'setMessage',
+        'messageDE' => 'setMessageDE'
     ];
 
     /**
@@ -107,8 +110,9 @@ class Bank implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'iban' => 'getIban',
-        'bic' => 'getBic'
+        'field' => 'getField',
+        'message' => 'getMessage',
+        'messageDE' => 'getMessageDE'
     ];
 
     /**
@@ -168,8 +172,9 @@ class Bank implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['iban'] = $data['iban'] ?? null;
-        $this->container['bic'] = $data['bic'] ?? null;
+        $this->container['field'] = $data['field'] ?? null;
+        $this->container['message'] = $data['message'] ?? null;
+        $this->container['messageDE'] = $data['messageDE'] ?? null;
     }
 
     /**
@@ -181,6 +186,12 @@ class Bank implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['field'] === null) {
+            $invalidProperties[] = "'field' can't be null";
+        }
+        if ($this->container['message'] === null) {
+            $invalidProperties[] = "'message' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -197,49 +208,73 @@ class Bank implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets iban
+     * Gets field
      *
-     * @return string|null
+     * @return string
      */
-    public function getIban()
+    public function getField()
     {
-        return $this->container['iban'];
+        return $this->container['field'];
     }
 
     /**
-     * Sets iban
+     * Sets field
      *
-     * @param string|null $iban iban
+     * @param string $field field
      *
      * @return self
      */
-    public function setIban($iban)
+    public function setField($field)
     {
-        $this->container['iban'] = $iban;
+        $this->container['field'] = $field;
 
         return $this;
     }
 
     /**
-     * Gets bic
+     * Gets message
      *
-     * @return string|null
+     * @return string
      */
-    public function getBic()
+    public function getMessage()
     {
-        return $this->container['bic'];
+        return $this->container['message'];
     }
 
     /**
-     * Sets bic
+     * Sets message
      *
-     * @param string|null $bic bic
+     * @param string $message error message
      *
      * @return self
      */
-    public function setBic($bic)
+    public function setMessage($message)
     {
-        $this->container['bic'] = $bic;
+        $this->container['message'] = $message;
+
+        return $this;
+    }
+
+    /**
+     * Gets messageDE
+     *
+     * @return string|null
+     */
+    public function getMessageDE()
+    {
+        return $this->container['messageDE'];
+    }
+
+    /**
+     * Sets messageDE
+     *
+     * @param string|null $messageDE german error message
+     *
+     * @return self
+     */
+    public function setMessageDE($messageDE)
+    {
+        $this->container['messageDE'] = $messageDE;
 
         return $this;
     }
