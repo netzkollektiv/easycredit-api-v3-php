@@ -127,5 +127,3 @@ src/Service/DocumentApi.php
 src/Service/InstallmentplanApi.php
 src/Service/TransactionApi.php
 src/Service/WebshopApi.php
-test/Model/PaymentConstraintViolationTest.php
-test/Model/PaymentConstraintViolationViolationsInnerTest.php

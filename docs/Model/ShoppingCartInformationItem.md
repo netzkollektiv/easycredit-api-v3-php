@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **price** | **float** | Amount in € |
 **manufacturer** | **string** |  | [optional]
 **productCategory** | **string** |  | [optional]
+**productImageUrl** | **string** |  | [optional]
+**productUrl** | **string** |  | [optional]
 **articleNumber** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\ArticleNumberItem[]**](ArticleNumberItem.md) | Article number of a product | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)
