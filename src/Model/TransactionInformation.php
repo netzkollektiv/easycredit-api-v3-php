@@ -193,9 +193,9 @@ class TransactionInformation implements ModelInterface, ArrayAccess, \JsonSerial
      */
     public function __construct(array $data = null)
     {
-        $this->container['decision'] = $data['decision'] ?? null;
-        $this->container['transaction'] = $data['transaction'] ?? null;
-        $this->container['status'] = $data['status'] ?? null;
+        $this->container['decision'] = isset($data['decision']) ? $data['decision'] : null;
+        $this->container['transaction'] = isset($data['transaction']) ? $data['transaction'] : null;
+        $this->container['status'] = isset($data['status']) ? $data['status'] : null;
     }
 
     /**
@@ -335,7 +335,7 @@ class TransactionInformation implements ModelInterface, ArrayAccess, \JsonSerial
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

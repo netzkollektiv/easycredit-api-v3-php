@@ -167,8 +167,8 @@ class ConstraintViolationViolationsInner implements ModelInterface, ArrayAccess,
      */
     public function __construct(array $data = null)
     {
-        $this->container['field'] = $data['field'] ?? null;
-        $this->container['message'] = $data['message'] ?? null;
+        $this->container['field'] = isset($data['field']) ? $data['field'] : null;
+        $this->container['message'] = isset($data['message']) ? $data['message'] : null;
     }
 
     /**
@@ -271,7 +271,7 @@ class ConstraintViolationViolationsInner implements ModelInterface, ArrayAccess,
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

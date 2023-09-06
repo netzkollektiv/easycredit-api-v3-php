@@ -161,8 +161,8 @@ class RefundBooking extends Booking
     {
         parent::__construct($data);
 
-        $this->container['amount'] = $data['amount'] ?? null;
-        $this->container['bookingId'] = $data['bookingId'] ?? null;
+        $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
+        $this->container['bookingId'] = isset($data['bookingId']) ? $data['bookingId'] : null;
     }
 
     /**
@@ -259,7 +259,7 @@ class RefundBooking extends Booking
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

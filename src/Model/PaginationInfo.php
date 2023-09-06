@@ -172,9 +172,9 @@ class PaginationInfo implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['page'] = $data['page'] ?? null;
-        $this->container['pageSize'] = $data['pageSize'] ?? null;
-        $this->container['count'] = $data['count'] ?? null;
+        $this->container['page'] = isset($data['page']) ? $data['page'] : null;
+        $this->container['pageSize'] = isset($data['pageSize']) ? $data['pageSize'] : null;
+        $this->container['count'] = isset($data['count']) ? $data['count'] : null;
     }
 
     /**
@@ -295,7 +295,7 @@ class PaginationInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

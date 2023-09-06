@@ -194,8 +194,8 @@ class Employment implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['employmentType'] = $data['employmentType'] ?? null;
-        $this->container['monthlyNetIncome'] = $data['monthlyNetIncome'] ?? null;
+        $this->container['employmentType'] = isset($data['employmentType']) ? $data['employmentType'] : null;
+        $this->container['monthlyNetIncome'] = isset($data['monthlyNetIncome']) ? $data['monthlyNetIncome'] : null;
     }
 
     /**
@@ -311,7 +311,7 @@ class Employment implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

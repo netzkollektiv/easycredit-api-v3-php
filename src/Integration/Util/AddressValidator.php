@@ -10,7 +10,10 @@ use Teambank\RatenkaufByEasyCreditApiV3\Integration\AddressValidationException;
 
 class AddressValidator {
 
-    protected function isCustomerSameAsBilling(Transaction $request) {
+    /**
+     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction $request
+     */
+    protected function isCustomerSameAsBilling($request) {
         if (!$request->getCustomerRelationship()->getOrderDoneWithLogin()) {
             return true;
         }
@@ -28,7 +31,10 @@ class AddressValidator {
         return sha1((string) $address);
     }
 
-    public function addressesEqual(Transaction $request) {
+    /**
+     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction $request
+     */
+    public function addressesEqual($request) {
         $diff = array_diff_assoc(
             $this->convert($request->getOrderDetails()->getShippingAddress(), true), 
             $this->convert($request->getOrderDetails()->getInvoiceAddress(), true)

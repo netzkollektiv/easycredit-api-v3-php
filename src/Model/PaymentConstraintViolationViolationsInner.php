@@ -172,9 +172,9 @@ class PaymentConstraintViolationViolationsInner implements ModelInterface, Array
      */
     public function __construct(array $data = null)
     {
-        $this->container['field'] = $data['field'] ?? null;
-        $this->container['message'] = $data['message'] ?? null;
-        $this->container['messageDE'] = $data['messageDE'] ?? null;
+        $this->container['field'] = isset($data['field']) ? $data['field'] : null;
+        $this->container['message'] = isset($data['message']) ? $data['message'] : null;
+        $this->container['messageDE'] = isset($data['messageDE']) ? $data['messageDE'] : null;
     }
 
     /**
@@ -301,7 +301,7 @@ class PaymentConstraintViolationViolationsInner implements ModelInterface, Array
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

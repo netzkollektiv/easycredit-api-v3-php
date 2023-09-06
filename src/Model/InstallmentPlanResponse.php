@@ -172,9 +172,9 @@ class InstallmentPlanResponse implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function __construct(array $data = null)
     {
-        $this->container['installmentPlans'] = $data['installmentPlans'] ?? null;
-        $this->container['minFinancingAmount'] = $data['minFinancingAmount'] ?? null;
-        $this->container['maxFinancingAmount'] = $data['maxFinancingAmount'] ?? null;
+        $this->container['installmentPlans'] = isset($data['installmentPlans']) ? $data['installmentPlans'] : null;
+        $this->container['minFinancingAmount'] = isset($data['minFinancingAmount']) ? $data['minFinancingAmount'] : null;
+        $this->container['maxFinancingAmount'] = isset($data['maxFinancingAmount']) ? $data['maxFinancingAmount'] : null;
     }
 
     /**
@@ -295,7 +295,7 @@ class InstallmentPlanResponse implements ModelInterface, ArrayAccess, \JsonSeria
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

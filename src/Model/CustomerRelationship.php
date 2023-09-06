@@ -229,13 +229,13 @@ class CustomerRelationship implements ModelInterface, ArrayAccess, \JsonSerializ
      */
     public function __construct(array $data = null)
     {
-        $this->container['customerStatus'] = $data['customerStatus'] ?? null;
-        $this->container['customerSince'] = $data['customerSince'] ?? null;
-        $this->container['orderDoneWithLogin'] = $data['orderDoneWithLogin'] ?? null;
-        $this->container['numberOfOrders'] = $data['numberOfOrders'] ?? null;
-        $this->container['negativePaymentInformation'] = $data['negativePaymentInformation'] ?? null;
-        $this->container['riskyItemsInShoppingCart'] = $data['riskyItemsInShoppingCart'] ?? null;
-        $this->container['logisticsServiceProvider'] = $data['logisticsServiceProvider'] ?? null;
+        $this->container['customerStatus'] = isset($data['customerStatus']) ? $data['customerStatus'] : null;
+        $this->container['customerSince'] = isset($data['customerSince']) ? $data['customerSince'] : null;
+        $this->container['orderDoneWithLogin'] = isset($data['orderDoneWithLogin']) ? $data['orderDoneWithLogin'] : null;
+        $this->container['numberOfOrders'] = isset($data['numberOfOrders']) ? $data['numberOfOrders'] : null;
+        $this->container['negativePaymentInformation'] = isset($data['negativePaymentInformation']) ? $data['negativePaymentInformation'] : null;
+        $this->container['riskyItemsInShoppingCart'] = isset($data['riskyItemsInShoppingCart']) ? $data['riskyItemsInShoppingCart'] : null;
+        $this->container['logisticsServiceProvider'] = isset($data['logisticsServiceProvider']) ? $data['logisticsServiceProvider'] : null;
     }
 
     /**
@@ -490,7 +490,7 @@ class CustomerRelationship implements ModelInterface, ArrayAccess, \JsonSerializ
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

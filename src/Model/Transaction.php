@@ -192,13 +192,13 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['financingTerm'] = $data['financingTerm'] ?? null;
-        $this->container['orderDetails'] = $data['orderDetails'] ?? null;
-        $this->container['shopsystem'] = $data['shopsystem'] ?? null;
-        $this->container['customer'] = $data['customer'] ?? null;
-        $this->container['customerRelationship'] = $data['customerRelationship'] ?? null;
-        $this->container['consent'] = $data['consent'] ?? null;
-        $this->container['redirectLinks'] = $data['redirectLinks'] ?? null;
+        $this->container['financingTerm'] = isset($data['financingTerm']) ? $data['financingTerm'] : null;
+        $this->container['orderDetails'] = isset($data['orderDetails']) ? $data['orderDetails'] : null;
+        $this->container['shopsystem'] = isset($data['shopsystem']) ? $data['shopsystem'] : null;
+        $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
+        $this->container['customerRelationship'] = isset($data['customerRelationship']) ? $data['customerRelationship'] : null;
+        $this->container['consent'] = isset($data['consent']) ? $data['consent'] : null;
+        $this->container['redirectLinks'] = isset($data['redirectLinks']) ? $data['redirectLinks'] : null;
     }
 
     /**
@@ -418,7 +418,7 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

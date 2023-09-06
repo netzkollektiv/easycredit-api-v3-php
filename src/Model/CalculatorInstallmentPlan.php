@@ -182,11 +182,11 @@ class CalculatorInstallmentPlan implements ModelInterface, ArrayAccess, \JsonSer
      */
     public function __construct(array $data = null)
     {
-        $this->container['example'] = $data['example'] ?? null;
-        $this->container['articleIdentifier'] = $data['articleIdentifier'] ?? null;
-        $this->container['url'] = $data['url'] ?? null;
-        $this->container['plans'] = $data['plans'] ?? null;
-        $this->container['errors'] = $data['errors'] ?? null;
+        $this->container['example'] = isset($data['example']) ? $data['example'] : null;
+        $this->container['articleIdentifier'] = isset($data['articleIdentifier']) ? $data['articleIdentifier'] : null;
+        $this->container['url'] = isset($data['url']) ? $data['url'] : null;
+        $this->container['plans'] = isset($data['plans']) ? $data['plans'] : null;
+        $this->container['errors'] = isset($data['errors']) ? $data['errors'] : null;
     }
 
     /**
@@ -355,7 +355,7 @@ class CalculatorInstallmentPlan implements ModelInterface, ArrayAccess, \JsonSer
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

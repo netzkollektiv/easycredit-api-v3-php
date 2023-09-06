@@ -187,12 +187,12 @@ class TransactionInitResponse implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function __construct(array $data = null)
     {
-        $this->container['technicalTransactionId'] = $data['technicalTransactionId'] ?? null;
-        $this->container['transactionId'] = $data['transactionId'] ?? null;
-        $this->container['deviceIdentToken'] = $data['deviceIdentToken'] ?? null;
-        $this->container['redirectUrl'] = $data['redirectUrl'] ?? null;
-        $this->container['timestamp'] = $data['timestamp'] ?? null;
-        $this->container['transactionInformation'] = $data['transactionInformation'] ?? null;
+        $this->container['technicalTransactionId'] = isset($data['technicalTransactionId']) ? $data['technicalTransactionId'] : null;
+        $this->container['transactionId'] = isset($data['transactionId']) ? $data['transactionId'] : null;
+        $this->container['deviceIdentToken'] = isset($data['deviceIdentToken']) ? $data['deviceIdentToken'] : null;
+        $this->container['redirectUrl'] = isset($data['redirectUrl']) ? $data['redirectUrl'] : null;
+        $this->container['timestamp'] = isset($data['timestamp']) ? $data['timestamp'] : null;
+        $this->container['transactionInformation'] = isset($data['transactionInformation']) ? $data['transactionInformation'] : null;
     }
 
     /**
@@ -385,7 +385,7 @@ class TransactionInitResponse implements ModelInterface, ArrayAccess, \JsonSeria
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

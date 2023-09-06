@@ -50,8 +50,11 @@ class Checkout implements CheckoutInterface {
         return $this->storage->get('redirect_url');
     }
 
+    /**
+     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction $request
+     */
     public function start(
-        Transaction $request
+        $request
     ) {
         $this->storage
             ->set('uniqid', uniqid());
@@ -68,8 +71,11 @@ class Checkout implements CheckoutInterface {
         return $this;
     }
 
+    /**
+     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction $request
+     */
     public function update(
-        Transaction $request
+        $request
     ) {
 
         $orderDetails = $request->getOrderDetails();
@@ -93,8 +99,11 @@ class Checkout implements CheckoutInterface {
         return $result;
     }
 
+    /**
+     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction $request
+     */
     public function finalizeExpress(
-        Transaction $request
+        $request
     ) {
        $this->storage
             ->set('address_hash', $this->addressValidator->hashAddress($request->getOrderDetails()->getShippingAddress()));
@@ -216,7 +225,10 @@ class Checkout implements CheckoutInterface {
         }
     }
 
-    public function isAvailable(Transaction $request, $checkAmount = false) {
+    /**
+     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction $request
+     */
+    public function isAvailable($request, $checkAmount = false) {
 
         $this->addressValidator->validate($request);
 
@@ -235,7 +247,10 @@ class Checkout implements CheckoutInterface {
         return true;
     }
 
-    public function verifyAddress(Transaction $request, $preCheck = false) {
+    /**
+     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction $request
+     */
+    public function verifyAddress($request, $preCheck = false) {
         $initialHash = $this->storage->get('address_hash');
 
         $billingHash = null;
@@ -255,7 +270,10 @@ class Checkout implements CheckoutInterface {
         );
     }
 
-    public function isAmountValid(Transaction $request) {
+    /**
+     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction $request
+     */
+    public function isAmountValid($request) {
 
         $amount = $request->getOrderDetails()->getOrderValue();
         $authorizedAmount = $this->storage->get('authorized_amount');
@@ -273,7 +291,10 @@ class Checkout implements CheckoutInterface {
         return true;
     }
 
-    public function isValid(Transaction $request) {
+    /**
+     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction $request
+     */
+    public function isValid($request) {
         return $this->isAmountValid($request) &&
             $this->verifyAddress($request);
     }

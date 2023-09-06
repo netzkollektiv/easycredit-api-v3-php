@@ -172,9 +172,9 @@ class InstallmentPlan implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['totalValuePlan'] = $data['totalValuePlan'] ?? null;
-        $this->container['interests'] = $data['interests'] ?? null;
-        $this->container['paymentPlan'] = $data['paymentPlan'] ?? null;
+        $this->container['totalValuePlan'] = isset($data['totalValuePlan']) ? $data['totalValuePlan'] : null;
+        $this->container['interests'] = isset($data['interests']) ? $data['interests'] : null;
+        $this->container['paymentPlan'] = isset($data['paymentPlan']) ? $data['paymentPlan'] : null;
     }
 
     /**
@@ -295,7 +295,7 @@ class InstallmentPlan implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

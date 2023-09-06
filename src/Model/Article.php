@@ -172,9 +172,9 @@ class Article implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['identifier'] = $data['identifier'] ?? null;
-        $this->container['price'] = $data['price'] ?? null;
-        $this->container['withoutFlexprice'] = $data['withoutFlexprice'] ?? false;
+        $this->container['identifier'] = isset($data['identifier']) ? $data['identifier'] : null;
+        $this->container['price'] = isset($data['price']) ? $data['price'] : null;
+        $this->container['withoutFlexprice'] = isset($data['withoutFlexprice']) ? $data['withoutFlexprice'] : false;
     }
 
     /**
@@ -295,7 +295,7 @@ class Article implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

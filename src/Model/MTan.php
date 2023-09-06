@@ -204,12 +204,12 @@ class MTan implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['required'] = $data['required'] ?? null;
-        $this->container['status'] = $data['status'] ?? null;
-        $this->container['remainingAttempts'] = $data['remainingAttempts'] ?? null;
-        $this->container['successful'] = $data['successful'] ?? null;
-        $this->container['mobilePhoneNumberInvalid'] = $data['mobilePhoneNumberInvalid'] ?? null;
-        $this->container['skipMobilePhoneNumberValidation'] = $data['skipMobilePhoneNumberValidation'] ?? null;
+        $this->container['required'] = isset($data['required']) ? $data['required'] : null;
+        $this->container['status'] = isset($data['status']) ? $data['status'] : null;
+        $this->container['remainingAttempts'] = isset($data['remainingAttempts']) ? $data['remainingAttempts'] : null;
+        $this->container['successful'] = isset($data['successful']) ? $data['successful'] : null;
+        $this->container['mobilePhoneNumberInvalid'] = isset($data['mobilePhoneNumberInvalid']) ? $data['mobilePhoneNumberInvalid'] : null;
+        $this->container['skipMobilePhoneNumberValidation'] = isset($data['skipMobilePhoneNumberValidation']) ? $data['skipMobilePhoneNumberValidation'] : null;
     }
 
     /**
@@ -421,7 +421,7 @@ class MTan implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

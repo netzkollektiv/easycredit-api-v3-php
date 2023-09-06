@@ -172,9 +172,9 @@ class TransactionCustomer implements ModelInterface, ArrayAccess, \JsonSerializa
      */
     public function __construct(array $data = null)
     {
-        $this->container['firstName'] = $data['firstName'] ?? null;
-        $this->container['lastName'] = $data['lastName'] ?? null;
-        $this->container['customerNumber'] = $data['customerNumber'] ?? null;
+        $this->container['firstName'] = isset($data['firstName']) ? $data['firstName'] : null;
+        $this->container['lastName'] = isset($data['lastName']) ? $data['lastName'] : null;
+        $this->container['customerNumber'] = isset($data['customerNumber']) ? $data['customerNumber'] : null;
     }
 
     /**
@@ -295,7 +295,7 @@ class TransactionCustomer implements ModelInterface, ArrayAccess, \JsonSerializa
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

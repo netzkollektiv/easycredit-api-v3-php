@@ -167,8 +167,8 @@ class TransactionListInfo implements ModelInterface, ArrayAccess, \JsonSerializa
      */
     public function __construct(array $data = null)
     {
-        $this->container['transactionList'] = $data['transactionList'] ?? null;
-        $this->container['pagingDetails'] = $data['pagingDetails'] ?? null;
+        $this->container['transactionList'] = isset($data['transactionList']) ? $data['transactionList'] : null;
+        $this->container['pagingDetails'] = isset($data['pagingDetails']) ? $data['pagingDetails'] : null;
     }
 
     /**
@@ -265,7 +265,7 @@ class TransactionListInfo implements ModelInterface, ArrayAccess, \JsonSerializa
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

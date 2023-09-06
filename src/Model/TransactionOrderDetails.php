@@ -182,11 +182,11 @@ class TransactionOrderDetails implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function __construct(array $data = null)
     {
-        $this->container['orderId'] = $data['orderId'] ?? null;
-        $this->container['clearingDate'] = $data['clearingDate'] ?? null;
-        $this->container['orderDate'] = $data['orderDate'] ?? null;
-        $this->container['currentOrderValue'] = $data['currentOrderValue'] ?? null;
-        $this->container['originalOrderValue'] = $data['originalOrderValue'] ?? null;
+        $this->container['orderId'] = isset($data['orderId']) ? $data['orderId'] : null;
+        $this->container['clearingDate'] = isset($data['clearingDate']) ? $data['clearingDate'] : null;
+        $this->container['orderDate'] = isset($data['orderDate']) ? $data['orderDate'] : null;
+        $this->container['currentOrderValue'] = isset($data['currentOrderValue']) ? $data['currentOrderValue'] : null;
+        $this->container['originalOrderValue'] = isset($data['originalOrderValue']) ? $data['originalOrderValue'] : null;
     }
 
     /**
@@ -355,7 +355,7 @@ class TransactionOrderDetails implements ModelInterface, ArrayAccess, \JsonSeria
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

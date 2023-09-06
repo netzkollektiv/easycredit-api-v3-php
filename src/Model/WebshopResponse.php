@@ -212,17 +212,17 @@ class WebshopResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['maxFinancingAmount'] = $data['maxFinancingAmount'] ?? null;
-        $this->container['minFinancingAmount'] = $data['minFinancingAmount'] ?? null;
-        $this->container['interestRate'] = $data['interestRate'] ?? null;
-        $this->container['availability'] = $data['availability'] ?? null;
-        $this->container['testMode'] = $data['testMode'] ?? null;
-        $this->container['privacyApprovalForm'] = $data['privacyApprovalForm'] ?? null;
-        $this->container['declarationOfConsent'] = $data['declarationOfConsent'] ?? null;
-        $this->container['illustrativeExample'] = $data['illustrativeExample'] ?? null;
-        $this->container['productDetails'] = $data['productDetails'] ?? null;
-        $this->container['uuid'] = $data['uuid'] ?? null;
-        $this->container['flexprice'] = $data['flexprice'] ?? false;
+        $this->container['maxFinancingAmount'] = isset($data['maxFinancingAmount']) ? $data['maxFinancingAmount'] : null;
+        $this->container['minFinancingAmount'] = isset($data['minFinancingAmount']) ? $data['minFinancingAmount'] : null;
+        $this->container['interestRate'] = isset($data['interestRate']) ? $data['interestRate'] : null;
+        $this->container['availability'] = isset($data['availability']) ? $data['availability'] : null;
+        $this->container['testMode'] = isset($data['testMode']) ? $data['testMode'] : null;
+        $this->container['privacyApprovalForm'] = isset($data['privacyApprovalForm']) ? $data['privacyApprovalForm'] : null;
+        $this->container['declarationOfConsent'] = isset($data['declarationOfConsent']) ? $data['declarationOfConsent'] : null;
+        $this->container['illustrativeExample'] = isset($data['illustrativeExample']) ? $data['illustrativeExample'] : null;
+        $this->container['productDetails'] = isset($data['productDetails']) ? $data['productDetails'] : null;
+        $this->container['uuid'] = isset($data['uuid']) ? $data['uuid'] : null;
+        $this->container['flexprice'] = isset($data['flexprice']) ? $data['flexprice'] : false;
     }
 
     /**
@@ -535,7 +535,7 @@ class WebshopResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

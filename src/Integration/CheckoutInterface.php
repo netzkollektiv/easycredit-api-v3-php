@@ -6,12 +6,21 @@ use Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction;
 interface CheckoutInterface {
 
     public function getRedirectUrl();
-    public function start(Transaction $request);
+    /**
+     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction $request
+     */
+    public function start($request);
     public function getConfig();
     public function isInitialized();
     public function loadTransaction();
     public function authorize($orderId = null);
-    public function verifyAddress(Transaction $request, $preCheck);
-    public function isAmountValid(Transaction $request);
+    /**
+     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction $request
+     */
+    public function verifyAddress($request, $preCheck);
+    /**
+     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction $request
+     */
+    public function isAmountValid($request);
     public function clear();
 }

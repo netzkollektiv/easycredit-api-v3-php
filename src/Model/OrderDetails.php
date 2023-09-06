@@ -192,13 +192,13 @@ class OrderDetails implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['orderValue'] = $data['orderValue'] ?? null;
-        $this->container['orderId'] = $data['orderId'] ?? null;
-        $this->container['numberOfProductsInShoppingCart'] = $data['numberOfProductsInShoppingCart'] ?? null;
-        $this->container['withoutFlexprice'] = $data['withoutFlexprice'] ?? false;
-        $this->container['invoiceAddress'] = $data['invoiceAddress'] ?? null;
-        $this->container['shippingAddress'] = $data['shippingAddress'] ?? null;
-        $this->container['shoppingCartInformation'] = $data['shoppingCartInformation'] ?? null;
+        $this->container['orderValue'] = isset($data['orderValue']) ? $data['orderValue'] : null;
+        $this->container['orderId'] = isset($data['orderId']) ? $data['orderId'] : null;
+        $this->container['numberOfProductsInShoppingCart'] = isset($data['numberOfProductsInShoppingCart']) ? $data['numberOfProductsInShoppingCart'] : null;
+        $this->container['withoutFlexprice'] = isset($data['withoutFlexprice']) ? $data['withoutFlexprice'] : false;
+        $this->container['invoiceAddress'] = isset($data['invoiceAddress']) ? $data['invoiceAddress'] : null;
+        $this->container['shippingAddress'] = isset($data['shippingAddress']) ? $data['shippingAddress'] : null;
+        $this->container['shoppingCartInformation'] = isset($data['shoppingCartInformation']) ? $data['shoppingCartInformation'] : null;
     }
 
     /**
@@ -418,7 +418,7 @@ class OrderDetails implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

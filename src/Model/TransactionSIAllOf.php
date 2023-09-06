@@ -177,7 +177,7 @@ class TransactionSIAllOf implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function __construct(array $data = null)
     {
-        $this->container['deviceIdentToken'] = $data['deviceIdentToken'] ?? null;
+        $this->container['deviceIdentToken'] = isset($data['deviceIdentToken']) ? $data['deviceIdentToken'] : null;
     }
 
     /**
@@ -248,7 +248,7 @@ class TransactionSIAllOf implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

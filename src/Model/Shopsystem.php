@@ -168,8 +168,8 @@ class Shopsystem implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['shopSystemManufacturer'] = $data['shopSystemManufacturer'] ?? null;
-        $this->container['shopSystemModuleVersion'] = $data['shopSystemModuleVersion'] ?? null;
+        $this->container['shopSystemManufacturer'] = isset($data['shopSystemManufacturer']) ? $data['shopSystemManufacturer'] : null;
+        $this->container['shopSystemModuleVersion'] = isset($data['shopSystemModuleVersion']) ? $data['shopSystemModuleVersion'] : null;
     }
 
     /**
@@ -266,7 +266,7 @@ class Shopsystem implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

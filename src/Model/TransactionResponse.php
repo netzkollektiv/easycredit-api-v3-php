@@ -223,15 +223,15 @@ class TransactionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
      */
     public function __construct(array $data = null)
     {
-        $this->container['transactionId'] = $data['transactionId'] ?? null;
-        $this->container['status'] = $data['status'] ?? null;
-        $this->container['bookings'] = $data['bookings'] ?? null;
-        $this->container['customer'] = $data['customer'] ?? null;
-        $this->container['creditAccountNumber'] = $data['creditAccountNumber'] ?? null;
-        $this->container['orderDetails'] = $data['orderDetails'] ?? null;
-        $this->container['refundDetails'] = $data['refundDetails'] ?? null;
-        $this->container['refundsTotalValue'] = $data['refundsTotalValue'] ?? null;
-        $this->container['expirationDateTime'] = $data['expirationDateTime'] ?? null;
+        $this->container['transactionId'] = isset($data['transactionId']) ? $data['transactionId'] : null;
+        $this->container['status'] = isset($data['status']) ? $data['status'] : null;
+        $this->container['bookings'] = isset($data['bookings']) ? $data['bookings'] : null;
+        $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
+        $this->container['creditAccountNumber'] = isset($data['creditAccountNumber']) ? $data['creditAccountNumber'] : null;
+        $this->container['orderDetails'] = isset($data['orderDetails']) ? $data['orderDetails'] : null;
+        $this->container['refundDetails'] = isset($data['refundDetails']) ? $data['refundDetails'] : null;
+        $this->container['refundsTotalValue'] = isset($data['refundsTotalValue']) ? $data['refundsTotalValue'] : null;
+        $this->container['expirationDateTime'] = isset($data['expirationDateTime']) ? $data['expirationDateTime'] : null;
     }
 
     /**
@@ -515,7 +515,7 @@ class TransactionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

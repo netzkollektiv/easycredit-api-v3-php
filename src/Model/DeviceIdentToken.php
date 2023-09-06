@@ -167,8 +167,8 @@ class DeviceIdentToken implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['timestamp'] = $data['timestamp'] ?? null;
-        $this->container['deviceIdentToken'] = $data['deviceIdentToken'] ?? null;
+        $this->container['timestamp'] = isset($data['timestamp']) ? $data['timestamp'] : null;
+        $this->container['deviceIdentToken'] = isset($data['deviceIdentToken']) ? $data['deviceIdentToken'] : null;
     }
 
     /**
@@ -265,7 +265,7 @@ class DeviceIdentToken implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

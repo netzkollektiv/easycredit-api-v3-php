@@ -203,11 +203,11 @@ class Refund implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['refundAmount'] = $data['refundAmount'] ?? null;
-        $this->container['refundBookingDate'] = $data['refundBookingDate'] ?? null;
-        $this->container['refundEntryDate'] = $data['refundEntryDate'] ?? null;
-        $this->container['refundDate'] = $data['refundDate'] ?? null;
-        $this->container['reason'] = $data['reason'] ?? null;
+        $this->container['refundAmount'] = isset($data['refundAmount']) ? $data['refundAmount'] : null;
+        $this->container['refundBookingDate'] = isset($data['refundBookingDate']) ? $data['refundBookingDate'] : null;
+        $this->container['refundEntryDate'] = isset($data['refundEntryDate']) ? $data['refundEntryDate'] : null;
+        $this->container['refundDate'] = isset($data['refundDate']) ? $data['refundDate'] : null;
+        $this->container['reason'] = isset($data['reason']) ? $data['reason'] : null;
     }
 
     /**
@@ -395,7 +395,7 @@ class Refund implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

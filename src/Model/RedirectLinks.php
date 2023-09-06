@@ -178,10 +178,10 @@ class RedirectLinks implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['urlSuccess'] = $data['urlSuccess'] ?? null;
-        $this->container['urlCancellation'] = $data['urlCancellation'] ?? null;
-        $this->container['urlDenial'] = $data['urlDenial'] ?? null;
-        $this->container['urlAuthorizationCallback'] = $data['urlAuthorizationCallback'] ?? null;
+        $this->container['urlSuccess'] = isset($data['urlSuccess']) ? $data['urlSuccess'] : null;
+        $this->container['urlCancellation'] = isset($data['urlCancellation']) ? $data['urlCancellation'] : null;
+        $this->container['urlDenial'] = isset($data['urlDenial']) ? $data['urlDenial'] : null;
+        $this->container['urlAuthorizationCallback'] = isset($data['urlAuthorizationCallback']) ? $data['urlAuthorizationCallback'] : null;
     }
 
     /**
@@ -335,7 +335,7 @@ class RedirectLinks implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

@@ -282,28 +282,28 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function __construct(array $data = null)
     {
-        $this->container['transactionId'] = $data['transactionId'] ?? null;
-        $this->container['deviceIdentToken'] = $data['deviceIdentToken'] ?? null;
-        $this->container['orderValue'] = $data['orderValue'] ?? null;
-        $this->container['interest'] = $data['interest'] ?? null;
-        $this->container['nominalInterest'] = $data['nominalInterest'] ?? null;
-        $this->container['effectiveInterest'] = $data['effectiveInterest'] ?? null;
-        $this->container['merchantSpecificInterest'] = $data['merchantSpecificInterest'] ?? null;
-        $this->container['totalValue'] = $data['totalValue'] ?? null;
-        $this->container['decisionOutcome'] = $data['decisionOutcome'] ?? null;
-        $this->container['decisionOutcomeText'] = $data['decisionOutcomeText'] ?? null;
-        $this->container['numberOfInstallments'] = $data['numberOfInstallments'] ?? null;
-        $this->container['minNumberOfInstallments'] = $data['minNumberOfInstallments'] ?? null;
-        $this->container['maxNumberOfInstallments'] = $data['maxNumberOfInstallments'] ?? null;
-        $this->container['installment'] = $data['installment'] ?? null;
-        $this->container['lastInstallment'] = $data['lastInstallment'] ?? null;
-        $this->container['firstInstallmentDate'] = $data['firstInstallmentDate'] ?? null;
-        $this->container['lastInstallmentDate'] = $data['lastInstallmentDate'] ?? null;
-        $this->container['amortizationPlanText'] = $data['amortizationPlanText'] ?? null;
-        $this->container['urlPreContractualInformation'] = $data['urlPreContractualInformation'] ?? null;
-        $this->container['installmentPlans'] = $data['installmentPlans'] ?? null;
-        $this->container['mtan'] = $data['mtan'] ?? null;
-        $this->container['bankAccountCheck'] = $data['bankAccountCheck'] ?? null;
+        $this->container['transactionId'] = isset($data['transactionId']) ? $data['transactionId'] : null;
+        $this->container['deviceIdentToken'] = isset($data['deviceIdentToken']) ? $data['deviceIdentToken'] : null;
+        $this->container['orderValue'] = isset($data['orderValue']) ? $data['orderValue'] : null;
+        $this->container['interest'] = isset($data['interest']) ? $data['interest'] : null;
+        $this->container['nominalInterest'] = isset($data['nominalInterest']) ? $data['nominalInterest'] : null;
+        $this->container['effectiveInterest'] = isset($data['effectiveInterest']) ? $data['effectiveInterest'] : null;
+        $this->container['merchantSpecificInterest'] = isset($data['merchantSpecificInterest']) ? $data['merchantSpecificInterest'] : null;
+        $this->container['totalValue'] = isset($data['totalValue']) ? $data['totalValue'] : null;
+        $this->container['decisionOutcome'] = isset($data['decisionOutcome']) ? $data['decisionOutcome'] : null;
+        $this->container['decisionOutcomeText'] = isset($data['decisionOutcomeText']) ? $data['decisionOutcomeText'] : null;
+        $this->container['numberOfInstallments'] = isset($data['numberOfInstallments']) ? $data['numberOfInstallments'] : null;
+        $this->container['minNumberOfInstallments'] = isset($data['minNumberOfInstallments']) ? $data['minNumberOfInstallments'] : null;
+        $this->container['maxNumberOfInstallments'] = isset($data['maxNumberOfInstallments']) ? $data['maxNumberOfInstallments'] : null;
+        $this->container['installment'] = isset($data['installment']) ? $data['installment'] : null;
+        $this->container['lastInstallment'] = isset($data['lastInstallment']) ? $data['lastInstallment'] : null;
+        $this->container['firstInstallmentDate'] = isset($data['firstInstallmentDate']) ? $data['firstInstallmentDate'] : null;
+        $this->container['lastInstallmentDate'] = isset($data['lastInstallmentDate']) ? $data['lastInstallmentDate'] : null;
+        $this->container['amortizationPlanText'] = isset($data['amortizationPlanText']) ? $data['amortizationPlanText'] : null;
+        $this->container['urlPreContractualInformation'] = isset($data['urlPreContractualInformation']) ? $data['urlPreContractualInformation'] : null;
+        $this->container['installmentPlans'] = isset($data['installmentPlans']) ? $data['installmentPlans'] : null;
+        $this->container['mtan'] = isset($data['mtan']) ? $data['mtan'] : null;
+        $this->container['bankAccountCheck'] = isset($data['bankAccountCheck']) ? $data['bankAccountCheck'] : null;
     }
 
     /**
@@ -899,7 +899,7 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

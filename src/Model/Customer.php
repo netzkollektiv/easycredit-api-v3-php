@@ -250,17 +250,17 @@ class Customer implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['gender'] = $data['gender'] ?? null;
-        $this->container['firstName'] = $data['firstName'] ?? null;
-        $this->container['lastName'] = $data['lastName'] ?? null;
-        $this->container['birthDate'] = $data['birthDate'] ?? null;
-        $this->container['birthName'] = $data['birthName'] ?? null;
-        $this->container['birthPlace'] = $data['birthPlace'] ?? null;
-        $this->container['title'] = $data['title'] ?? null;
-        $this->container['contact'] = $data['contact'] ?? null;
-        $this->container['bank'] = $data['bank'] ?? null;
-        $this->container['employment'] = $data['employment'] ?? null;
-        $this->container['companyName'] = $data['companyName'] ?? null;
+        $this->container['gender'] = isset($data['gender']) ? $data['gender'] : null;
+        $this->container['firstName'] = isset($data['firstName']) ? $data['firstName'] : null;
+        $this->container['lastName'] = isset($data['lastName']) ? $data['lastName'] : null;
+        $this->container['birthDate'] = isset($data['birthDate']) ? $data['birthDate'] : null;
+        $this->container['birthName'] = isset($data['birthName']) ? $data['birthName'] : null;
+        $this->container['birthPlace'] = isset($data['birthPlace']) ? $data['birthPlace'] : null;
+        $this->container['title'] = isset($data['title']) ? $data['title'] : null;
+        $this->container['contact'] = isset($data['contact']) ? $data['contact'] : null;
+        $this->container['bank'] = isset($data['bank']) ? $data['bank'] : null;
+        $this->container['employment'] = isset($data['employment']) ? $data['employment'] : null;
+        $this->container['companyName'] = isset($data['companyName']) ? $data['companyName'] : null;
     }
 
     /**
@@ -611,7 +611,7 @@ class Customer implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

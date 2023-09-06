@@ -162,7 +162,7 @@ class TransmitMtan implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['mtan'] = $data['mtan'] ?? null;
+        $this->container['mtan'] = isset($data['mtan']) ? $data['mtan'] : null;
     }
 
     /**
@@ -235,7 +235,7 @@ class TransmitMtan implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

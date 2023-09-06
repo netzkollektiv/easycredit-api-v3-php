@@ -197,14 +197,14 @@ class ShoppingCartInformationItem implements ModelInterface, ArrayAccess, \JsonS
      */
     public function __construct(array $data = null)
     {
-        $this->container['productName'] = $data['productName'] ?? null;
-        $this->container['quantity'] = $data['quantity'] ?? null;
-        $this->container['price'] = $data['price'] ?? null;
-        $this->container['manufacturer'] = $data['manufacturer'] ?? null;
-        $this->container['productCategory'] = $data['productCategory'] ?? null;
-        $this->container['productImageUrl'] = $data['productImageUrl'] ?? null;
-        $this->container['productUrl'] = $data['productUrl'] ?? null;
-        $this->container['articleNumber'] = $data['articleNumber'] ?? null;
+        $this->container['productName'] = isset($data['productName']) ? $data['productName'] : null;
+        $this->container['quantity'] = isset($data['quantity']) ? $data['quantity'] : null;
+        $this->container['price'] = isset($data['price']) ? $data['price'] : null;
+        $this->container['manufacturer'] = isset($data['manufacturer']) ? $data['manufacturer'] : null;
+        $this->container['productCategory'] = isset($data['productCategory']) ? $data['productCategory'] : null;
+        $this->container['productImageUrl'] = isset($data['productImageUrl']) ? $data['productImageUrl'] : null;
+        $this->container['productUrl'] = isset($data['productUrl']) ? $data['productUrl'] : null;
+        $this->container['articleNumber'] = isset($data['articleNumber']) ? $data['articleNumber'] : null;
     }
 
     /**
@@ -454,7 +454,7 @@ class ShoppingCartInformationItem implements ModelInterface, ArrayAccess, \JsonS
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

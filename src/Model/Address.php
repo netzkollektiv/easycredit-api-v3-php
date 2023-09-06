@@ -182,11 +182,11 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['address'] = $data['address'] ?? null;
-        $this->container['additionalAddressInformation'] = $data['additionalAddressInformation'] ?? null;
-        $this->container['zip'] = $data['zip'] ?? null;
-        $this->container['city'] = $data['city'] ?? null;
-        $this->container['country'] = $data['country'] ?? null;
+        $this->container['address'] = isset($data['address']) ? $data['address'] : null;
+        $this->container['additionalAddressInformation'] = isset($data['additionalAddressInformation']) ? $data['additionalAddressInformation'] : null;
+        $this->container['zip'] = isset($data['zip']) ? $data['zip'] : null;
+        $this->container['city'] = isset($data['city']) ? $data['city'] : null;
+        $this->container['country'] = isset($data['country']) ? $data['country'] : null;
     }
 
     /**
@@ -367,7 +367,7 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

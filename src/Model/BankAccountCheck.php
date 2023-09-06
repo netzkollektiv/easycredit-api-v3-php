@@ -167,8 +167,8 @@ class BankAccountCheck implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['required'] = $data['required'] ?? null;
-        $this->container['successful'] = $data['successful'] ?? null;
+        $this->container['required'] = isset($data['required']) ? $data['required'] : null;
+        $this->container['successful'] = isset($data['successful']) ? $data['successful'] : null;
     }
 
     /**
@@ -265,7 +265,7 @@ class BankAccountCheck implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

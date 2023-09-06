@@ -65,7 +65,7 @@ class Client implements ClientInterface
      *
      * @throws \Psr\Http\Client\ClientExceptionInterface If an error happens while processing the request.
      */
-    public function sendRequest(RequestInterface $request): ResponseInterface {
+    public function sendRequest($request) {
 
         $_headers = array();
         foreach ($request->getHeaders() as $name => $values) {
@@ -145,7 +145,11 @@ class Client implements ClientInterface
         return $response;
     }
 
-    protected function handleLog (RequestInterface $request, ResponseInterface $response) {
+    /**
+     * @param \Psr\Http\Message\RequestInterface $request
+     * @param \Psr\Http\Message\ResponseInterface $response
+     */
+    protected function handleLog ($request, $response) {
        if (!$this->logger) {
            return;
        }

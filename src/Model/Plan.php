@@ -182,11 +182,11 @@ class Plan implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['numberOfInstallments'] = $data['numberOfInstallments'] ?? null;
-        $this->container['installment'] = $data['installment'] ?? null;
-        $this->container['totalInterest'] = $data['totalInterest'] ?? null;
-        $this->container['totalValue'] = $data['totalValue'] ?? null;
-        $this->container['lastInstallment'] = $data['lastInstallment'] ?? null;
+        $this->container['numberOfInstallments'] = isset($data['numberOfInstallments']) ? $data['numberOfInstallments'] : null;
+        $this->container['installment'] = isset($data['installment']) ? $data['installment'] : null;
+        $this->container['totalInterest'] = isset($data['totalInterest']) ? $data['totalInterest'] : null;
+        $this->container['totalValue'] = isset($data['totalValue']) ? $data['totalValue'] : null;
+        $this->container['lastInstallment'] = isset($data['lastInstallment']) ? $data['lastInstallment'] : null;
     }
 
     /**
@@ -355,7 +355,7 @@ class Plan implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**

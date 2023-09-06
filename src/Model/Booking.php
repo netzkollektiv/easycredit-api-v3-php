@@ -218,11 +218,11 @@ class Booking implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['uuid'] = $data['uuid'] ?? null;
-        $this->container['created'] = $data['created'] ?? null;
-        $this->container['type'] = $data['type'] ?? null;
-        $this->container['status'] = $data['status'] ?? null;
-        $this->container['message'] = $data['message'] ?? null;
+        $this->container['uuid'] = isset($data['uuid']) ? $data['uuid'] : null;
+        $this->container['created'] = isset($data['created']) ? $data['created'] : null;
+        $this->container['type'] = isset($data['type']) ? $data['type'] : null;
+        $this->container['status'] = isset($data['status']) ? $data['status'] : null;
+        $this->container['message'] = isset($data['message']) ? $data['message'] : null;
 
         // Initialize discriminator property with the model name.
         $this->container['bookingType'] = static::$openAPIModelName;
@@ -432,7 +432,7 @@ class Booking implements ModelInterface, ArrayAccess, \JsonSerializable
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 
     /**
