@@ -15,5 +15,11 @@ Name | Type | Description | Notes
 **productDetails** | **string** | (produktangaben) | [optional]
 **uuid** | **string** | request-id | [optional]
 **flexprice** | **bool** | true if the shop has an active flexprice or a flexprice time period is planned for the future | [optional] [default to false]
+**installmentPaymentActive** | **bool** |  | [optional]
+**billPaymentActive** | **bool** |  | [optional]
+**minBillingValue** | **float** |  | [optional]
+**maxBillingValue** | **float** |  | [optional]
+**minInstallmentValue** | **float** |  | [optional]
+**maxInstallmentValue** | **float** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

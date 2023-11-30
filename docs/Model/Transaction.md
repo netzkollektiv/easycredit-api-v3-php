@@ -11,5 +11,6 @@ Name | Type | Description | Notes
 **customerRelationship** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\CustomerRelationship**](CustomerRelationship.md) |  | [optional]
 **consent** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\Consent**](Consent.md) |  | [optional]
 **redirectLinks** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\RedirectLinks**](RedirectLinks.md) |  | [optional]
+**paymentType** | **string** | experimental | [optional] [default to 'INSTALLMENT_PAYMENT']
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)
