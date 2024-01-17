@@ -384,7 +384,7 @@ class DocumentApi
             $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
         }
         if (!empty($this->config->getAccessToken())) {
-            $headers['Content-signature'] = 'sha256=' . hash('sha256', $httpBody . $this->config->getAccessToken());
+            $headers['Content-signature'] = 'hmacsha256=' . hash_hmac('sha256', $httpBody, $this->config->getAccessToken());
         }
 
         $defaultHeaders = [];
