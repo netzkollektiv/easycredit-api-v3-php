@@ -50,7 +50,8 @@ class TransactionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
         'orderDetails' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionOrderDetails',
         'refundDetails' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\Refund[]',
         'refundsTotalValue' => 'float',
-        'expirationDateTime' => '\DateTime'
+        'expirationDateTime' => '\DateTime',
+        'webshopId' => 'string'
     ];
 
     /**
@@ -69,7 +70,8 @@ class TransactionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
         'orderDetails' => null,
         'refundDetails' => null,
         'refundsTotalValue' => null,
-        'expirationDateTime' => 'date-time'
+        'expirationDateTime' => 'date-time',
+        'webshopId' => null
     ];
 
     /**
@@ -107,7 +109,8 @@ class TransactionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
         'orderDetails' => 'orderDetails',
         'refundDetails' => 'refundDetails',
         'refundsTotalValue' => 'refundsTotalValue',
-        'expirationDateTime' => 'expirationDateTime'
+        'expirationDateTime' => 'expirationDateTime',
+        'webshopId' => 'webshopId'
     ];
 
     /**
@@ -124,7 +127,8 @@ class TransactionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
         'orderDetails' => 'setOrderDetails',
         'refundDetails' => 'setRefundDetails',
         'refundsTotalValue' => 'setRefundsTotalValue',
-        'expirationDateTime' => 'setExpirationDateTime'
+        'expirationDateTime' => 'setExpirationDateTime',
+        'webshopId' => 'setWebshopId'
     ];
 
     /**
@@ -141,7 +145,8 @@ class TransactionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
         'orderDetails' => 'getOrderDetails',
         'refundDetails' => 'getRefundDetails',
         'refundsTotalValue' => 'getRefundsTotalValue',
-        'expirationDateTime' => 'getExpirationDateTime'
+        'expirationDateTime' => 'getExpirationDateTime',
+        'webshopId' => 'getWebshopId'
     ];
 
     /**
@@ -231,6 +236,7 @@ class TransactionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
         $this->container['refundDetails'] = $data['refundDetails'] ?? null;
         $this->container['refundsTotalValue'] = $data['refundsTotalValue'] ?? null;
         $this->container['expirationDateTime'] = $data['expirationDateTime'] ?? null;
+        $this->container['webshopId'] = $data['webshopId'] ?? null;
     }
 
     /**
@@ -488,6 +494,30 @@ class TransactionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
     public function setExpirationDateTime($expirationDateTime)
     {
         $this->container['expirationDateTime'] = $expirationDateTime;
+
+        return $this;
+    }
+
+    /**
+     * Gets webshopId
+     *
+     * @return string|null
+     */
+    public function getWebshopId()
+    {
+        return $this->container['webshopId'];
+    }
+
+    /**
+     * Sets webshopId
+     *
+     * @param string|null $webshopId Webshop Id
+     *
+     * @return self
+     */
+    public function setWebshopId($webshopId)
+    {
+        $this->container['webshopId'] = $webshopId;
 
         return $this;
     }

@@ -110,14 +110,15 @@ class TransactionApi
      * @param  float $minOrderValue minOrderValue (optional)
      * @param  float $maxOrderValue maxOrderValue (optional)
      * @param  string[] $tId Multiple unique functional transaction identifier (consists of 6 characters) provided through the query (optional)
+     * @param  string[] $webshopIds webshopIds (optional)
      *
      * @throws \Teambank\RatenkaufByEasyCreditApiV3\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionListInfo|\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation|\Teambank\RatenkaufByEasyCreditApiV3\Model\AuthenticationError|\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolation|\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolation
      */
-    public function apiMerchantV3TransactionGet($firstname = null, $lastname = null, $orderId = null, $pageSize = 100, $page = null, $status = null, $minOrderValue = null, $maxOrderValue = null, $tId = null)
+    public function apiMerchantV3TransactionGet($firstname = null, $lastname = null, $orderId = null, $pageSize = 100, $page = null, $status = null, $minOrderValue = null, $maxOrderValue = null, $tId = null, $webshopIds = null)
     {
-        list($response) = $this->apiMerchantV3TransactionGetWithHttpInfo($firstname, $lastname, $orderId, $pageSize, $page, $status, $minOrderValue, $maxOrderValue, $tId);
+        list($response) = $this->apiMerchantV3TransactionGetWithHttpInfo($firstname, $lastname, $orderId, $pageSize, $page, $status, $minOrderValue, $maxOrderValue, $tId, $webshopIds);
         return $response;
     }
 
@@ -135,14 +136,15 @@ class TransactionApi
      * @param  float $minOrderValue (optional)
      * @param  float $maxOrderValue (optional)
      * @param  string[] $tId Multiple unique functional transaction identifier (consists of 6 characters) provided through the query (optional)
+     * @param  string[] $webshopIds (optional)
      *
      * @throws \Teambank\RatenkaufByEasyCreditApiV3\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionListInfo|\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation|\Teambank\RatenkaufByEasyCreditApiV3\Model\AuthenticationError|\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolation|\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolation, HTTP status code, HTTP response headers (array of strings)
      */
-    public function apiMerchantV3TransactionGetWithHttpInfo($firstname = null, $lastname = null, $orderId = null, $pageSize = 100, $page = null, $status = null, $minOrderValue = null, $maxOrderValue = null, $tId = null)
+    public function apiMerchantV3TransactionGetWithHttpInfo($firstname = null, $lastname = null, $orderId = null, $pageSize = 100, $page = null, $status = null, $minOrderValue = null, $maxOrderValue = null, $tId = null, $webshopIds = null)
     {
-        $request = $this->apiMerchantV3TransactionGetRequest($firstname, $lastname, $orderId, $pageSize, $page, $status, $minOrderValue, $maxOrderValue, $tId);
+        $request = $this->apiMerchantV3TransactionGetRequest($firstname, $lastname, $orderId, $pageSize, $page, $status, $minOrderValue, $maxOrderValue, $tId, $webshopIds);
 
         try {
             // $options = $this->createHttpClientOption();
@@ -314,14 +316,19 @@ class TransactionApi
      * @param  float $minOrderValue (optional)
      * @param  float $maxOrderValue (optional)
      * @param  string[] $tId Multiple unique functional transaction identifier (consists of 6 characters) provided through the query (optional)
+     * @param  string[] $webshopIds (optional)
      *
      * @throws \InvalidArgumentException
      * @return Request
      */
-    public function apiMerchantV3TransactionGetRequest($firstname = null, $lastname = null, $orderId = null, $pageSize = 100, $page = null, $status = null, $minOrderValue = null, $maxOrderValue = null, $tId = null)
+    public function apiMerchantV3TransactionGetRequest($firstname = null, $lastname = null, $orderId = null, $pageSize = 100, $page = null, $status = null, $minOrderValue = null, $maxOrderValue = null, $tId = null, $webshopIds = null)
     {
         if ($tId !== null && count($tId) > 1000) {
             throw new \InvalidArgumentException('invalid value for "$tId" when calling TransactionApi.apiMerchantV3TransactionGet, number of items must be less than or equal to 1000.');
+        }
+
+        if ($webshopIds !== null && count($webshopIds) > 100) {
+            throw new \InvalidArgumentException('invalid value for "$webshopIds" when calling TransactionApi.apiMerchantV3TransactionGet, number of items must be less than or equal to 100.');
         }
 
 
@@ -429,6 +436,17 @@ class TransactionApi
             }
             else {
                 $queryParams['tId'] = $tId;
+            }
+        }
+        // query params
+        if ($webshopIds !== null) {
+            if('form' === 'form' && is_array($webshopIds)) {
+                foreach($webshopIds as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['webshopIds'] = $webshopIds;
             }
         }
 
@@ -2306,6 +2324,271 @@ class TransactionApi
         $query = http_build_query($queryParams);
         return new Request(
             'PATCH',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPost
+     *
+     * Switch payment method
+     *
+     * @param  string $technicalTransactionId Unique TeamBank transaction identifier (required)
+     *
+     * @throws \Teambank\RatenkaufByEasyCreditApiV3\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformation|\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolation|\Teambank\RatenkaufByEasyCreditApiV3\Model\AuthenticationError|\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolation
+     */
+    public function apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPost($technicalTransactionId)
+    {
+        list($response) = $this->apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPostWithHttpInfo($technicalTransactionId);
+        return $response;
+    }
+
+    /**
+     * Operation apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPostWithHttpInfo
+     *
+     * Switch payment method
+     *
+     * @param  string $technicalTransactionId Unique TeamBank transaction identifier (required)
+     *
+     * @throws \Teambank\RatenkaufByEasyCreditApiV3\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformation|\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolation|\Teambank\RatenkaufByEasyCreditApiV3\Model\AuthenticationError|\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolation, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPostWithHttpInfo($technicalTransactionId)
+    {
+        $request = $this->apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPostRequest($technicalTransactionId);
+
+        try {
+            // $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->sendRequest($request);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformation' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformation', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolation' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolation', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\Teambank\RatenkaufByEasyCreditApiV3\Model\AuthenticationError' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Teambank\RatenkaufByEasyCreditApiV3\Model\AuthenticationError', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolation' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolation', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformation';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformation',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolation',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Teambank\RatenkaufByEasyCreditApiV3\Model\AuthenticationError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolation',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Create request for operation 'apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPost'
+     *
+     * @param  string $technicalTransactionId Unique TeamBank transaction identifier (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return Request
+     */
+    public function apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPostRequest($technicalTransactionId)
+    {
+        // verify the required parameter 'technicalTransactionId' is set
+        if ($technicalTransactionId === null || (is_array($technicalTransactionId) && count($technicalTransactionId) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $technicalTransactionId when calling apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPost'
+            );
+        }
+
+        $resourcePath = '/api/payment/v3/transaction/{technicalTransactionId}/switchPaymentMethod';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($technicalTransactionId !== null) {
+            $resourcePath = str_replace(
+                '{' . 'technicalTransactionId' . '}',
+                ObjectSerializer::toPathValue($technicalTransactionId),
+                $resourcePath
+            );
+        }
+
+        /*
+        */
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/hal+json', 'application/problem+json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/hal+json', 'application/problem+json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \http_build_query($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = http_build_query($queryParams);
+        return new Request(
+            'POST',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

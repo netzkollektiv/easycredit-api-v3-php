@@ -13,5 +13,6 @@ Name | Type | Description | Notes
 **refundDetails** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\Refund[]**](Refund.md) |  | [optional]
 **refundsTotalValue** | **float** | Sum of all the refund amounts in € | [optional]
 **expirationDateTime** | **\DateTime** | Expiration date for transactions in state REPORT_CAPTURE | [optional]
+**webshopId** | **string** | Webshop Id | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

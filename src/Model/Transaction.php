@@ -49,7 +49,8 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
         'customerRelationship' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\CustomerRelationship',
         'consent' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\Consent',
         'redirectLinks' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\RedirectLinks',
-        'paymentType' => 'string'
+        'paymentType' => 'string',
+        'paymentSwitchPossible' => 'bool'
     ];
 
     /**
@@ -67,7 +68,8 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
         'customerRelationship' => null,
         'consent' => null,
         'redirectLinks' => null,
-        'paymentType' => null
+        'paymentType' => null,
+        'paymentSwitchPossible' => null
     ];
 
     /**
@@ -104,7 +106,8 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
         'customerRelationship' => 'customerRelationship',
         'consent' => 'consent',
         'redirectLinks' => 'redirectLinks',
-        'paymentType' => 'paymentType'
+        'paymentType' => 'paymentType',
+        'paymentSwitchPossible' => 'paymentSwitchPossible'
     ];
 
     /**
@@ -120,7 +123,8 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
         'customerRelationship' => 'setCustomerRelationship',
         'consent' => 'setConsent',
         'redirectLinks' => 'setRedirectLinks',
-        'paymentType' => 'setPaymentType'
+        'paymentType' => 'setPaymentType',
+        'paymentSwitchPossible' => 'setPaymentSwitchPossible'
     ];
 
     /**
@@ -136,7 +140,8 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
         'customerRelationship' => 'getCustomerRelationship',
         'consent' => 'getConsent',
         'redirectLinks' => 'getRedirectLinks',
-        'paymentType' => 'getPaymentType'
+        'paymentType' => 'getPaymentType',
+        'paymentSwitchPossible' => 'getPaymentSwitchPossible'
     ];
 
     /**
@@ -219,6 +224,7 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['consent'] = $data['consent'] ?? null;
         $this->container['redirectLinks'] = $data['redirectLinks'] ?? null;
         $this->container['paymentType'] = $data['paymentType'] ?? 'INSTALLMENT_PAYMENT';
+        $this->container['paymentSwitchPossible'] = $data['paymentSwitchPossible'] ?? null;
     }
 
     /**
@@ -455,6 +461,30 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
         $this->container['paymentType'] = $paymentType;
+
+        return $this;
+    }
+
+    /**
+     * Gets paymentSwitchPossible
+     *
+     * @return bool|null
+     */
+    public function getPaymentSwitchPossible()
+    {
+        return $this->container['paymentSwitchPossible'];
+    }
+
+    /**
+     * Sets paymentSwitchPossible
+     *
+     * @param bool|null $paymentSwitchPossible paymentSwitchPossible
+     *
+     * @return self
+     */
+    public function setPaymentSwitchPossible($paymentSwitchPossible)
+    {
+        $this->container['paymentSwitchPossible'] = $paymentSwitchPossible;
 
         return $this;
     }

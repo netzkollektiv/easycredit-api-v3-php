@@ -12,12 +12,13 @@ All URIs are relative to https://partner.easycredit-ratenkauf.de, except if the 
 | [**apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPost()**](TransactionApi.md#apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPost) | **POST** /api/payment/v3/transaction/{technicalTransactionId}/authorization | Authorizes a transaction after finishing the process in a webshop |
 | [**apiPaymentV3TransactionTechnicalTransactionIdGet()**](TransactionApi.md#apiPaymentV3TransactionTechnicalTransactionIdGet) | **GET** /api/payment/v3/transaction/{technicalTransactionId} | Get the necessary information about the transaction |
 | [**apiPaymentV3TransactionTechnicalTransactionIdPatch()**](TransactionApi.md#apiPaymentV3TransactionTechnicalTransactionIdPatch) | **PATCH** /api/payment/v3/transaction/{technicalTransactionId} | Updates a transaction based on the given request |
+| [**apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPost()**](TransactionApi.md#apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPost) | **POST** /api/payment/v3/transaction/{technicalTransactionId}/switchPaymentMethod | Switch payment method |
 
 
 ## `apiMerchantV3TransactionGet()`
 
 ```php
-apiMerchantV3TransactionGet($firstname, $lastname, $orderId, $pageSize, $page, $status, $minOrderValue, $maxOrderValue, $tId): \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionListInfo
+apiMerchantV3TransactionGet($firstname, $lastname, $orderId, $pageSize, $page, $status, $minOrderValue, $maxOrderValue, $tId, $webshopIds): \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionListInfo
 ```
 
 Find transactions of a merchant according to some search parameters.
@@ -53,9 +54,10 @@ $status = array('status_example'); // string[]
 $minOrderValue = 200; // float
 $maxOrderValue = 9999.99; // float
 $tId = ["TKGZ67","TBKOP"]; // string[] | Multiple unique functional transaction identifier (consists of 6 characters) provided through the query
+$webshopIds = array('webshopIds_example'); // string[]
 
 try {
-    $result = $apiInstance->apiMerchantV3TransactionGet($firstname, $lastname, $orderId, $pageSize, $page, $status, $minOrderValue, $maxOrderValue, $tId);
+    $result = $apiInstance->apiMerchantV3TransactionGet($firstname, $lastname, $orderId, $pageSize, $page, $status, $minOrderValue, $maxOrderValue, $tId, $webshopIds);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling TransactionApi->apiMerchantV3TransactionGet: ', $e->getMessage(), PHP_EOL;
@@ -75,6 +77,7 @@ try {
 | **minOrderValue** | **float**|  | [optional] |
 | **maxOrderValue** | **float**|  | [optional] |
 | **tId** | [**string[]**](../Model/string.md)| Multiple unique functional transaction identifier (consists of 6 characters) provided through the query | [optional] |
+| **webshopIds** | [**string[]**](../Model/string.md)|  | [optional] |
 
 ### Return type
 
@@ -533,6 +536,62 @@ try {
 ### HTTP request headers
 
 - **Content-Type**: `application/json`
+- **Accept**: `application/hal+json`, `application/problem+json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPost()`
+
+```php
+apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPost($technicalTransactionId): \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformation
+```
+
+Switch payment method
+
+' Switch payment method for transaction to other variant, e.g. from installment plan to invoice. '
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Teambank\RatenkaufByEasyCreditApiV3\Api\TransactionApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$technicalTransactionId = 'technicalTransactionId_example'; // string | Unique TeamBank transaction identifier
+
+try {
+    $result = $apiInstance->apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPost($technicalTransactionId);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling TransactionApi->apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPost: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **technicalTransactionId** | **string**| Unique TeamBank transaction identifier | |
+
+### Return type
+
+[**\Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformation**](../Model/TransactionInformation.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: `application/hal+json`, `application/problem+json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
