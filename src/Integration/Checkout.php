@@ -117,7 +117,7 @@ class Checkout implements CheckoutInterface {
         $token = $this->storage->get('token');
 
         if (empty($token)) {
-            throw new InitializationException('easyCredit-Ratenkauf payment was not initialized');
+            throw new InitializationException('easyCredit payment was not initialized');
         }
         return $token;
     }
@@ -135,7 +135,7 @@ class Checkout implements CheckoutInterface {
             case TransactionInformation::STATUS_OPEN:
             case TransactionInformation::STATUS_DECLINED:
             case TransactionInformation::STATUS_EXPIRED:
-                throw new InitializationException('easyCredit-Ratenkauf transaction is not valid, status: '.$result->getStatus());
+                throw new InitializationException('easyCredit transaction is not valid, status: '.$result->getStatus());
 
             case TransactionInformation::STATUS_PREAUTHORIZED:
                 $this->storage->set(

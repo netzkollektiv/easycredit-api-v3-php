@@ -66,17 +66,17 @@ class AddressValidator {
 
 	public function validate($request) {
         if (!$this->isCustomerSameAsBilling($request)) {
-            throw new ValidationException('Zur Zahlung mit easyCredit-Ratenkauf, müssen der Rechnungsempfänger und der Inhaber des Kundenkontos identisch sein.
+            throw new ValidationException('Zur Zahlung mit easyCredit, müssen der Rechnungsempfänger und der Inhaber des Kundenkontos identisch sein.
                 Bitte ändern Sie den Namen des Rechnungsempfängers entsprechend ab.');
         }
 
         if (!$this->addressesEqual($request)) {
-            throw new AddressValidationException('Zur Zahlung mit easyCredit-Ratenkauf muss die Rechnungsadresse mit der Lieferadresse übereinstimmen.');
+            throw new AddressValidationException('Zur Zahlung mit easyCredit muss die Rechnungsadresse mit der Lieferadresse übereinstimmen.');
         }
 
         $company = $request->getCustomer()->getCompanyName();
         if (trim((string) $company) != '') {
-            throw new ValidationException('easyCredit-Ratenkauf ist nur für Privatpersonen möglich.');
+            throw new ValidationException('Die Zahlung mit easyCredit ist nur für Privatpersonen möglich.');
         }
     }
 }
