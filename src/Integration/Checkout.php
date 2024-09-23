@@ -53,9 +53,6 @@ class Checkout implements CheckoutInterface {
     public function start(
         Transaction $request
     ) {
-        $this->storage
-            ->set('uniqid', uniqid());
-
         $result = $this->transactionApi->apiPaymentV3TransactionPost($request);
 
         $this->storage
@@ -63,6 +60,7 @@ class Checkout implements CheckoutInterface {
             ->set('transaction_id', $result->getTransactionId())
             ->set('authorized_amount', $request->getOrderDetails()->getOrderValue())
             ->set('address_hash', $this->addressValidator->hashAddress($request->getOrderDetails()->getShippingAddress()))
+            ->set('payment_type', $result->getTransactionInformation()->getTransaction()->getPaymentType())
             ->set('redirect_url', $result->getRedirectUrl());
 
         return $this;
