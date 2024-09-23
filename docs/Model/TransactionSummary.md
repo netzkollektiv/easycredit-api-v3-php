@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **deviceIdentToken** | **string** |  | [optional]
 **orderValue** | **float** | Amount of the order value in € ( &#x3D; Bestellwert in €) | [optional]
 **interest** | **float** | Amount of the interest accrued in € ( &#x3D; anfallender Zinsbetrag in €) | [optional]
+**originalInterest** | **float** | Amount of the original interest accrued in € ( &#x3D; urspruenglicher Zinsbetrag in €) | [optional]
 **nominalInterest** | **float** | ( &#x3D; nominalzins in €) | [optional]
 **effectiveInterest** | **float** | ( &#x3D; effektivzins in €) | [optional]
 **merchantSpecificInterest** | **float** | ( &#x3D; haendlerspezifischerZinssatz in €) | [optional]

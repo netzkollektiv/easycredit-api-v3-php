@@ -42,6 +42,7 @@ class Plan implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
+        'originalInterest' => 'float',
         'numberOfInstallments' => 'int',
         'installment' => 'float',
         'totalInterest' => 'float',
@@ -57,6 +58,7 @@ class Plan implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'originalInterest' => null,
         'numberOfInstallments' => null,
         'installment' => null,
         'totalInterest' => null,
@@ -91,6 +93,7 @@ class Plan implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'originalInterest' => 'originalInterest',
         'numberOfInstallments' => 'numberOfInstallments',
         'installment' => 'installment',
         'totalInterest' => 'totalInterest',
@@ -104,6 +107,7 @@ class Plan implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'originalInterest' => 'setOriginalInterest',
         'numberOfInstallments' => 'setNumberOfInstallments',
         'installment' => 'setInstallment',
         'totalInterest' => 'setTotalInterest',
@@ -117,6 +121,7 @@ class Plan implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'originalInterest' => 'getOriginalInterest',
         'numberOfInstallments' => 'getNumberOfInstallments',
         'installment' => 'getInstallment',
         'totalInterest' => 'getTotalInterest',
@@ -181,6 +186,7 @@ class Plan implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
+        $this->container['originalInterest'] = $data['originalInterest'] ?? null;
         $this->container['numberOfInstallments'] = $data['numberOfInstallments'] ?? null;
         $this->container['installment'] = $data['installment'] ?? null;
         $this->container['totalInterest'] = $data['totalInterest'] ?? null;
@@ -211,6 +217,30 @@ class Plan implements ModelInterface, ArrayAccess, \JsonSerializable
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets originalInterest
+     *
+     * @return float|null
+     */
+    public function getOriginalInterest()
+    {
+        return $this->container['originalInterest'];
+    }
+
+    /**
+     * Sets originalInterest
+     *
+     * @param float|null $originalInterest This value differs from the total interest value only if a flex interest action is active. The value represents the interest amount that would accrue at the regular interest rate.
+     *
+     * @return self
+     */
+    public function setOriginalInterest($originalInterest)
+    {
+        $this->container['originalInterest'] = $originalInterest;
+
+        return $this;
+    }
 
     /**
      * Gets numberOfInstallments

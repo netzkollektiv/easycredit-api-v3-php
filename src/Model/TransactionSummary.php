@@ -46,6 +46,7 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
         'deviceIdentToken' => 'string',
         'orderValue' => 'float',
         'interest' => 'float',
+        'originalInterest' => 'float',
         'nominalInterest' => 'float',
         'effectiveInterest' => 'float',
         'merchantSpecificInterest' => 'float',
@@ -78,6 +79,7 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
         'deviceIdentToken' => null,
         'orderValue' => null,
         'interest' => null,
+        'originalInterest' => null,
         'nominalInterest' => null,
         'effectiveInterest' => null,
         'merchantSpecificInterest' => null,
@@ -129,6 +131,7 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
         'deviceIdentToken' => 'deviceIdentToken',
         'orderValue' => 'orderValue',
         'interest' => 'interest',
+        'originalInterest' => 'originalInterest',
         'nominalInterest' => 'nominalInterest',
         'effectiveInterest' => 'effectiveInterest',
         'merchantSpecificInterest' => 'merchantSpecificInterest',
@@ -159,6 +162,7 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
         'deviceIdentToken' => 'setDeviceIdentToken',
         'orderValue' => 'setOrderValue',
         'interest' => 'setInterest',
+        'originalInterest' => 'setOriginalInterest',
         'nominalInterest' => 'setNominalInterest',
         'effectiveInterest' => 'setEffectiveInterest',
         'merchantSpecificInterest' => 'setMerchantSpecificInterest',
@@ -189,6 +193,7 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
         'deviceIdentToken' => 'getDeviceIdentToken',
         'orderValue' => 'getOrderValue',
         'interest' => 'getInterest',
+        'originalInterest' => 'getOriginalInterest',
         'nominalInterest' => 'getNominalInterest',
         'effectiveInterest' => 'getEffectiveInterest',
         'merchantSpecificInterest' => 'getMerchantSpecificInterest',
@@ -285,6 +290,7 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
         $this->container['deviceIdentToken'] = $data['deviceIdentToken'] ?? null;
         $this->container['orderValue'] = $data['orderValue'] ?? null;
         $this->container['interest'] = $data['interest'] ?? null;
+        $this->container['originalInterest'] = $data['originalInterest'] ?? null;
         $this->container['nominalInterest'] = $data['nominalInterest'] ?? null;
         $this->container['effectiveInterest'] = $data['effectiveInterest'] ?? null;
         $this->container['merchantSpecificInterest'] = $data['merchantSpecificInterest'] ?? null;
@@ -430,6 +436,30 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
     public function setInterest($interest)
     {
         $this->container['interest'] = $interest;
+
+        return $this;
+    }
+
+    /**
+     * Gets originalInterest
+     *
+     * @return float|null
+     */
+    public function getOriginalInterest()
+    {
+        return $this->container['originalInterest'];
+    }
+
+    /**
+     * Sets originalInterest
+     *
+     * @param float|null $originalInterest Amount of the original interest accrued in € ( = urspruenglicher Zinsbetrag in €)
+     *
+     * @return self
+     */
+    public function setOriginalInterest($originalInterest)
+    {
+        $this->container['originalInterest'] = $originalInterest;
 
         return $this;
     }

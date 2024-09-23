@@ -485,7 +485,7 @@ apiPaymentV3TransactionTechnicalTransactionIdPatch($technicalTransactionId, $tra
 
 Updates a transaction based on the given request
 
-Based on the unique TeamBank identifier, transaction's specific data is modified. Supports body signature.
+Based on the unique TeamBank identifier, the specific data of the transaction can be changed in the ‘PREAUTHORIZED’ status. Supports the body signature.
 
 ### Example
 

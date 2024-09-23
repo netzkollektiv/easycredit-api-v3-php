@@ -44,7 +44,8 @@ class Interests implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'effectiveInterest' => 'float',
         'nominalInterest' => 'float',
-        'interest' => 'float'
+        'interest' => 'float',
+        'originalInterest' => 'float'
     ];
 
     /**
@@ -57,7 +58,8 @@ class Interests implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'effectiveInterest' => null,
         'nominalInterest' => null,
-        'interest' => null
+        'interest' => null,
+        'originalInterest' => null
     ];
 
     /**
@@ -89,7 +91,8 @@ class Interests implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'effectiveInterest' => 'effectiveInterest',
         'nominalInterest' => 'nominalInterest',
-        'interest' => 'interest'
+        'interest' => 'interest',
+        'originalInterest' => 'originalInterest'
     ];
 
     /**
@@ -100,7 +103,8 @@ class Interests implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'effectiveInterest' => 'setEffectiveInterest',
         'nominalInterest' => 'setNominalInterest',
-        'interest' => 'setInterest'
+        'interest' => 'setInterest',
+        'originalInterest' => 'setOriginalInterest'
     ];
 
     /**
@@ -111,7 +115,8 @@ class Interests implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'effectiveInterest' => 'getEffectiveInterest',
         'nominalInterest' => 'getNominalInterest',
-        'interest' => 'getInterest'
+        'interest' => 'getInterest',
+        'originalInterest' => 'getOriginalInterest'
     ];
 
     /**
@@ -174,6 +179,7 @@ class Interests implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['effectiveInterest'] = $data['effectiveInterest'] ?? null;
         $this->container['nominalInterest'] = $data['nominalInterest'] ?? null;
         $this->container['interest'] = $data['interest'] ?? null;
+        $this->container['originalInterest'] = $data['originalInterest'] ?? null;
     }
 
     /**
@@ -268,6 +274,30 @@ class Interests implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setInterest($interest)
     {
         $this->container['interest'] = $interest;
+
+        return $this;
+    }
+
+    /**
+     * Gets originalInterest
+     *
+     * @return float|null
+     */
+    public function getOriginalInterest()
+    {
+        return $this->container['originalInterest'];
+    }
+
+    /**
+     * Sets originalInterest
+     *
+     * @param float|null $originalInterest Amount of the original interest accrued in € ( = unspruenglicher Zinsbetrag in €)
+     *
+     * @return self
+     */
+    public function setOriginalInterest($originalInterest)
+    {
+        $this->container['originalInterest'] = $originalInterest;
 
         return $this;
     }
