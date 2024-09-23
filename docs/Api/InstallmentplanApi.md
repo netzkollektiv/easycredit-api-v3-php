@@ -1,4 +1,4 @@
-# Teambank\RatenkaufByEasyCreditApiV3\InstallmentplanApi
+# Teambank\EasyCreditApiV3\InstallmentplanApi
 
 All URIs are relative to https://partner.easycredit-ratenkauf.de, except if the operation defines another base path.
 
@@ -10,7 +10,7 @@ All URIs are relative to https://partner.easycredit-ratenkauf.de, except if the 
 ## `apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPost()`
 
 ```php
-apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPost($shopIdentifier, $installmentPlanRequest): \Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanResponse
+apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPost($shopIdentifier, $installmentPlanRequest): \Teambank\EasyCreditApiV3\Model\InstallmentPlanResponse
 ```
 
 Calculates the installmentplan
@@ -25,13 +25,13 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 
-$apiInstance = new Teambank\RatenkaufByEasyCreditApiV3\Api\InstallmentplanApi(
+$apiInstance = new Teambank\EasyCreditApiV3\Api\InstallmentplanApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
 $shopIdentifier = 'shopIdentifier_example'; // string | Shop Identifier
-$installmentPlanRequest = new \Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanRequest(); // \Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanRequest | integration check request
+$installmentPlanRequest = new \Teambank\EasyCreditApiV3\Model\InstallmentPlanRequest(); // \Teambank\EasyCreditApiV3\Model\InstallmentPlanRequest | integration check request
 
 try {
     $result = $apiInstance->apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPost($shopIdentifier, $installmentPlanRequest);
@@ -46,11 +46,11 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **shopIdentifier** | **string**| Shop Identifier | |
-| **installmentPlanRequest** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanRequest**](../Model/InstallmentPlanRequest.md)| integration check request | [optional] |
+| **installmentPlanRequest** | [**\Teambank\EasyCreditApiV3\Model\InstallmentPlanRequest**](../Model/InstallmentPlanRequest.md)| integration check request | [optional] |
 
 ### Return type
 
-[**\Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanResponse**](../Model/InstallmentPlanResponse.md)
+[**\Teambank\EasyCreditApiV3\Model\InstallmentPlanResponse**](../Model/InstallmentPlanResponse.md)
 
 ### Authorization
 

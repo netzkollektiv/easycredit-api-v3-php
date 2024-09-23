@@ -3,7 +3,7 @@
  * InstallmentPlanResponse
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,16 +11,16 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3\Model;
+namespace Teambank\EasyCreditApiV3\Model;
 
 use \ArrayAccess;
-use \Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
+use \Teambank\EasyCreditApiV3\ObjectSerializer;
 
 /**
  * InstallmentPlanResponse Class Doc Comment
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
@@ -42,7 +42,7 @@ class InstallmentPlanResponse implements ModelInterface, ArrayAccess, \JsonSeria
       * @var string[]
       */
     protected static $openAPITypes = [
-        'installmentPlans' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\CalculatorInstallmentPlan[]',
+        'installmentPlans' => '\Teambank\EasyCreditApiV3\Model\CalculatorInstallmentPlan[]',
         'minFinancingAmount' => 'int',
         'maxFinancingAmount' => 'int'
     ];
@@ -203,7 +203,7 @@ class InstallmentPlanResponse implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Gets installmentPlans
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\CalculatorInstallmentPlan[]|null
+     * @return \Teambank\EasyCreditApiV3\Model\CalculatorInstallmentPlan[]|null
      */
     public function getInstallmentPlans()
     {
@@ -213,7 +213,7 @@ class InstallmentPlanResponse implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets installmentPlans
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\CalculatorInstallmentPlan[]|null $installmentPlans installmentPlans
+     * @param \Teambank\EasyCreditApiV3\Model\CalculatorInstallmentPlan[]|null $installmentPlans installmentPlans
      *
      * @return self
      */

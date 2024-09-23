@@ -1,5 +1,5 @@
 <?php
-namespace Teambank\RatenkaufByEasyCreditApiV3\Integration;
+namespace Teambank\EasyCreditApiV3\Integration;
 
 use \Exception;
 
@@ -7,7 +7,7 @@ use \Exception;
  * ValidationException Class Doc Comment
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  */
 
 class ValidationException extends Exception

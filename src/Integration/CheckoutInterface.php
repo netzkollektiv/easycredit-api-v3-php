@@ -1,7 +1,7 @@
 <?php
-namespace Teambank\RatenkaufByEasyCreditApiV3\Integration;
+namespace Teambank\EasyCreditApiV3\Integration;
 
-use Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction;
+use Teambank\EasyCreditApiV3\Model\Transaction;
 
 interface CheckoutInterface {
 

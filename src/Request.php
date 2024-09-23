@@ -3,7 +3,7 @@
  * 
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  * @author   guzzle-psr7
  * @link     https://github.com/guzzle/psr7
  */
@@ -23,7 +23,7 @@
  * Do not edit the class manually.
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3;
+namespace Teambank\EasyCreditApiV3;
 
 use InvalidArgumentException;
 use Psr\Http\Message\RequestInterface;

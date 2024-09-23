@@ -3,7 +3,7 @@
  * RefundBooking
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,14 +11,14 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3\Model;
-use \Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
+namespace Teambank\EasyCreditApiV3\Model;
+use \Teambank\EasyCreditApiV3\ObjectSerializer;
 
 /**
  * RefundBooking Class Doc Comment
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null

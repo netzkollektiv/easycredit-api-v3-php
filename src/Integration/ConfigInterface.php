@@ -1,9 +1,8 @@
 <?php
-namespace Teambank\RatenkaufByEasyCreditApiV3\Integration;
+namespace Teambank\EasyCreditApiV3\Integration;
 
 interface ConfigInterface {
 
     public function getWebshopId();
     public function getWebshopToken();
 }
-

@@ -3,7 +3,7 @@
  * Transaction
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,16 +11,16 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3\Model;
+namespace Teambank\EasyCreditApiV3\Model;
 
 use \ArrayAccess;
-use \Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
+use \Teambank\EasyCreditApiV3\ObjectSerializer;
 
 /**
  * Transaction Class Doc Comment
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
@@ -43,12 +43,12 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'financingTerm' => 'int',
-        'orderDetails' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\OrderDetails',
-        'shopsystem' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\Shopsystem',
-        'customer' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\Customer',
-        'customerRelationship' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\CustomerRelationship',
-        'consent' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\Consent',
-        'redirectLinks' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\RedirectLinks',
+        'orderDetails' => '\Teambank\EasyCreditApiV3\Model\OrderDetails',
+        'shopsystem' => '\Teambank\EasyCreditApiV3\Model\Shopsystem',
+        'customer' => '\Teambank\EasyCreditApiV3\Model\Customer',
+        'customerRelationship' => '\Teambank\EasyCreditApiV3\Model\CustomerRelationship',
+        'consent' => '\Teambank\EasyCreditApiV3\Model\Consent',
+        'redirectLinks' => '\Teambank\EasyCreditApiV3\Model\RedirectLinks',
         'paymentType' => 'string',
         'paymentSwitchPossible' => 'bool'
     ];
@@ -290,7 +290,7 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets orderDetails
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\OrderDetails
+     * @return \Teambank\EasyCreditApiV3\Model\OrderDetails
      */
     public function getOrderDetails()
     {
@@ -300,7 +300,7 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets orderDetails
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\OrderDetails $orderDetails orderDetails
+     * @param \Teambank\EasyCreditApiV3\Model\OrderDetails $orderDetails orderDetails
      *
      * @return self
      */
@@ -314,7 +314,7 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets shopsystem
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\Shopsystem|null
+     * @return \Teambank\EasyCreditApiV3\Model\Shopsystem|null
      */
     public function getShopsystem()
     {
@@ -324,7 +324,7 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets shopsystem
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Shopsystem|null $shopsystem shopsystem
+     * @param \Teambank\EasyCreditApiV3\Model\Shopsystem|null $shopsystem shopsystem
      *
      * @return self
      */
@@ -338,7 +338,7 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets customer
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\Customer|null
+     * @return \Teambank\EasyCreditApiV3\Model\Customer|null
      */
     public function getCustomer()
     {
@@ -348,7 +348,7 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets customer
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Customer|null $customer customer
+     * @param \Teambank\EasyCreditApiV3\Model\Customer|null $customer customer
      *
      * @return self
      */
@@ -362,7 +362,7 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets customerRelationship
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\CustomerRelationship|null
+     * @return \Teambank\EasyCreditApiV3\Model\CustomerRelationship|null
      */
     public function getCustomerRelationship()
     {
@@ -372,7 +372,7 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets customerRelationship
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\CustomerRelationship|null $customerRelationship customerRelationship
+     * @param \Teambank\EasyCreditApiV3\Model\CustomerRelationship|null $customerRelationship customerRelationship
      *
      * @return self
      */
@@ -386,7 +386,7 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets consent
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\Consent|null
+     * @return \Teambank\EasyCreditApiV3\Model\Consent|null
      */
     public function getConsent()
     {
@@ -396,7 +396,7 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets consent
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Consent|null $consent consent
+     * @param \Teambank\EasyCreditApiV3\Model\Consent|null $consent consent
      *
      * @return self
      */
@@ -410,7 +410,7 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets redirectLinks
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\RedirectLinks|null
+     * @return \Teambank\EasyCreditApiV3\Model\RedirectLinks|null
      */
     public function getRedirectLinks()
     {
@@ -420,7 +420,7 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets redirectLinks
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\RedirectLinks|null $redirectLinks redirectLinks
+     * @param \Teambank\EasyCreditApiV3\Model\RedirectLinks|null $redirectLinks redirectLinks
      *
      * @return self
      */

@@ -1,16 +1,19 @@
 {
-    "name": "netzkollektiv/ratenkaufbyeasycredit-api-v3-php",
+    "name": "netzkollektiv/easycredit-api-v3-php",
     "description": "Transaction-V3 API for Merchant Portal  Ratenkauf Verkauf-V3 API for ratenkauf App  Ratenkauf Ratenrechner-V3 API for ratenkauf App",
     "keywords": [
-        "ratenkaufbyeasycredit",
         "easycredit",
         "ratenkauf",
+        "rechnung",
+        "easycredit ratenkauf",
+        "easycredit rechnung",
         "php",
         "sdk",
         "rest",
-        "api"
+        "api",
+        "ratenkaufbyeasycredit",
     ],
-    "homepage": "https://github.com/netzkollektiv/ratenkaufbyeasycredit-api-v3",
+    "homepage": "https://github.com/netzkollektiv/easycredit-api-v3",
     "license": "MIT",
     "authors": [
         {
@@ -35,9 +38,9 @@
         "friendsofphp/php-cs-fixer": "^2.12"
     },
     "autoload": {
-        "psr-4": { "Teambank\\RatenkaufByEasyCreditApiV3\\" : "src//" }
+        "psr-4": { "Teambank\\EasyCreditApiV3\\" : "src//" }
     },
     "autoload-dev": {
-        "psr-4": { "Teambank\\RatenkaufByEasyCreditApiV3\\Test\\" : "test/" }
+        "psr-4": { "Teambank\\EasyCreditApiV3\\Test\\" : "test/" }
     }
 }

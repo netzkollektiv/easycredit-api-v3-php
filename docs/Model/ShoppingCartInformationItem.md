@@ -11,6 +11,6 @@ Name | Type | Description | Notes
 **productCategory** | **string** |  | [optional]
 **productImageUrl** | **string** |  | [optional]
 **productUrl** | **string** |  | [optional]
-**articleNumber** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\ArticleNumberItem[]**](ArticleNumberItem.md) | Article number of a product | [optional]
+**articleNumber** | [**\Teambank\EasyCreditApiV3\Model\ArticleNumberItem[]**](ArticleNumberItem.md) | Article number of a product | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

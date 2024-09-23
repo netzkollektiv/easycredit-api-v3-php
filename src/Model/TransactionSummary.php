@@ -3,7 +3,7 @@
  * TransactionSummary
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,16 +11,16 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3\Model;
+namespace Teambank\EasyCreditApiV3\Model;
 
 use \ArrayAccess;
-use \Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
+use \Teambank\EasyCreditApiV3\ObjectSerializer;
 
 /**
  * TransactionSummary Class Doc Comment
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
@@ -62,9 +62,9 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
         'lastInstallmentDate' => '\DateTime',
         'amortizationPlanText' => 'string',
         'urlPreContractualInformation' => 'string',
-        'installmentPlans' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlan[]',
-        'mtan' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\MTan',
-        'bankAccountCheck' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\BankAccountCheck'
+        'installmentPlans' => '\Teambank\EasyCreditApiV3\Model\InstallmentPlan[]',
+        'mtan' => '\Teambank\EasyCreditApiV3\Model\MTan',
+        'bankAccountCheck' => '\Teambank\EasyCreditApiV3\Model\BankAccountCheck'
     ];
 
     /**
@@ -837,7 +837,7 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets installmentPlans
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlan[]|null
+     * @return \Teambank\EasyCreditApiV3\Model\InstallmentPlan[]|null
      */
     public function getInstallmentPlans()
     {
@@ -847,7 +847,7 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets installmentPlans
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlan[]|null $installmentPlans List of possible installment payment plans
+     * @param \Teambank\EasyCreditApiV3\Model\InstallmentPlan[]|null $installmentPlans List of possible installment payment plans
      *
      * @return self
      */
@@ -861,7 +861,7 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets mtan
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\MTan|null
+     * @return \Teambank\EasyCreditApiV3\Model\MTan|null
      */
     public function getMtan()
     {
@@ -871,7 +871,7 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets mtan
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\MTan|null $mtan mtan
+     * @param \Teambank\EasyCreditApiV3\Model\MTan|null $mtan mtan
      *
      * @return self
      */
@@ -885,7 +885,7 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets bankAccountCheck
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\BankAccountCheck|null
+     * @return \Teambank\EasyCreditApiV3\Model\BankAccountCheck|null
      */
     public function getBankAccountCheck()
     {
@@ -895,7 +895,7 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets bankAccountCheck
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\BankAccountCheck|null $bankAccountCheck bankAccountCheck
+     * @param \Teambank\EasyCreditApiV3\Model\BankAccountCheck|null $bankAccountCheck bankAccountCheck
      *
      * @return self
      */

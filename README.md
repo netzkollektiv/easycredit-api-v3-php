@@ -1,6 +1,6 @@
-# ratenkauf by easyCredit API v3 PHP Library
+# easyCredit API v3 PHP Library
 
-The ratenkauf by easyCredit API v3 Library is the official PHP library for using the following ratenkauf by easyCredit API's:
+The easyCredit API v3 Library is the official PHP library for using the following easyCredit API's:
 
  * Payment API v3 (https://ratenkauf.easycredit.de/api/payment/v3/openapi)
  * Calculator API v3 (https://ratenkauf.easycredit.de/api/ratenrechner/v3/openapi)
@@ -21,11 +21,11 @@ To install the API Library via [Composer](https://getcomposer.org/), add the fol
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://github.com/netzkollektiv/ratenkaufbyeasycredit-api-v3-php.git"
+      "url": "https://github.com/netzkollektiv/easycredit-api-v3-php.git"
     }
   ],
   "require": {
-    "netzkollektiv/ratenkaufbyeasycredit-api-v3-php": "*@dev"
+    "netzkollektiv/easycredit-api-v3-php": "*@dev"
   }
 }
 ```
@@ -38,7 +38,7 @@ Download the files and include `autoload.php`:
 
 ```php
 <?php
-require_once('/path/to/ratenkaufbyeasycredit-api-v3-php/vendor/autoload.php');
+require_once('/path/to/easycredit-api-v3-php/vendor/autoload.php');
 ```
 
 ## Getting Started
@@ -52,13 +52,13 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure HTTP basic authorization: basicAuth
-$config = Teambank\RatenkaufByEasyCreditApiV3\Configuration::getDefaultConfiguration()
+$config = Teambank\EasyCreditApiV3\Configuration::getDefaultConfiguration()
               ->setHost('https://ratenkauf.easycredit.de')
               ->setUsername('1.de.1234.1') // use your "Webshop-ID"
               ->setPassword('YOUR_API_KEY'); // use your "API-Kennwort"
 
 
-$apiInstance = new Teambank\RatenkaufByEasyCreditApiV3\Api\DocumentApi(
+$apiInstance = new Teambank\EasyCreditApiV3\Api\DocumentApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),

@@ -11,9 +11,9 @@ Name | Type | Description | Notes
 **birthName** | **string** | Buyer birth name | [optional]
 **birthPlace** | **string** | Buyer birth place | [optional]
 **title** | **string** |  | [optional]
-**contact** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\Contact**](Contact.md) |  | [optional]
-**bank** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\Bank**](Bank.md) |  | [optional]
-**employment** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\Employment**](Employment.md) |  | [optional]
+**contact** | [**\Teambank\EasyCreditApiV3\Model\Contact**](Contact.md) |  | [optional]
+**bank** | [**\Teambank\EasyCreditApiV3\Model\Bank**](Bank.md) |  | [optional]
+**employment** | [**\Teambank\EasyCreditApiV3\Model\Employment**](Employment.md) |  | [optional]
 **companyName** | **string** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

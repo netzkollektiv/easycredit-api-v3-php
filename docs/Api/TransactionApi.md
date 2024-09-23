@@ -1,4 +1,4 @@
-# Teambank\RatenkaufByEasyCreditApiV3\TransactionApi
+# Teambank\EasyCreditApiV3\TransactionApi
 
 All URIs are relative to https://partner.easycredit-ratenkauf.de, except if the operation defines another base path.
 
@@ -18,7 +18,7 @@ All URIs are relative to https://partner.easycredit-ratenkauf.de, except if the 
 ## `apiMerchantV3TransactionGet()`
 
 ```php
-apiMerchantV3TransactionGet($firstname, $lastname, $orderId, $pageSize, $page, $status, $minOrderValue, $maxOrderValue, $tId, $webshopIds): \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionListInfo
+apiMerchantV3TransactionGet($firstname, $lastname, $orderId, $pageSize, $page, $status, $minOrderValue, $maxOrderValue, $tId, $webshopIds): \Teambank\EasyCreditApiV3\Model\TransactionListInfo
 ```
 
 Find transactions of a merchant according to some search parameters.
@@ -33,13 +33,13 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure HTTP basic authorization: basicAuth
-$config = Teambank\RatenkaufByEasyCreditApiV3\Configuration::getDefaultConfiguration()
+$config = Teambank\EasyCreditApiV3\Configuration::getDefaultConfiguration()
               ->setHost('https://ratenkauf.easycredit.de')
               ->setUsername('1.de.1234.1') // use your "Webshop-ID"
               ->setPassword('YOUR_API_KEY'); // use your "API-Kennwort"
 
 
-$apiInstance = new Teambank\RatenkaufByEasyCreditApiV3\Api\TransactionApi(
+$apiInstance = new Teambank\EasyCreditApiV3\Api\TransactionApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
@@ -81,7 +81,7 @@ try {
 
 ### Return type
 
-[**\Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionListInfo**](../Model/TransactionListInfo.md)
+[**\Teambank\EasyCreditApiV3\Model\TransactionListInfo**](../Model/TransactionListInfo.md)
 
 ### Authorization
 
@@ -114,20 +114,20 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure HTTP basic authorization: basicAuth
-$config = Teambank\RatenkaufByEasyCreditApiV3\Configuration::getDefaultConfiguration()
+$config = Teambank\EasyCreditApiV3\Configuration::getDefaultConfiguration()
               ->setHost('https://ratenkauf.easycredit.de')
               ->setUsername('1.de.1234.1') // use your "Webshop-ID"
               ->setPassword('YOUR_API_KEY'); // use your "API-Kennwort"
 
 
-$apiInstance = new Teambank\RatenkaufByEasyCreditApiV3\Api\TransactionApi(
+$apiInstance = new Teambank\EasyCreditApiV3\Api\TransactionApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
 $transactionId = EWZEN7; // string | Unique functional transaction identifier (consists of 6 characters)
-$captureRequest = new \Teambank\RatenkaufByEasyCreditApiV3\Model\CaptureRequest(); // \Teambank\RatenkaufByEasyCreditApiV3\Model\CaptureRequest | Capture Request Object
+$captureRequest = new \Teambank\EasyCreditApiV3\Model\CaptureRequest(); // \Teambank\EasyCreditApiV3\Model\CaptureRequest | Capture Request Object
 
 try {
     $apiInstance->apiMerchantV3TransactionTransactionIdCapturePost($transactionId, $captureRequest);
@@ -141,7 +141,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **transactionId** | **string**| Unique functional transaction identifier (consists of 6 characters) | |
-| **captureRequest** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\CaptureRequest**](../Model/CaptureRequest.md)| Capture Request Object | [optional] |
+| **captureRequest** | [**\Teambank\EasyCreditApiV3\Model\CaptureRequest**](../Model/CaptureRequest.md)| Capture Request Object | [optional] |
 
 ### Return type
 
@@ -163,7 +163,7 @@ void (empty response body)
 ## `apiMerchantV3TransactionTransactionIdGet()`
 
 ```php
-apiMerchantV3TransactionTransactionIdGet($transactionId): \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionResponse
+apiMerchantV3TransactionTransactionIdGet($transactionId): \Teambank\EasyCreditApiV3\Model\TransactionResponse
 ```
 
 Retrieve a transaction of a merchant according to a unique functional identifier
@@ -178,13 +178,13 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure HTTP basic authorization: basicAuth
-$config = Teambank\RatenkaufByEasyCreditApiV3\Configuration::getDefaultConfiguration()
+$config = Teambank\EasyCreditApiV3\Configuration::getDefaultConfiguration()
               ->setHost('https://ratenkauf.easycredit.de')
               ->setUsername('1.de.1234.1') // use your "Webshop-ID"
               ->setPassword('YOUR_API_KEY'); // use your "API-Kennwort"
 
 
-$apiInstance = new Teambank\RatenkaufByEasyCreditApiV3\Api\TransactionApi(
+$apiInstance = new Teambank\EasyCreditApiV3\Api\TransactionApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
@@ -208,7 +208,7 @@ try {
 
 ### Return type
 
-[**\Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionResponse**](../Model/TransactionResponse.md)
+[**\Teambank\EasyCreditApiV3\Model\TransactionResponse**](../Model/TransactionResponse.md)
 
 ### Authorization
 
@@ -241,20 +241,20 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure HTTP basic authorization: basicAuth
-$config = Teambank\RatenkaufByEasyCreditApiV3\Configuration::getDefaultConfiguration()
+$config = Teambank\EasyCreditApiV3\Configuration::getDefaultConfiguration()
               ->setHost('https://ratenkauf.easycredit.de')
               ->setUsername('1.de.1234.1') // use your "Webshop-ID"
               ->setPassword('YOUR_API_KEY'); // use your "API-Kennwort"
 
 
-$apiInstance = new Teambank\RatenkaufByEasyCreditApiV3\Api\TransactionApi(
+$apiInstance = new Teambank\EasyCreditApiV3\Api\TransactionApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
 $transactionId = EWZEN7; // string | Unique functional transaction identifier (consists of 6 characters)
-$refundRequest = new \Teambank\RatenkaufByEasyCreditApiV3\Model\RefundRequest(); // \Teambank\RatenkaufByEasyCreditApiV3\Model\RefundRequest | Refund Request Object
+$refundRequest = new \Teambank\EasyCreditApiV3\Model\RefundRequest(); // \Teambank\EasyCreditApiV3\Model\RefundRequest | Refund Request Object
 
 try {
     $apiInstance->apiMerchantV3TransactionTransactionIdRefundPost($transactionId, $refundRequest);
@@ -268,7 +268,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **transactionId** | **string**| Unique functional transaction identifier (consists of 6 characters) | |
-| **refundRequest** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\RefundRequest**](../Model/RefundRequest.md)| Refund Request Object | [optional] |
+| **refundRequest** | [**\Teambank\EasyCreditApiV3\Model\RefundRequest**](../Model/RefundRequest.md)| Refund Request Object | [optional] |
 
 ### Return type
 
@@ -290,7 +290,7 @@ void (empty response body)
 ## `apiPaymentV3TransactionPost()`
 
 ```php
-apiPaymentV3TransactionPost($transaction): \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInitResponse
+apiPaymentV3TransactionPost($transaction): \Teambank\EasyCreditApiV3\Model\TransactionInitResponse
 ```
 
 Initiates a transaction based on the given request
@@ -305,19 +305,19 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure HTTP basic authorization: basicAuth
-$config = Teambank\RatenkaufByEasyCreditApiV3\Configuration::getDefaultConfiguration()
+$config = Teambank\EasyCreditApiV3\Configuration::getDefaultConfiguration()
               ->setHost('https://ratenkauf.easycredit.de')
               ->setUsername('1.de.1234.1') // use your "Webshop-ID"
               ->setPassword('YOUR_API_KEY'); // use your "API-Kennwort"
 
 
-$apiInstance = new Teambank\RatenkaufByEasyCreditApiV3\Api\TransactionApi(
+$apiInstance = new Teambank\EasyCreditApiV3\Api\TransactionApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
-$transaction = new \Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction(); // \Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction | init request
+$transaction = new \Teambank\EasyCreditApiV3\Model\Transaction(); // \Teambank\EasyCreditApiV3\Model\Transaction | init request
 
 try {
     $result = $apiInstance->apiPaymentV3TransactionPost($transaction);
@@ -331,11 +331,11 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **transaction** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction**](../Model/Transaction.md)| init request | [optional] |
+| **transaction** | [**\Teambank\EasyCreditApiV3\Model\Transaction**](../Model/Transaction.md)| init request | [optional] |
 
 ### Return type
 
-[**\Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInitResponse**](../Model/TransactionInitResponse.md)
+[**\Teambank\EasyCreditApiV3\Model\TransactionInitResponse**](../Model/TransactionInitResponse.md)
 
 ### Authorization
 
@@ -368,20 +368,20 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure HTTP basic authorization: basicAuth
-$config = Teambank\RatenkaufByEasyCreditApiV3\Configuration::getDefaultConfiguration()
+$config = Teambank\EasyCreditApiV3\Configuration::getDefaultConfiguration()
               ->setHost('https://ratenkauf.easycredit.de')
               ->setUsername('1.de.1234.1') // use your "Webshop-ID"
               ->setPassword('YOUR_API_KEY'); // use your "API-Kennwort"
 
 
-$apiInstance = new Teambank\RatenkaufByEasyCreditApiV3\Api\TransactionApi(
+$apiInstance = new Teambank\EasyCreditApiV3\Api\TransactionApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
 $technicalTransactionId = 'technicalTransactionId_example'; // string | Unique TeamBank transaction identifier
-$authorizationRequest = new \Teambank\RatenkaufByEasyCreditApiV3\Model\AuthorizationRequest(); // \Teambank\RatenkaufByEasyCreditApiV3\Model\AuthorizationRequest | authorization request
+$authorizationRequest = new \Teambank\EasyCreditApiV3\Model\AuthorizationRequest(); // \Teambank\EasyCreditApiV3\Model\AuthorizationRequest | authorization request
 
 try {
     $apiInstance->apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPost($technicalTransactionId, $authorizationRequest);
@@ -395,7 +395,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **technicalTransactionId** | **string**| Unique TeamBank transaction identifier | |
-| **authorizationRequest** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\AuthorizationRequest**](../Model/AuthorizationRequest.md)| authorization request | [optional] |
+| **authorizationRequest** | [**\Teambank\EasyCreditApiV3\Model\AuthorizationRequest**](../Model/AuthorizationRequest.md)| authorization request | [optional] |
 
 ### Return type
 
@@ -417,7 +417,7 @@ void (empty response body)
 ## `apiPaymentV3TransactionTechnicalTransactionIdGet()`
 
 ```php
-apiPaymentV3TransactionTechnicalTransactionIdGet($technicalTransactionId): \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformation
+apiPaymentV3TransactionTechnicalTransactionIdGet($technicalTransactionId): \Teambank\EasyCreditApiV3\Model\TransactionInformation
 ```
 
 Get the necessary information about the transaction
@@ -432,13 +432,13 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure HTTP basic authorization: basicAuth
-$config = Teambank\RatenkaufByEasyCreditApiV3\Configuration::getDefaultConfiguration()
+$config = Teambank\EasyCreditApiV3\Configuration::getDefaultConfiguration()
               ->setHost('https://ratenkauf.easycredit.de')
               ->setUsername('1.de.1234.1') // use your "Webshop-ID"
               ->setPassword('YOUR_API_KEY'); // use your "API-Kennwort"
 
 
-$apiInstance = new Teambank\RatenkaufByEasyCreditApiV3\Api\TransactionApi(
+$apiInstance = new Teambank\EasyCreditApiV3\Api\TransactionApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
@@ -462,7 +462,7 @@ try {
 
 ### Return type
 
-[**\Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformation**](../Model/TransactionInformation.md)
+[**\Teambank\EasyCreditApiV3\Model\TransactionInformation**](../Model/TransactionInformation.md)
 
 ### Authorization
 
@@ -480,7 +480,7 @@ try {
 ## `apiPaymentV3TransactionTechnicalTransactionIdPatch()`
 
 ```php
-apiPaymentV3TransactionTechnicalTransactionIdPatch($technicalTransactionId, $transactionUpdate): \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionSummary
+apiPaymentV3TransactionTechnicalTransactionIdPatch($technicalTransactionId, $transactionUpdate): \Teambank\EasyCreditApiV3\Model\TransactionSummary
 ```
 
 Updates a transaction based on the given request
@@ -495,20 +495,20 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure HTTP basic authorization: basicAuth
-$config = Teambank\RatenkaufByEasyCreditApiV3\Configuration::getDefaultConfiguration()
+$config = Teambank\EasyCreditApiV3\Configuration::getDefaultConfiguration()
               ->setHost('https://ratenkauf.easycredit.de')
               ->setUsername('1.de.1234.1') // use your "Webshop-ID"
               ->setPassword('YOUR_API_KEY'); // use your "API-Kennwort"
 
 
-$apiInstance = new Teambank\RatenkaufByEasyCreditApiV3\Api\TransactionApi(
+$apiInstance = new Teambank\EasyCreditApiV3\Api\TransactionApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
 $technicalTransactionId = 'technicalTransactionId_example'; // string | Unique TeamBank transaction identifier
-$transactionUpdate = new \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionUpdate(); // \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionUpdate | update request
+$transactionUpdate = new \Teambank\EasyCreditApiV3\Model\TransactionUpdate(); // \Teambank\EasyCreditApiV3\Model\TransactionUpdate | update request
 
 try {
     $result = $apiInstance->apiPaymentV3TransactionTechnicalTransactionIdPatch($technicalTransactionId, $transactionUpdate);
@@ -523,11 +523,11 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **technicalTransactionId** | **string**| Unique TeamBank transaction identifier | |
-| **transactionUpdate** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionUpdate**](../Model/TransactionUpdate.md)| update request | [optional] |
+| **transactionUpdate** | [**\Teambank\EasyCreditApiV3\Model\TransactionUpdate**](../Model/TransactionUpdate.md)| update request | [optional] |
 
 ### Return type
 
-[**\Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionSummary**](../Model/TransactionSummary.md)
+[**\Teambank\EasyCreditApiV3\Model\TransactionSummary**](../Model/TransactionSummary.md)
 
 ### Authorization
 
@@ -545,7 +545,7 @@ try {
 ## `apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPost()`
 
 ```php
-apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPost($technicalTransactionId): \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformation
+apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPost($technicalTransactionId): \Teambank\EasyCreditApiV3\Model\TransactionInformation
 ```
 
 Switch payment method
@@ -560,7 +560,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 
-$apiInstance = new Teambank\RatenkaufByEasyCreditApiV3\Api\TransactionApi(
+$apiInstance = new Teambank\EasyCreditApiV3\Api\TransactionApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
@@ -583,7 +583,7 @@ try {
 
 ### Return type
 
-[**\Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformation**](../Model/TransactionInformation.md)
+[**\Teambank\EasyCreditApiV3\Model\TransactionInformation**](../Model/TransactionInformation.md)
 
 ### Authorization
 

@@ -3,7 +3,7 @@
  * Configuration
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,13 +11,13 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3;
+namespace Teambank\EasyCreditApiV3;
 
 /**
  * Configuration Class Doc Comment
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  */
 class Configuration
 {
@@ -73,7 +73,7 @@ class Configuration
      *
      * @var string
      */
-    protected $userAgent = 'ratenkaufbyeasycredit-api-v3/PHP';
+    protected $userAgent = 'easycredit-api-v3/PHP';
 
     /**
      * Debug switch (default set to false)
@@ -378,7 +378,7 @@ class Configuration
      */
     public static function toDebugReport()
     {
-        $report  = 'PHP SDK (Teambank\RatenkaufByEasyCreditApiV3) Debug Report:' . PHP_EOL;
+        $report  = 'PHP SDK (Teambank\EasyCreditApiV3) Debug Report:' . PHP_EOL;
         $report .= '    OS: ' . php_uname() . PHP_EOL;
         $report .= '    PHP Version: ' . PHP_VERSION . PHP_EOL;
         $report .= '    The version of the OpenAPI document: V3.147.0' . PHP_EOL;

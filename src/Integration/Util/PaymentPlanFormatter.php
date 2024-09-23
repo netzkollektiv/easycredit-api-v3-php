@@ -1,5 +1,5 @@
 <?php
-namespace Teambank\RatenkaufByEasyCreditApiV3\Integration\Util;
+namespace Teambank\EasyCreditApiV3\Integration\Util;
 
 class PaymentPlanFormatter {
     public function format($paymentPlan) { 

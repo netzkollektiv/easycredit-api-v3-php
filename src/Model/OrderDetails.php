@@ -3,7 +3,7 @@
  * OrderDetails
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,16 +11,16 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3\Model;
+namespace Teambank\EasyCreditApiV3\Model;
 
 use \ArrayAccess;
-use \Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
+use \Teambank\EasyCreditApiV3\ObjectSerializer;
 
 /**
  * OrderDetails Class Doc Comment
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
@@ -46,9 +46,9 @@ class OrderDetails implements ModelInterface, ArrayAccess, \JsonSerializable
         'orderId' => 'string',
         'numberOfProductsInShoppingCart' => 'int',
         'withoutFlexprice' => 'bool',
-        'invoiceAddress' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\InvoiceAddress',
-        'shippingAddress' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\ShippingAddress',
-        'shoppingCartInformation' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\ShoppingCartInformationItem[]'
+        'invoiceAddress' => '\Teambank\EasyCreditApiV3\Model\InvoiceAddress',
+        'shippingAddress' => '\Teambank\EasyCreditApiV3\Model\ShippingAddress',
+        'shoppingCartInformation' => '\Teambank\EasyCreditApiV3\Model\ShoppingCartInformationItem[]'
     ];
 
     /**
@@ -326,7 +326,7 @@ class OrderDetails implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets invoiceAddress
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\InvoiceAddress|null
+     * @return \Teambank\EasyCreditApiV3\Model\InvoiceAddress|null
      */
     public function getInvoiceAddress()
     {
@@ -336,7 +336,7 @@ class OrderDetails implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets invoiceAddress
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\InvoiceAddress|null $invoiceAddress invoiceAddress
+     * @param \Teambank\EasyCreditApiV3\Model\InvoiceAddress|null $invoiceAddress invoiceAddress
      *
      * @return self
      */
@@ -350,7 +350,7 @@ class OrderDetails implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets shippingAddress
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\ShippingAddress|null
+     * @return \Teambank\EasyCreditApiV3\Model\ShippingAddress|null
      */
     public function getShippingAddress()
     {
@@ -360,7 +360,7 @@ class OrderDetails implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets shippingAddress
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\ShippingAddress|null $shippingAddress shippingAddress
+     * @param \Teambank\EasyCreditApiV3\Model\ShippingAddress|null $shippingAddress shippingAddress
      *
      * @return self
      */
@@ -374,7 +374,7 @@ class OrderDetails implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets shoppingCartInformation
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\ShoppingCartInformationItem[]|null
+     * @return \Teambank\EasyCreditApiV3\Model\ShoppingCartInformationItem[]|null
      */
     public function getShoppingCartInformation()
     {
@@ -384,7 +384,7 @@ class OrderDetails implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets shoppingCartInformation
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\ShoppingCartInformationItem[]|null $shoppingCartInformation shoppingCartInformation
+     * @param \Teambank\EasyCreditApiV3\Model\ShoppingCartInformationItem[]|null $shoppingCartInformation shoppingCartInformation
      *
      * @return self
      */

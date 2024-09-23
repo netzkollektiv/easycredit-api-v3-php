@@ -3,7 +3,7 @@
  * ModelInterface
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3\Model
+ * @package  Teambank\EasyCreditApiV3\Model
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,12 +11,12 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3\Model;
+namespace Teambank\EasyCreditApiV3\Model;
 
 /**
  * Interface abstracting model access.
  *
- * @package Teambank\RatenkaufByEasyCreditApiV3\Model
+ * @package Teambank\EasyCreditApiV3\Model
  * @author  OpenAPI Generator team
  */
 interface ModelInterface

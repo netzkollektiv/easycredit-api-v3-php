@@ -3,7 +3,7 @@
  * ShoppingCartInformationItem
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,16 +11,16 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3\Model;
+namespace Teambank\EasyCreditApiV3\Model;
 
 use \ArrayAccess;
-use \Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
+use \Teambank\EasyCreditApiV3\ObjectSerializer;
 
 /**
  * ShoppingCartInformationItem Class Doc Comment
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
@@ -49,7 +49,7 @@ class ShoppingCartInformationItem implements ModelInterface, ArrayAccess, \JsonS
         'productCategory' => 'string',
         'productImageUrl' => 'string',
         'productUrl' => 'string',
-        'articleNumber' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\ArticleNumberItem[]'
+        'articleNumber' => '\Teambank\EasyCreditApiV3\Model\ArticleNumberItem[]'
     ];
 
     /**
@@ -410,7 +410,7 @@ class ShoppingCartInformationItem implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Gets articleNumber
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\ArticleNumberItem[]|null
+     * @return \Teambank\EasyCreditApiV3\Model\ArticleNumberItem[]|null
      */
     public function getArticleNumber()
     {
@@ -420,7 +420,7 @@ class ShoppingCartInformationItem implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets articleNumber
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\ArticleNumberItem[]|null $articleNumber Article number of a product
+     * @param \Teambank\EasyCreditApiV3\Model\ArticleNumberItem[]|null $articleNumber Article number of a product
      *
      * @return self
      */

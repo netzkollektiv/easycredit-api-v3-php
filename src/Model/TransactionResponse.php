@@ -3,7 +3,7 @@
  * TransactionResponse
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,16 +11,16 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3\Model;
+namespace Teambank\EasyCreditApiV3\Model;
 
 use \ArrayAccess;
-use \Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
+use \Teambank\EasyCreditApiV3\ObjectSerializer;
 
 /**
  * TransactionResponse Class Doc Comment
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
@@ -44,11 +44,11 @@ class TransactionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
     protected static $openAPITypes = [
         'transactionId' => 'string',
         'status' => 'string',
-        'bookings' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\Booking[]',
-        'customer' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionCustomer',
+        'bookings' => '\Teambank\EasyCreditApiV3\Model\Booking[]',
+        'customer' => '\Teambank\EasyCreditApiV3\Model\TransactionCustomer',
         'creditAccountNumber' => 'string',
-        'orderDetails' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionOrderDetails',
-        'refundDetails' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\Refund[]',
+        'orderDetails' => '\Teambank\EasyCreditApiV3\Model\TransactionOrderDetails',
+        'refundDetails' => '\Teambank\EasyCreditApiV3\Model\Refund[]',
         'refundsTotalValue' => 'float',
         'expirationDateTime' => '\DateTime',
         'webshopId' => 'string'
@@ -333,7 +333,7 @@ class TransactionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets bookings
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\Booking[]|null
+     * @return \Teambank\EasyCreditApiV3\Model\Booking[]|null
      */
     public function getBookings()
     {
@@ -343,7 +343,7 @@ class TransactionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets bookings
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Booking[]|null $bookings bookings
+     * @param \Teambank\EasyCreditApiV3\Model\Booking[]|null $bookings bookings
      *
      * @return self
      */
@@ -357,7 +357,7 @@ class TransactionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets customer
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionCustomer|null
+     * @return \Teambank\EasyCreditApiV3\Model\TransactionCustomer|null
      */
     public function getCustomer()
     {
@@ -367,7 +367,7 @@ class TransactionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets customer
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionCustomer|null $customer customer
+     * @param \Teambank\EasyCreditApiV3\Model\TransactionCustomer|null $customer customer
      *
      * @return self
      */
@@ -405,7 +405,7 @@ class TransactionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets orderDetails
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionOrderDetails|null
+     * @return \Teambank\EasyCreditApiV3\Model\TransactionOrderDetails|null
      */
     public function getOrderDetails()
     {
@@ -415,7 +415,7 @@ class TransactionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets orderDetails
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionOrderDetails|null $orderDetails orderDetails
+     * @param \Teambank\EasyCreditApiV3\Model\TransactionOrderDetails|null $orderDetails orderDetails
      *
      * @return self
      */
@@ -429,7 +429,7 @@ class TransactionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets refundDetails
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\Refund[]|null
+     * @return \Teambank\EasyCreditApiV3\Model\Refund[]|null
      */
     public function getRefundDetails()
     {
@@ -439,7 +439,7 @@ class TransactionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets refundDetails
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Refund[]|null $refundDetails refundDetails
+     * @param \Teambank\EasyCreditApiV3\Model\Refund[]|null $refundDetails refundDetails
      *
      * @return self
      */

@@ -3,7 +3,7 @@
  * ConstraintViolation
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,16 +11,16 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3\Model;
+namespace Teambank\EasyCreditApiV3\Model;
 
 use \ArrayAccess;
-use \Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
+use \Teambank\EasyCreditApiV3\ObjectSerializer;
 
 /**
  * ConstraintViolation Class Doc Comment
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
@@ -43,7 +43,7 @@ class ConstraintViolation implements ModelInterface, ArrayAccess, \JsonSerializa
       */
     protected static $openAPITypes = [
         'title' => 'string',
-        'violations' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolationViolationsInner[]'
+        'violations' => '\Teambank\EasyCreditApiV3\Model\ConstraintViolationViolationsInner[]'
     ];
 
     /**
@@ -227,7 +227,7 @@ class ConstraintViolation implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets violations
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolationViolationsInner[]
+     * @return \Teambank\EasyCreditApiV3\Model\ConstraintViolationViolationsInner[]
      */
     public function getViolations()
     {
@@ -237,7 +237,7 @@ class ConstraintViolation implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets violations
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolationViolationsInner[] $violations violations
+     * @param \Teambank\EasyCreditApiV3\Model\ConstraintViolationViolationsInner[] $violations violations
      *
      * @return self
      */

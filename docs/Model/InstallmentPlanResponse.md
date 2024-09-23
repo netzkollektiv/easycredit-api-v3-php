@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**installmentPlans** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\CalculatorInstallmentPlan[]**](CalculatorInstallmentPlan.md) |  | [optional]
+**installmentPlans** | [**\Teambank\EasyCreditApiV3\Model\CalculatorInstallmentPlan[]**](CalculatorInstallmentPlan.md) |  | [optional]
 **minFinancingAmount** | **int** |  | [optional]
 **maxFinancingAmount** | **int** |  | [optional]
 

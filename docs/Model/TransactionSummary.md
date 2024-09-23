@@ -24,8 +24,8 @@ Name | Type | Description | Notes
 **lastInstallmentDate** | **\DateTime** | Date indicating the last installment payment ( &#x3D; terminLetzteRate) | [optional]
 **amortizationPlanText** | **string** | Text containing the amortization plan ( &#x3D; tilgungsplanText) | [optional]
 **urlPreContractualInformation** | **string** | ( &#x3D; urlVorvertraglicheInformationen) | [optional]
-**installmentPlans** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlan[]**](InstallmentPlan.md) | List of possible installment payment plans | [optional]
-**mtan** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\MTan**](MTan.md) |  | [optional]
-**bankAccountCheck** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\BankAccountCheck**](BankAccountCheck.md) |  | [optional]
+**installmentPlans** | [**\Teambank\EasyCreditApiV3\Model\InstallmentPlan[]**](InstallmentPlan.md) | List of possible installment payment plans | [optional]
+**mtan** | [**\Teambank\EasyCreditApiV3\Model\MTan**](MTan.md) |  | [optional]
+**bankAccountCheck** | [**\Teambank\EasyCreditApiV3\Model\BankAccountCheck**](BankAccountCheck.md) |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

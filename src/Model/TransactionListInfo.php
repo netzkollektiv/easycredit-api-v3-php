@@ -3,7 +3,7 @@
  * TransactionListInfo
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,16 +11,16 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3\Model;
+namespace Teambank\EasyCreditApiV3\Model;
 
 use \ArrayAccess;
-use \Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
+use \Teambank\EasyCreditApiV3\ObjectSerializer;
 
 /**
  * TransactionListInfo Class Doc Comment
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
@@ -42,8 +42,8 @@ class TransactionListInfo implements ModelInterface, ArrayAccess, \JsonSerializa
       * @var string[]
       */
     protected static $openAPITypes = [
-        'transactionList' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionResponse[]',
-        'pagingDetails' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\PaginationInfo'
+        'transactionList' => '\Teambank\EasyCreditApiV3\Model\TransactionResponse[]',
+        'pagingDetails' => '\Teambank\EasyCreditApiV3\Model\PaginationInfo'
     ];
 
     /**
@@ -197,7 +197,7 @@ class TransactionListInfo implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets transactionList
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionResponse[]|null
+     * @return \Teambank\EasyCreditApiV3\Model\TransactionResponse[]|null
      */
     public function getTransactionList()
     {
@@ -207,7 +207,7 @@ class TransactionListInfo implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets transactionList
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionResponse[]|null $transactionList transactionList
+     * @param \Teambank\EasyCreditApiV3\Model\TransactionResponse[]|null $transactionList transactionList
      *
      * @return self
      */
@@ -221,7 +221,7 @@ class TransactionListInfo implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets pagingDetails
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\PaginationInfo|null
+     * @return \Teambank\EasyCreditApiV3\Model\PaginationInfo|null
      */
     public function getPagingDetails()
     {
@@ -231,7 +231,7 @@ class TransactionListInfo implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets pagingDetails
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\PaginationInfo|null $pagingDetails pagingDetails
+     * @param \Teambank\EasyCreditApiV3\Model\PaginationInfo|null $pagingDetails pagingDetails
      *
      * @return self
      */

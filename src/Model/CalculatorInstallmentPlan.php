@@ -3,7 +3,7 @@
  * CalculatorInstallmentPlan
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,16 +11,16 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3\Model;
+namespace Teambank\EasyCreditApiV3\Model;
 
 use \ArrayAccess;
-use \Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
+use \Teambank\EasyCreditApiV3\ObjectSerializer;
 
 /**
  * CalculatorInstallmentPlan Class Doc Comment
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
@@ -45,8 +45,8 @@ class CalculatorInstallmentPlan implements ModelInterface, ArrayAccess, \JsonSer
         'example' => 'string',
         'articleIdentifier' => 'string',
         'url' => 'string',
-        'plans' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\Plan[]',
-        'errors' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation'
+        'plans' => '\Teambank\EasyCreditApiV3\Model\Plan[]',
+        'errors' => '\Teambank\EasyCreditApiV3\Model\ConstraintViolation'
     ];
 
     /**
@@ -287,7 +287,7 @@ class CalculatorInstallmentPlan implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Gets plans
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\Plan[]|null
+     * @return \Teambank\EasyCreditApiV3\Model\Plan[]|null
      */
     public function getPlans()
     {
@@ -297,7 +297,7 @@ class CalculatorInstallmentPlan implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Sets plans
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Plan[]|null $plans plans
+     * @param \Teambank\EasyCreditApiV3\Model\Plan[]|null $plans plans
      *
      * @return self
      */
@@ -311,7 +311,7 @@ class CalculatorInstallmentPlan implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Gets errors
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation|null
+     * @return \Teambank\EasyCreditApiV3\Model\ConstraintViolation|null
      */
     public function getErrors()
     {
@@ -321,7 +321,7 @@ class CalculatorInstallmentPlan implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Sets errors
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation|null $errors errors
+     * @param \Teambank\EasyCreditApiV3\Model\ConstraintViolation|null $errors errors
      *
      * @return self
      */

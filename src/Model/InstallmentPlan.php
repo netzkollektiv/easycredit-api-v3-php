@@ -3,7 +3,7 @@
  * InstallmentPlan
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,16 +11,16 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3\Model;
+namespace Teambank\EasyCreditApiV3\Model;
 
 use \ArrayAccess;
-use \Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
+use \Teambank\EasyCreditApiV3\ObjectSerializer;
 
 /**
  * InstallmentPlan Class Doc Comment
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
@@ -43,8 +43,8 @@ class InstallmentPlan implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'totalValuePlan' => 'float',
-        'interests' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\Interests',
-        'paymentPlan' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentPlan'
+        'interests' => '\Teambank\EasyCreditApiV3\Model\Interests',
+        'paymentPlan' => '\Teambank\EasyCreditApiV3\Model\PaymentPlan'
     ];
 
     /**
@@ -227,7 +227,7 @@ class InstallmentPlan implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets interests
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\Interests|null
+     * @return \Teambank\EasyCreditApiV3\Model\Interests|null
      */
     public function getInterests()
     {
@@ -237,7 +237,7 @@ class InstallmentPlan implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets interests
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Interests|null $interests interests
+     * @param \Teambank\EasyCreditApiV3\Model\Interests|null $interests interests
      *
      * @return self
      */
@@ -251,7 +251,7 @@ class InstallmentPlan implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets paymentPlan
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentPlan|null
+     * @return \Teambank\EasyCreditApiV3\Model\PaymentPlan|null
      */
     public function getPaymentPlan()
     {
@@ -261,7 +261,7 @@ class InstallmentPlan implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets paymentPlan
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentPlan|null $paymentPlan paymentPlan
+     * @param \Teambank\EasyCreditApiV3\Model\PaymentPlan|null $paymentPlan paymentPlan
      *
      * @return self
      */

@@ -1,4 +1,4 @@
-# Teambank\RatenkaufByEasyCreditApiV3\DocumentApi
+# Teambank\EasyCreditApiV3\DocumentApi
 
 All URIs are relative to https://partner.easycredit-ratenkauf.de, except if the operation defines another base path.
 
@@ -25,13 +25,13 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure HTTP basic authorization: basicAuth
-$config = Teambank\RatenkaufByEasyCreditApiV3\Configuration::getDefaultConfiguration()
+$config = Teambank\EasyCreditApiV3\Configuration::getDefaultConfiguration()
               ->setHost('https://ratenkauf.easycredit.de')
               ->setUsername('1.de.1234.1') // use your "Webshop-ID"
               ->setPassword('YOUR_API_KEY'); // use your "API-Kennwort"
 
 
-$apiInstance = new Teambank\RatenkaufByEasyCreditApiV3\Api\DocumentApi(
+$apiInstance = new Teambank\EasyCreditApiV3\Api\DocumentApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),

@@ -1,22 +1,22 @@
 <?php
-namespace Teambank\RatenkaufByEasyCreditApiV3\Integration;
+namespace Teambank\EasyCreditApiV3\Integration;
 
-use Teambank\RatenkaufByEasyCreditApiV3\Service\TransactionApi;
-use Teambank\RatenkaufByEasyCreditApiV3\Service\WebshopApi;
-use Teambank\RatenkaufByEasyCreditApiV3\Service\InstallmentplanApi;
-use Teambank\RatenkaufByEasyCreditApiV3\Integration\Storage;
-use Teambank\RatenkaufByEasyCreditApiV3\Integration\CheckoutInterface;
-use Teambank\RatenkaufByEasyCreditApiV3\Integration\Util\AddressValidator;
-use Teambank\RatenkaufByEasyCreditApiV3\Integration\Util\PrefixConverter;
-use Teambank\RatenkaufByEasyCreditApiV3\ApiException;
-use Teambank\RatenkaufByEasyCreditApiV3\Integration\InitializationException;
-use Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction;
-use Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionSummary;
-use Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformation;
-use Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionUpdate;
-use Teambank\RatenkaufByEasyCreditApiV3\Model\IntegrationCheckRequest;
-use Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanRequest;
-use Teambank\RatenkaufByEasyCreditApiV3\Model\Article;
+use Teambank\EasyCreditApiV3\Service\TransactionApi;
+use Teambank\EasyCreditApiV3\Service\WebshopApi;
+use Teambank\EasyCreditApiV3\Service\InstallmentplanApi;
+use Teambank\EasyCreditApiV3\Integration\Storage;
+use Teambank\EasyCreditApiV3\Integration\CheckoutInterface;
+use Teambank\EasyCreditApiV3\Integration\Util\AddressValidator;
+use Teambank\EasyCreditApiV3\Integration\Util\PrefixConverter;
+use Teambank\EasyCreditApiV3\ApiException;
+use Teambank\EasyCreditApiV3\Integration\InitializationException;
+use Teambank\EasyCreditApiV3\Model\Transaction;
+use Teambank\EasyCreditApiV3\Model\TransactionSummary;
+use Teambank\EasyCreditApiV3\Model\TransactionInformation;
+use Teambank\EasyCreditApiV3\Model\TransactionUpdate;
+use Teambank\EasyCreditApiV3\Model\IntegrationCheckRequest;
+use Teambank\EasyCreditApiV3\Model\InstallmentPlanRequest;
+use Teambank\EasyCreditApiV3\Model\Article;
 
 class Checkout implements CheckoutInterface {
 
@@ -164,7 +164,7 @@ class Checkout implements CheckoutInterface {
         try {
             list($response, $statusCode) = $this->transactionApi->apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPostWithHttpInfo(
                 $this->_getToken(),
-                new \Teambank\RatenkaufByEasyCreditApiV3\Model\AuthorizationRequest([
+                new \Teambank\EasyCreditApiV3\Model\AuthorizationRequest([
                     'orderId' => $orderId
                 ])
             );

@@ -1,12 +1,12 @@
 <?php
-namespace Teambank\RatenkaufByEasyCreditApiV3\Integration\Util;
+namespace Teambank\EasyCreditApiV3\Integration\Util;
 
-use Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction;
-use Teambank\RatenkaufByEasyCreditApiV3\Model\Address;
-use Teambank\RatenkaufByEasyCreditApiV3\Model\ShippingAddress;
-use Teambank\RatenkaufByEasyCreditApiV3\Model\ModelInterface;
-use Teambank\RatenkaufByEasyCreditApiV3\Integration\ValidationException;
-use Teambank\RatenkaufByEasyCreditApiV3\Integration\AddressValidationException;
+use Teambank\EasyCreditApiV3\Model\Transaction;
+use Teambank\EasyCreditApiV3\Model\Address;
+use Teambank\EasyCreditApiV3\Model\ShippingAddress;
+use Teambank\EasyCreditApiV3\Model\ModelInterface;
+use Teambank\EasyCreditApiV3\Integration\ValidationException;
+use Teambank\EasyCreditApiV3\Integration\AddressValidationException;
 
 class AddressValidator {
 

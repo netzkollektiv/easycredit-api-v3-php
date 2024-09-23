@@ -1,8 +1,8 @@
 <?php
-use \Teambank\RatenkaufByEasyCreditApiV3\Integration;
-use \Teambank\RatenkaufByEasyCreditApiV3\Service;
+use \Teambank\EasyCreditApiV3\Integration;
+use \Teambank\EasyCreditApiV3\Service;
 
-$wrappedTransactionInitRequest = new \Teambank\RatenkaufByEasyCreditApiV3\Integration\TransactionInitRequestWrapper([
+$wrappedTransactionInitRequest = new \Teambank\EasyCreditApiV3\Integration\TransactionInitRequestWrapper([
     'transactionInitRequest' => getInitRequest(),
     'invoiceFirstName' => 'Ralfi',
     'invoiceLastName' => 'Ratenkaufi',

@@ -3,7 +3,7 @@
  * 
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,7 +11,7 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3;
+namespace Teambank\EasyCreditApiV3;
 
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;

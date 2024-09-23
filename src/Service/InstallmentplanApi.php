@@ -3,7 +3,7 @@
  * InstallmentplanApi
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,22 +11,22 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3\Service;
+namespace Teambank\EasyCreditApiV3\Service;
 
 use Psr\Http\Client\ClientInterface;
 
-use Teambank\RatenkaufByEasyCreditApiV3\ApiException;
-use Teambank\RatenkaufByEasyCreditApiV3\Configuration;
-use Teambank\RatenkaufByEasyCreditApiV3\HeaderSelector;
-use Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
-use Teambank\RatenkaufByEasyCreditApiV3\Client;
+use Teambank\EasyCreditApiV3\ApiException;
+use Teambank\EasyCreditApiV3\Configuration;
+use Teambank\EasyCreditApiV3\HeaderSelector;
+use Teambank\EasyCreditApiV3\ObjectSerializer;
+use Teambank\EasyCreditApiV3\Client;
 use GuzzleHttp\Psr7\Request;
 
 /**
  * InstallmentplanApi Class
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  */
 class InstallmentplanApi
 {
@@ -102,11 +102,11 @@ class InstallmentplanApi
      * Calculates the installmentplan
      *
      * @param  string $shopIdentifier Shop Identifier (required)
-     * @param  \Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanRequest $installmentPlanRequest integration check request (optional)
+     * @param  \Teambank\EasyCreditApiV3\Model\InstallmentPlanRequest $installmentPlanRequest integration check request (optional)
      *
-     * @throws \Teambank\RatenkaufByEasyCreditApiV3\ApiException on non-2xx response
+     * @throws \Teambank\EasyCreditApiV3\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanResponse|\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation|\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation
+     * @return \Teambank\EasyCreditApiV3\Model\InstallmentPlanResponse|\Teambank\EasyCreditApiV3\Model\ConstraintViolation|\Teambank\EasyCreditApiV3\Model\ConstraintViolation
      */
     public function apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPost($shopIdentifier, $installmentPlanRequest = null)
     {
@@ -120,11 +120,11 @@ class InstallmentplanApi
      * Calculates the installmentplan
      *
      * @param  string $shopIdentifier Shop Identifier (required)
-     * @param  \Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanRequest $installmentPlanRequest integration check request (optional)
+     * @param  \Teambank\EasyCreditApiV3\Model\InstallmentPlanRequest $installmentPlanRequest integration check request (optional)
      *
-     * @throws \Teambank\RatenkaufByEasyCreditApiV3\ApiException on non-2xx response
+     * @throws \Teambank\EasyCreditApiV3\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanResponse|\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation|\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Teambank\EasyCreditApiV3\Model\InstallmentPlanResponse|\Teambank\EasyCreditApiV3\Model\ConstraintViolation|\Teambank\EasyCreditApiV3\Model\ConstraintViolation, HTTP status code, HTTP response headers (array of strings)
      */
     public function apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPostWithHttpInfo($shopIdentifier, $installmentPlanRequest = null)
     {
@@ -167,44 +167,44 @@ class InstallmentplanApi
 
             switch($statusCode) {
                 case 200:
-                    if ('\Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanResponse' === '\SplFileObject') {
+                    if ('\Teambank\EasyCreditApiV3\Model\InstallmentPlanResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanResponse', []),
+                        ObjectSerializer::deserialize($content, '\Teambank\EasyCreditApiV3\Model\InstallmentPlanResponse', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 400:
-                    if ('\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation' === '\SplFileObject') {
+                    if ('\Teambank\EasyCreditApiV3\Model\ConstraintViolation' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation', []),
+                        ObjectSerializer::deserialize($content, '\Teambank\EasyCreditApiV3\Model\ConstraintViolation', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 404:
-                    if ('\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation' === '\SplFileObject') {
+                    if ('\Teambank\EasyCreditApiV3\Model\ConstraintViolation' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation', []),
+                        ObjectSerializer::deserialize($content, '\Teambank\EasyCreditApiV3\Model\ConstraintViolation', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanResponse';
+            $returnType = '\Teambank\EasyCreditApiV3\Model\InstallmentPlanResponse';
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
@@ -222,7 +222,7 @@ class InstallmentplanApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanResponse',
+                        '\Teambank\EasyCreditApiV3\Model\InstallmentPlanResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -230,7 +230,7 @@ class InstallmentplanApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation',
+                        '\Teambank\EasyCreditApiV3\Model\ConstraintViolation',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -238,7 +238,7 @@ class InstallmentplanApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation',
+                        '\Teambank\EasyCreditApiV3\Model\ConstraintViolation',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -252,7 +252,7 @@ class InstallmentplanApi
      * Create request for operation 'apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPost'
      *
      * @param  string $shopIdentifier Shop Identifier (required)
-     * @param  \Teambank\RatenkaufByEasyCreditApiV3\Model\InstallmentPlanRequest $installmentPlanRequest integration check request (optional)
+     * @param  \Teambank\EasyCreditApiV3\Model\InstallmentPlanRequest $installmentPlanRequest integration check request (optional)
      *
      * @throws \InvalidArgumentException
      * @return Request

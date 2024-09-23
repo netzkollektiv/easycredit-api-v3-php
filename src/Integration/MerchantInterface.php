@@ -1,5 +1,5 @@
 <?php
-namespace Teambank\RatenkaufByEasyCreditApiV3\Integration;
+namespace Teambank\EasyCreditApiV3\Integration;
 
 interface MerchantInterface {
     public function getTransaction($transactionId);

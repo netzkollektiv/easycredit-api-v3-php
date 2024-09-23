@@ -1,4 +1,4 @@
-# Teambank\RatenkaufByEasyCreditApiV3\WebshopApi
+# Teambank\EasyCreditApiV3\WebshopApi
 
 All URIs are relative to https://partner.easycredit-ratenkauf.de, except if the operation defines another base path.
 
@@ -12,7 +12,7 @@ All URIs are relative to https://partner.easycredit-ratenkauf.de, except if the 
 ## `apiPaymentV3WebshopGet()`
 
 ```php
-apiPaymentV3WebshopGet(): \Teambank\RatenkaufByEasyCreditApiV3\Model\WebshopResponse
+apiPaymentV3WebshopGet(): \Teambank\EasyCreditApiV3\Model\WebshopResponse
 ```
 
 Get the necessary information about the webshop
@@ -27,13 +27,13 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure HTTP basic authorization: basicAuth
-$config = Teambank\RatenkaufByEasyCreditApiV3\Configuration::getDefaultConfiguration()
+$config = Teambank\EasyCreditApiV3\Configuration::getDefaultConfiguration()
               ->setHost('https://ratenkauf.easycredit.de')
               ->setUsername('1.de.1234.1') // use your "Webshop-ID"
               ->setPassword('YOUR_API_KEY'); // use your "API-Kennwort"
 
 
-$apiInstance = new Teambank\RatenkaufByEasyCreditApiV3\Api\WebshopApi(
+$apiInstance = new Teambank\EasyCreditApiV3\Api\WebshopApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
@@ -54,7 +54,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**\Teambank\RatenkaufByEasyCreditApiV3\Model\WebshopResponse**](../Model/WebshopResponse.md)
+[**\Teambank\EasyCreditApiV3\Model\WebshopResponse**](../Model/WebshopResponse.md)
 
 ### Authorization
 
@@ -72,7 +72,7 @@ This endpoint does not need any parameter.
 ## `apiPaymentV3WebshopIntegrationcheckPost()`
 
 ```php
-apiPaymentV3WebshopIntegrationcheckPost($integrationCheckRequest): \Teambank\RatenkaufByEasyCreditApiV3\Model\IntegrationCheckResponse
+apiPaymentV3WebshopIntegrationcheckPost($integrationCheckRequest): \Teambank\EasyCreditApiV3\Model\IntegrationCheckResponse
 ```
 
 Verifies the correctness of the merchant's authentication credentials and, if enabled, the body signature
@@ -87,19 +87,19 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure HTTP basic authorization: basicAuth
-$config = Teambank\RatenkaufByEasyCreditApiV3\Configuration::getDefaultConfiguration()
+$config = Teambank\EasyCreditApiV3\Configuration::getDefaultConfiguration()
               ->setHost('https://ratenkauf.easycredit.de')
               ->setUsername('1.de.1234.1') // use your "Webshop-ID"
               ->setPassword('YOUR_API_KEY'); // use your "API-Kennwort"
 
 
-$apiInstance = new Teambank\RatenkaufByEasyCreditApiV3\Api\WebshopApi(
+$apiInstance = new Teambank\EasyCreditApiV3\Api\WebshopApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
-$integrationCheckRequest = new \Teambank\RatenkaufByEasyCreditApiV3\Model\IntegrationCheckRequest(); // \Teambank\RatenkaufByEasyCreditApiV3\Model\IntegrationCheckRequest | integration check request
+$integrationCheckRequest = new \Teambank\EasyCreditApiV3\Model\IntegrationCheckRequest(); // \Teambank\EasyCreditApiV3\Model\IntegrationCheckRequest | integration check request
 
 try {
     $result = $apiInstance->apiPaymentV3WebshopIntegrationcheckPost($integrationCheckRequest);
@@ -113,11 +113,11 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **integrationCheckRequest** | [**\Teambank\RatenkaufByEasyCreditApiV3\Model\IntegrationCheckRequest**](../Model/IntegrationCheckRequest.md)| integration check request | [optional] |
+| **integrationCheckRequest** | [**\Teambank\EasyCreditApiV3\Model\IntegrationCheckRequest**](../Model/IntegrationCheckRequest.md)| integration check request | [optional] |
 
 ### Return type
 
-[**\Teambank\RatenkaufByEasyCreditApiV3\Model\IntegrationCheckResponse**](../Model/IntegrationCheckResponse.md)
+[**\Teambank\EasyCreditApiV3\Model\IntegrationCheckResponse**](../Model/IntegrationCheckResponse.md)
 
 ### Authorization
 
@@ -135,7 +135,7 @@ try {
 ## `apiPaymentV3WebshopWebshopIdGet()`
 
 ```php
-apiPaymentV3WebshopWebshopIdGet($webshopId): \Teambank\RatenkaufByEasyCreditApiV3\Model\WebshopResponse
+apiPaymentV3WebshopWebshopIdGet($webshopId): \Teambank\EasyCreditApiV3\Model\WebshopResponse
 ```
 
 Get the necessary information about the webshop
@@ -150,7 +150,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 
-$apiInstance = new Teambank\RatenkaufByEasyCreditApiV3\Api\WebshopApi(
+$apiInstance = new Teambank\EasyCreditApiV3\Api\WebshopApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
@@ -173,7 +173,7 @@ try {
 
 ### Return type
 
-[**\Teambank\RatenkaufByEasyCreditApiV3\Model\WebshopResponse**](../Model/WebshopResponse.md)
+[**\Teambank\EasyCreditApiV3\Model\WebshopResponse**](../Model/WebshopResponse.md)
 
 ### Authorization
 

@@ -3,7 +3,7 @@
  * TransactionInformation
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,16 +11,16 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3\Model;
+namespace Teambank\EasyCreditApiV3\Model;
 
 use \ArrayAccess;
-use \Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
+use \Teambank\EasyCreditApiV3\ObjectSerializer;
 
 /**
  * TransactionInformation Class Doc Comment
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
@@ -42,8 +42,8 @@ class TransactionInformation implements ModelInterface, ArrayAccess, \JsonSerial
       * @var string[]
       */
     protected static $openAPITypes = [
-        'decision' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionSummary',
-        'transaction' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction',
+        'decision' => '\Teambank\EasyCreditApiV3\Model\TransactionSummary',
+        'transaction' => '\Teambank\EasyCreditApiV3\Model\Transaction',
         'status' => 'string'
     ];
 
@@ -233,7 +233,7 @@ class TransactionInformation implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets decision
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionSummary|null
+     * @return \Teambank\EasyCreditApiV3\Model\TransactionSummary|null
      */
     public function getDecision()
     {
@@ -243,7 +243,7 @@ class TransactionInformation implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets decision
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionSummary|null $decision decision
+     * @param \Teambank\EasyCreditApiV3\Model\TransactionSummary|null $decision decision
      *
      * @return self
      */
@@ -257,7 +257,7 @@ class TransactionInformation implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets transaction
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction|null
+     * @return \Teambank\EasyCreditApiV3\Model\Transaction|null
      */
     public function getTransaction()
     {
@@ -267,7 +267,7 @@ class TransactionInformation implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets transaction
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Transaction|null $transaction transaction
+     * @param \Teambank\EasyCreditApiV3\Model\Transaction|null $transaction transaction
      *
      * @return self
      */

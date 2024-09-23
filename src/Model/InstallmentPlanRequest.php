@@ -3,7 +3,7 @@
  * InstallmentPlanRequest
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,16 +11,16 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3\Model;
+namespace Teambank\EasyCreditApiV3\Model;
 
 use \ArrayAccess;
-use \Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
+use \Teambank\EasyCreditApiV3\ObjectSerializer;
 
 /**
  * InstallmentPlanRequest Class Doc Comment
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
@@ -42,7 +42,7 @@ class InstallmentPlanRequest implements ModelInterface, ArrayAccess, \JsonSerial
       * @var string[]
       */
     protected static $openAPITypes = [
-        'articles' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\Article[]'
+        'articles' => '\Teambank\EasyCreditApiV3\Model\Article[]'
     ];
 
     /**
@@ -191,7 +191,7 @@ class InstallmentPlanRequest implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets articles
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\Article[]|null
+     * @return \Teambank\EasyCreditApiV3\Model\Article[]|null
      */
     public function getArticles()
     {
@@ -201,7 +201,7 @@ class InstallmentPlanRequest implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets articles
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Article[]|null $articles articles
+     * @param \Teambank\EasyCreditApiV3\Model\Article[]|null $articles articles
      *
      * @return self
      */

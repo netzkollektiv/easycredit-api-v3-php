@@ -3,7 +3,7 @@
  * ApiException
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,7 +11,7 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3;
+namespace Teambank\EasyCreditApiV3;
 
 use \Exception;
 
@@ -19,7 +19,7 @@ use \Exception;
  * ApiException Class Doc Comment
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  */
 class ApiException extends Exception
 {

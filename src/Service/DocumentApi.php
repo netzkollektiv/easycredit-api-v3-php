@@ -3,7 +3,7 @@
  * DocumentApi
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,22 +11,22 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3\Service;
+namespace Teambank\EasyCreditApiV3\Service;
 
 use Psr\Http\Client\ClientInterface;
 
-use Teambank\RatenkaufByEasyCreditApiV3\ApiException;
-use Teambank\RatenkaufByEasyCreditApiV3\Configuration;
-use Teambank\RatenkaufByEasyCreditApiV3\HeaderSelector;
-use Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
-use Teambank\RatenkaufByEasyCreditApiV3\Client;
+use Teambank\EasyCreditApiV3\ApiException;
+use Teambank\EasyCreditApiV3\Configuration;
+use Teambank\EasyCreditApiV3\HeaderSelector;
+use Teambank\EasyCreditApiV3\ObjectSerializer;
+use Teambank\EasyCreditApiV3\Client;
 use GuzzleHttp\Psr7\Request;
 
 /**
  * DocumentApi Class
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  */
 class DocumentApi
 {
@@ -106,9 +106,9 @@ class DocumentApi
      * @param  string[] $documentType set by default to all options if not specified (optional)
      * @param  string[] $fileType set by default to all options if not specified (optional)
      *
-     * @throws \Teambank\RatenkaufByEasyCreditApiV3\ApiException on non-2xx response
+     * @throws \Teambank\EasyCreditApiV3\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \SplFileObject|\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation|\Teambank\RatenkaufByEasyCreditApiV3\Model\AuthenticationError|\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolation
+     * @return \SplFileObject|\Teambank\EasyCreditApiV3\Model\ConstraintViolation|\Teambank\EasyCreditApiV3\Model\AuthenticationError|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation
      */
     public function apiMerchantV3DocumentsGet($billingDateFrom = null, $billingDateTo = null, $documentType = null, $fileType = null)
     {
@@ -126,9 +126,9 @@ class DocumentApi
      * @param  string[] $documentType set by default to all options if not specified (optional)
      * @param  string[] $fileType set by default to all options if not specified (optional)
      *
-     * @throws \Teambank\RatenkaufByEasyCreditApiV3\ApiException on non-2xx response
+     * @throws \Teambank\EasyCreditApiV3\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \SplFileObject|\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation|\Teambank\RatenkaufByEasyCreditApiV3\Model\AuthenticationError|\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolation, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \SplFileObject|\Teambank\EasyCreditApiV3\Model\ConstraintViolation|\Teambank\EasyCreditApiV3\Model\AuthenticationError|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation, HTTP status code, HTTP response headers (array of strings)
      */
     public function apiMerchantV3DocumentsGetWithHttpInfo($billingDateFrom = null, $billingDateTo = null, $documentType = null, $fileType = null)
     {
@@ -183,38 +183,38 @@ class DocumentApi
                         $response->getHeaders()
                     ];
                 case 400:
-                    if ('\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation' === '\SplFileObject') {
+                    if ('\Teambank\EasyCreditApiV3\Model\ConstraintViolation' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation', []),
+                        ObjectSerializer::deserialize($content, '\Teambank\EasyCreditApiV3\Model\ConstraintViolation', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 401:
-                    if ('\Teambank\RatenkaufByEasyCreditApiV3\Model\AuthenticationError' === '\SplFileObject') {
+                    if ('\Teambank\EasyCreditApiV3\Model\AuthenticationError' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Teambank\RatenkaufByEasyCreditApiV3\Model\AuthenticationError', []),
+                        ObjectSerializer::deserialize($content, '\Teambank\EasyCreditApiV3\Model\AuthenticationError', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 403:
-                    if ('\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolation' === '\SplFileObject') {
+                    if ('\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolation', []),
+                        ObjectSerializer::deserialize($content, '\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -246,7 +246,7 @@ class DocumentApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Teambank\RatenkaufByEasyCreditApiV3\Model\ConstraintViolation',
+                        '\Teambank\EasyCreditApiV3\Model\ConstraintViolation',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -254,7 +254,7 @@ class DocumentApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Teambank\RatenkaufByEasyCreditApiV3\Model\AuthenticationError',
+                        '\Teambank\EasyCreditApiV3\Model\AuthenticationError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -262,7 +262,7 @@ class DocumentApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Teambank\RatenkaufByEasyCreditApiV3\Model\PaymentConstraintViolation',
+                        '\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);

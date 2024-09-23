@@ -1,7 +1,7 @@
 <?php
-namespace Teambank\RatenkaufByEasyCreditApiV3\Integration\Util;
+namespace Teambank\EasyCreditApiV3\Integration\Util;
 
-use Teambank\RatenkaufByEasyCreditApiV3\Model\Customer;
+use Teambank\EasyCreditApiV3\Model\Customer;
 
 class PrefixConverter {
 

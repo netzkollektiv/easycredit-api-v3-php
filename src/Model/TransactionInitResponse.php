@@ -3,7 +3,7 @@
  * TransactionInitResponse
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,16 +11,16 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3\Model;
+namespace Teambank\EasyCreditApiV3\Model;
 
 use \ArrayAccess;
-use \Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
+use \Teambank\EasyCreditApiV3\ObjectSerializer;
 
 /**
  * TransactionInitResponse Class Doc Comment
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
@@ -47,7 +47,7 @@ class TransactionInitResponse implements ModelInterface, ArrayAccess, \JsonSeria
         'deviceIdentToken' => 'string',
         'redirectUrl' => 'string',
         'timestamp' => '\DateTime',
-        'transactionInformation' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformation'
+        'transactionInformation' => '\Teambank\EasyCreditApiV3\Model\TransactionInformation'
     ];
 
     /**
@@ -341,7 +341,7 @@ class TransactionInitResponse implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Gets transactionInformation
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformation|null
+     * @return \Teambank\EasyCreditApiV3\Model\TransactionInformation|null
      */
     public function getTransactionInformation()
     {
@@ -351,7 +351,7 @@ class TransactionInitResponse implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets transactionInformation
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformation|null $transactionInformation transactionInformation
+     * @param \Teambank\EasyCreditApiV3\Model\TransactionInformation|null $transactionInformation transactionInformation
      *
      * @return self
      */

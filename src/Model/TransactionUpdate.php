@@ -3,7 +3,7 @@
  * TransactionUpdate
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,16 +11,16 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3\Model;
+namespace Teambank\EasyCreditApiV3\Model;
 
 use \ArrayAccess;
-use \Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
+use \Teambank\EasyCreditApiV3\ObjectSerializer;
 
 /**
  * TransactionUpdate Class Doc Comment
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
@@ -45,7 +45,7 @@ class TransactionUpdate implements ModelInterface, ArrayAccess, \JsonSerializabl
         'orderValue' => 'float',
         'numberOfProductsInShoppingCart' => 'int',
         'orderId' => 'string',
-        'shoppingCartInformation' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\ShoppingCartInformationItem[]',
+        'shoppingCartInformation' => '\Teambank\EasyCreditApiV3\Model\ShoppingCartInformationItem[]',
         'financingTerm' => 'int'
     ];
 
@@ -287,7 +287,7 @@ class TransactionUpdate implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets shoppingCartInformation
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\ShoppingCartInformationItem[]|null
+     * @return \Teambank\EasyCreditApiV3\Model\ShoppingCartInformationItem[]|null
      */
     public function getShoppingCartInformation()
     {
@@ -297,7 +297,7 @@ class TransactionUpdate implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets shoppingCartInformation
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\ShoppingCartInformationItem[]|null $shoppingCartInformation shoppingCartInformation
+     * @param \Teambank\EasyCreditApiV3\Model\ShoppingCartInformationItem[]|null $shoppingCartInformation shoppingCartInformation
      *
      * @return self
      */

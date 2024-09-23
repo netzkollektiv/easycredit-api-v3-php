@@ -3,7 +3,7 @@
  * ObjectSerializer
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,9 +11,9 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3;
+namespace Teambank\EasyCreditApiV3;
 
-use Teambank\RatenkaufByEasyCreditApiV3\Model\ModelInterface;
+use Teambank\EasyCreditApiV3\Model\ModelInterface;
 use GuzzleHttp\Psr7\Utils;
 
 class ObjectSerializer
@@ -366,7 +366,7 @@ class ObjectSerializer
             // If a discriminator is defined and points to a valid subclass, use it.
             $discriminator = $class::DISCRIMINATOR;
             if (!empty($discriminator) && isset($data->{$discriminator}) && is_string($data->{$discriminator})) {
-                $subclass = '\Teambank\RatenkaufByEasyCreditApiV3\Model\\' . $data->{$discriminator};
+                $subclass = '\Teambank\EasyCreditApiV3\Model\\' . $data->{$discriminator};
                 if (is_subclass_of($subclass, $class)) {
                     $class = $subclass;
                 }

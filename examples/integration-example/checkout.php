@@ -2,8 +2,8 @@
 require_once __DIR__.'/_init.php';
 require_once __DIR__.'/_checkout-init.php';
 
-use \Teambank\RatenkaufByEasyCreditApiV3\Integration;
-use \Teambank\RatenkaufByEasyCreditApiV3\Service;
+use \Teambank\EasyCreditApiV3\Integration;
+use \Teambank\EasyCreditApiV3\Service;
 
 $checkout->start($wrappedTransactionInitRequest);
 
@@ -25,6 +25,6 @@ do {
 
     $result = $checkout->loadTransaction();
 }
-while ($result->getStatus() !== Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformationResponse::STATUS_AUTHORIZED);
+while ($result->getStatus() !== Teambank\EasyCreditApiV3\Model\TransactionInformationResponse::STATUS_AUTHORIZED);
 
 print_r($result);

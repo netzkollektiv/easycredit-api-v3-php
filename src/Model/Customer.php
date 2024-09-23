@@ -3,7 +3,7 @@
  * Customer
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  *
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
@@ -11,16 +11,16 @@
 
  */
 
-namespace Teambank\RatenkaufByEasyCreditApiV3\Model;
+namespace Teambank\EasyCreditApiV3\Model;
 
 use \ArrayAccess;
-use \Teambank\RatenkaufByEasyCreditApiV3\ObjectSerializer;
+use \Teambank\EasyCreditApiV3\ObjectSerializer;
 
 /**
  * Customer Class Doc Comment
  *
  * @category Class
- * @package  Teambank\RatenkaufByEasyCreditApiV3
+ * @package  Teambank\EasyCreditApiV3
  * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
@@ -49,9 +49,9 @@ class Customer implements ModelInterface, ArrayAccess, \JsonSerializable
         'birthName' => 'string',
         'birthPlace' => 'string',
         'title' => 'string',
-        'contact' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\Contact',
-        'bank' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\Bank',
-        'employment' => '\Teambank\RatenkaufByEasyCreditApiV3\Model\Employment',
+        'contact' => '\Teambank\EasyCreditApiV3\Model\Contact',
+        'bank' => '\Teambank\EasyCreditApiV3\Model\Bank',
+        'employment' => '\Teambank\EasyCreditApiV3\Model\Employment',
         'companyName' => 'string'
     ];
 
@@ -495,7 +495,7 @@ class Customer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets contact
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\Contact|null
+     * @return \Teambank\EasyCreditApiV3\Model\Contact|null
      */
     public function getContact()
     {
@@ -505,7 +505,7 @@ class Customer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets contact
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Contact|null $contact contact
+     * @param \Teambank\EasyCreditApiV3\Model\Contact|null $contact contact
      *
      * @return self
      */
@@ -519,7 +519,7 @@ class Customer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets bank
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\Bank|null
+     * @return \Teambank\EasyCreditApiV3\Model\Bank|null
      */
     public function getBank()
     {
@@ -529,7 +529,7 @@ class Customer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets bank
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Bank|null $bank bank
+     * @param \Teambank\EasyCreditApiV3\Model\Bank|null $bank bank
      *
      * @return self
      */
@@ -543,7 +543,7 @@ class Customer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets employment
      *
-     * @return \Teambank\RatenkaufByEasyCreditApiV3\Model\Employment|null
+     * @return \Teambank\EasyCreditApiV3\Model\Employment|null
      */
     public function getEmployment()
     {
@@ -553,7 +553,7 @@ class Customer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets employment
      *
-     * @param \Teambank\RatenkaufByEasyCreditApiV3\Model\Employment|null $employment employment
+     * @param \Teambank\EasyCreditApiV3\Model\Employment|null $employment employment
      *
      * @return self
      */
