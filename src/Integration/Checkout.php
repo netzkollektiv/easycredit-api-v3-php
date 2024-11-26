@@ -85,7 +85,7 @@ class Checkout implements CheckoutInterface {
 
         $this->storage
             ->set('authorized_amount', $result->getOrderValue())
-            ->set('interest_amount', (float) $result->getInterest())
+            ->set('interest_amount', $result->getInterest())
             ->set('summary', json_encode($result->jsonSerialize()));
 
         return $result;
@@ -138,7 +138,7 @@ class Checkout implements CheckoutInterface {
             case TransactionInformation::STATUS_PREAUTHORIZED:
                 $this->storage->set(
                     'interest_amount',
-                    (float) $result->getDecision()->getInterest()
+                    $result->getDecision()->getInterest()
                 )->set(
                     'summary',
                     json_encode($result->getDecision()->jsonSerialize())
@@ -253,19 +253,21 @@ class Checkout implements CheckoutInterface {
         );
     }
 
-    public function isAmountValid(Transaction $request) {
+    public function isAmountValid(Transaction $request): bool {
 
         $amount = $request->getOrderDetails()->getOrderValue();
-        $authorizedAmount = $this->storage->get('authorized_amount');
-        $interestAmount = $this->storage->get('interest_amount');
+        $authorizedAmount = (float) $this->storage->get('authorized_amount');
+        $interestAmount = (float) $this->storage->get('interest_amount');
 
         if (
             $amount === null ||
-            $authorizedAmount === null ||
-            $interestAmount === null ||
-            round((float) $amount, 2) !== round((float) $authorizedAmount + (float) $interestAmount, 2)
+            !is_numeric($amount) ||
+            round($amount, 2) !== round($authorizedAmount + $interestAmount, 2)
         ) {
-            $this->logger->debug('amount not valid: '.$amount.' (amount) !== '.$authorizedAmount.' (authorized) + '.$interestAmount.' (interest)');
+            $this->logger->debug(sprintf(
+                'Amount not valid: %.2f (order) !== %.2f (authorized) + %.2f (interest)',
+                $amount, $authorizedAmount, $interestAmount
+            ));
             return false;
         }
         return true;
