@@ -79,7 +79,6 @@ class Checkout implements CheckoutInterface {
                 'numberOfProductsInShoppingCart' => $orderDetails->getNumberOfProductsInShoppingCart(), 
                 'orderId' => $orderDetails->getOrderId(), 
                 'shoppingCartInformation' => $orderDetails->getShoppingCartInformation(), 
-                'financingTerm' => $request->getFinancingTerm() 
             ])
         );
 
@@ -147,15 +146,22 @@ class Checkout implements CheckoutInterface {
         return $result;
     }
 
-    public function isApproved() {
-        $summary = json_decode($this->storage->get('summary'));
-        if ($summary &&
-            isset($summary->decisionOutcome) && 
-            TransactionSummary::DECISION_OUTCOME_POSITIVE == $summary->decisionOutcome
-        ) {
-            return true;
+    public function isApproved(): bool {
+        $summaryJson = $this->storage->get('summary');
+
+        if ($summaryJson === null) {
+            return false;
         }
-        return false;
+
+        $summary = json_decode($summaryJson);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            $this->logger->warning('Failed to decode summary JSON: ' . json_last_error_msg());
+            return false;
+        }
+
+        return isset($summary->decisionOutcome) &&
+            TransactionSummary::DECISION_OUTCOME_POSITIVE === $summary->decisionOutcome;
     }
 
     public function authorize($orderId = null) {
