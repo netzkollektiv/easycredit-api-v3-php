@@ -31,6 +31,7 @@ docs/Model/InstallmentPlanRequest.md
 docs/Model/InstallmentPlanResponse.md
 docs/Model/IntegrationCheckRequest.md
 docs/Model/IntegrationCheckResponse.md
+docs/Model/InterestRateFlexibilisation.md
 docs/Model/Interests.md
 docs/Model/InvoiceAddress.md
 docs/Model/MTan.md
@@ -61,11 +62,13 @@ docs/Model/TransactionSummary.md
 docs/Model/TransactionUpdate.md
 docs/Model/TransmitMtan.md
 docs/Model/WebshopResponse.md
+docs/Model/WebshopTextResponse.md
 git_push.sh
 phpunit.xml.dist
 src/ApiException.php
 src/Client.php
 src/Configuration.php
+src/FormDataProcessor.php
 src/HeaderSelector.php
 src/Model/Address.php
 src/Model/Article.php
@@ -91,6 +94,7 @@ src/Model/InstallmentPlanRequest.php
 src/Model/InstallmentPlanResponse.php
 src/Model/IntegrationCheckRequest.php
 src/Model/IntegrationCheckResponse.php
+src/Model/InterestRateFlexibilisation.php
 src/Model/Interests.php
 src/Model/InvoiceAddress.php
 src/Model/MTan.php
@@ -122,6 +126,7 @@ src/Model/TransactionSummary.php
 src/Model/TransactionUpdate.php
 src/Model/TransmitMtan.php
 src/Model/WebshopResponse.php
+src/Model/WebshopTextResponse.php
 src/ObjectSerializer.php
 src/Service/DocumentApi.php
 src/Service/InstallmentplanApi.php

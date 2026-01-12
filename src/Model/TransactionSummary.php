@@ -8,7 +8,6 @@
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
  * @link     https://netzkollektiv.com
-
  */
 
 namespace Teambank\EasyCreditApiV3\Model;
@@ -62,6 +61,7 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
         'lastInstallmentDate' => '\DateTime',
         'amortizationPlanText' => 'string',
         'urlPreContractualInformation' => 'string',
+        'upsellingPossible' => 'bool',
         'installmentPlans' => '\Teambank\EasyCreditApiV3\Model\InstallmentPlan[]',
         'mtan' => '\Teambank\EasyCreditApiV3\Model\MTan',
         'bankAccountCheck' => '\Teambank\EasyCreditApiV3\Model\BankAccountCheck'
@@ -95,6 +95,7 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
         'lastInstallmentDate' => 'date',
         'amortizationPlanText' => null,
         'urlPreContractualInformation' => null,
+        'upsellingPossible' => null,
         'installmentPlans' => null,
         'mtan' => null,
         'bankAccountCheck' => null
@@ -147,6 +148,7 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
         'lastInstallmentDate' => 'lastInstallmentDate',
         'amortizationPlanText' => 'amortizationPlanText',
         'urlPreContractualInformation' => 'urlPreContractualInformation',
+        'upsellingPossible' => 'upsellingPossible',
         'installmentPlans' => 'installmentPlans',
         'mtan' => 'mtan',
         'bankAccountCheck' => 'bankAccountCheck'
@@ -178,6 +180,7 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
         'lastInstallmentDate' => 'setLastInstallmentDate',
         'amortizationPlanText' => 'setAmortizationPlanText',
         'urlPreContractualInformation' => 'setUrlPreContractualInformation',
+        'upsellingPossible' => 'setUpsellingPossible',
         'installmentPlans' => 'setInstallmentPlans',
         'mtan' => 'setMtan',
         'bankAccountCheck' => 'setBankAccountCheck'
@@ -209,6 +212,7 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
         'lastInstallmentDate' => 'getLastInstallmentDate',
         'amortizationPlanText' => 'getAmortizationPlanText',
         'urlPreContractualInformation' => 'getUrlPreContractualInformation',
+        'upsellingPossible' => 'getUpsellingPossible',
         'installmentPlans' => 'getInstallmentPlans',
         'mtan' => 'getMtan',
         'bankAccountCheck' => 'getBankAccountCheck'
@@ -284,7 +288,7 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(array $data = null)
+    public function __construct(?array $data = null)
     {
         $this->container['transactionId'] = $data['transactionId'] ?? null;
         $this->container['deviceIdentToken'] = $data['deviceIdentToken'] ?? null;
@@ -306,6 +310,7 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
         $this->container['lastInstallmentDate'] = $data['lastInstallmentDate'] ?? null;
         $this->container['amortizationPlanText'] = $data['amortizationPlanText'] ?? null;
         $this->container['urlPreContractualInformation'] = $data['urlPreContractualInformation'] ?? null;
+        $this->container['upsellingPossible'] = $data['upsellingPossible'] ?? null;
         $this->container['installmentPlans'] = $data['installmentPlans'] ?? null;
         $this->container['mtan'] = $data['mtan'] ?? null;
         $this->container['bankAccountCheck'] = $data['bankAccountCheck'] ?? null;
@@ -830,6 +835,30 @@ class TransactionSummary implements ModelInterface, ArrayAccess, \JsonSerializab
     public function setUrlPreContractualInformation($urlPreContractualInformation)
     {
         $this->container['urlPreContractualInformation'] = $urlPreContractualInformation;
+
+        return $this;
+    }
+
+    /**
+     * Gets upsellingPossible
+     *
+     * @return bool|null
+     */
+    public function getUpsellingPossible()
+    {
+        return $this->container['upsellingPossible'];
+    }
+
+    /**
+     * Sets upsellingPossible
+     *
+     * @param bool|null $upsellingPossible true if an upselling is possible for this transaction. Will be set once the transaction has a positive decision outcome.
+     *
+     * @return self
+     */
+    public function setUpsellingPossible($upsellingPossible)
+    {
+        $this->container['upsellingPossible'] = $upsellingPossible;
 
         return $this;
     }

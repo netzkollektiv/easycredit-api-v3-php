@@ -8,7 +8,6 @@
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
  * @link     https://netzkollektiv.com
-
  */
 
 namespace Teambank\EasyCreditApiV3\Model;

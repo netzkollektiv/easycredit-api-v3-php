@@ -8,7 +8,6 @@
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
  * @link     https://netzkollektiv.com
-
  */
 
 namespace Teambank\EasyCreditApiV3\Service;
@@ -57,9 +56,9 @@ class InstallmentplanApi
      * @param int             $hostIndex (Optional) host index to select the list of hosts if defined in the OpenAPI spec
      */
     public function __construct(
-        ClientInterface $client = null,
-        Configuration $config = null,
-        HeaderSelector $selector = null,
+        ?ClientInterface $client = null,
+        ?Configuration $config = null,
+        ?HeaderSelector $selector = null,
         $hostIndex = 0
     ) {
         $this->client = $client ?: new Client();
@@ -131,7 +130,6 @@ class InstallmentplanApi
         $request = $this->apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPostRequest($shopIdentifier, $installmentPlanRequest);
 
         try {
-            // $options = $this->createHttpClientOption();
             try {
                 $response = $this->client->sendRequest($request);
             } catch (RequestException $e) {
@@ -167,11 +165,7 @@ class InstallmentplanApi
 
             switch($statusCode) {
                 case 200:
-                    if ('\Teambank\EasyCreditApiV3\Model\InstallmentPlanResponse' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
+                    $content = (string) $response->getBody();
 
                     return [
                         ObjectSerializer::deserialize($content, '\Teambank\EasyCreditApiV3\Model\InstallmentPlanResponse', []),
@@ -179,11 +173,7 @@ class InstallmentplanApi
                         $response->getHeaders()
                     ];
                 case 400:
-                    if ('\Teambank\EasyCreditApiV3\Model\ConstraintViolation' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
+                    $content = (string) $response->getBody();
 
                     return [
                         ObjectSerializer::deserialize($content, '\Teambank\EasyCreditApiV3\Model\ConstraintViolation', []),
@@ -191,11 +181,7 @@ class InstallmentplanApi
                         $response->getHeaders()
                     ];
                 case 404:
-                    if ('\Teambank\EasyCreditApiV3\Model\ConstraintViolation' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
+                    $content = (string) $response->getBody();
 
                     return [
                         ObjectSerializer::deserialize($content, '\Teambank\EasyCreditApiV3\Model\ConstraintViolation', []),
@@ -205,11 +191,7 @@ class InstallmentplanApi
             }
 
             $returnType = '\Teambank\EasyCreditApiV3\Model\InstallmentPlanResponse';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-            }
+            $content = (string) $response->getBody();
 
             return [
                 ObjectSerializer::deserialize($content, $returnType, []),
@@ -284,9 +266,6 @@ class InstallmentplanApi
             );
         }
 
-        /*
-        */
-
         if ($multipart) {
             $headers = $this->headerSelector->selectHeadersForMultipart(
                 ['application/problem+json']
@@ -350,22 +329,4 @@ class InstallmentplanApi
         );
     }
 
-    /**
-     * Create http client option
-     *
-     * @throws \RuntimeException on file opening failure
-     * @return array of http client options
-     */
-    protected function createHttpClientOption()
-    {
-        $options = [];
-        if ($this->config->getDebug()) {
-            $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
-            if (!$options[RequestOptions::DEBUG]) {
-                throw new \RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
-            }
-        }
-
-        return $options;
-    }
 }

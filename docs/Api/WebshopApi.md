@@ -1,11 +1,14 @@
 # Teambank\EasyCreditApiV3\WebshopApi
 
+endpoints for operations regarding a webshop
+
 All URIs are relative to https://partner.easycredit-ratenkauf.de, except if the operation defines another base path.
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**apiPaymentV3WebshopGet()**](WebshopApi.md#apiPaymentV3WebshopGet) | **GET** /api/payment/v3/webshop | Get the necessary information about the webshop |
 | [**apiPaymentV3WebshopIntegrationcheckPost()**](WebshopApi.md#apiPaymentV3WebshopIntegrationcheckPost) | **POST** /api/payment/v3/webshop/integrationcheck | Verifies the correctness of the merchant&#39;s authentication credentials and, if enabled, the body signature |
+| [**apiPaymentV3WebshopTexteWebshopIdGet()**](WebshopApi.md#apiPaymentV3WebshopTexteWebshopIdGet) | **GET** /api/payment/v3/webshop/texte/{webshopId} | Get the necessary confirmation texts about the webshop |
 | [**apiPaymentV3WebshopWebshopIdGet()**](WebshopApi.md#apiPaymentV3WebshopWebshopIdGet) | **GET** /api/payment/v3/webshop/{webshopId} | Get the necessary information about the webshop |
 
 
@@ -127,6 +130,62 @@ try {
 
 - **Content-Type**: `application/json`
 - **Accept**: `application/problem+json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `apiPaymentV3WebshopTexteWebshopIdGet()`
+
+```php
+apiPaymentV3WebshopTexteWebshopIdGet($webshopId): \Teambank\EasyCreditApiV3\Model\WebshopTextResponse
+```
+
+Get the necessary confirmation texts about the webshop
+
+' This API returns the necessary confirmation texts of the corresponding webshop. '
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Teambank\EasyCreditApiV3\Api\WebshopApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$webshopId = 'webshopId_example'; // string | Identifier of a webshop
+
+try {
+    $result = $apiInstance->apiPaymentV3WebshopTexteWebshopIdGet($webshopId);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WebshopApi->apiPaymentV3WebshopTexteWebshopIdGet: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **webshopId** | **string**| Identifier of a webshop | |
+
+### Return type
+
+[**\Teambank\EasyCreditApiV3\Model\WebshopTextResponse**](../Model/WebshopTextResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)

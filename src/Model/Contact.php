@@ -8,7 +8,6 @@
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
  * @link     https://netzkollektiv.com
-
  */
 
 namespace Teambank\EasyCreditApiV3\Model;
@@ -174,7 +173,7 @@ class Contact implements ModelInterface, ArrayAccess, \JsonSerializable
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(array $data = null)
+    public function __construct(?array $data = null)
     {
         $this->container['email'] = $data['email'] ?? null;
         $this->container['mobilePhoneNumber'] = $data['mobilePhoneNumber'] ?? null;

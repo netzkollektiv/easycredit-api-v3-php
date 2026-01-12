@@ -1,5 +1,7 @@
 # Teambank\EasyCreditApiV3\DocumentApi
 
+
+
 All URIs are relative to https://partner.easycredit-ratenkauf.de, except if the operation defines another base path.
 
 | Method | HTTP request | Description |
@@ -37,8 +39,8 @@ $apiInstance = new Teambank\EasyCreditApiV3\Api\DocumentApi(
     new GuzzleHttp\Client(),
     $config
 );
-$billingDateFrom = new \DateTime("2013-10-20T19:20:30+01:00"); // \DateTime | set by default to the last month if not specified
-$billingDateTo = new \DateTime("2013-10-20T19:20:30+01:00"); // \DateTime | set by default to billingDateFrom + one month if not specified
+$billingDateFrom = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | set by default to the last month if not specified
+$billingDateTo = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | set by default to billingDateFrom + one month if not specified
 $documentType = array('documentType_example'); // string[] | set by default to all options if not specified
 $fileType = array('fileType_example'); // string[] | set by default to all options if not specified
 

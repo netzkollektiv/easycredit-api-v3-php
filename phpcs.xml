@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ruleset name="MyLibrary">
+    <description>Check PHP version compatibility</description>
+
+    <rule ref="PHPCompatibility"/>
+
+    <file>src</file>
+
+    <config name="testVersion" value="7.1-8.5"/>
+</ruleset>

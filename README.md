@@ -10,7 +10,7 @@ The easyCredit API v3 Library is the official PHP library for using the followin
 
 ### Requirements
 
- * PHP >= 7.0
+ * PHP >= 7.1
 
 ### Composer
 
@@ -57,15 +57,14 @@ $config = Teambank\EasyCreditApiV3\Configuration::getDefaultConfiguration()
               ->setUsername('1.de.1234.1') // use your "Webshop-ID"
               ->setPassword('YOUR_API_KEY'); // use your "API-Kennwort"
 
-
 $apiInstance = new Teambank\EasyCreditApiV3\Api\DocumentApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
-$billingDateFrom = new \DateTime("2013-10-20T19:20:30+01:00"); // \DateTime | set by default to the last month if not specified
-$billingDateTo = new \DateTime("2013-10-20T19:20:30+01:00"); // \DateTime | set by default to billingDateFrom + one month if not specified
+$billingDateFrom = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | set by default to the last month if not specified
+$billingDateTo = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | set by default to billingDateFrom + one month if not specified
 $documentType = array('documentType_example'); // string[] | set by default to all options if not specified
 $fileType = array('fileType_example'); // string[] | set by default to all options if not specified
 
@@ -90,13 +89,15 @@ Class | Method | HTTP request | Description
 *TransactionApi* | [**apiMerchantV3TransactionTransactionIdCapturePost**](docs/Api/TransactionApi.md#apimerchantv3transactiontransactionidcapturepost) | **POST** /api/merchant/v3/transaction/{transactionId}/capture | Report a capture for a transaction according to its unique functional identifier
 *TransactionApi* | [**apiMerchantV3TransactionTransactionIdGet**](docs/Api/TransactionApi.md#apimerchantv3transactiontransactionidget) | **GET** /api/merchant/v3/transaction/{transactionId} | Retrieve a transaction of a merchant according to a unique functional identifier
 *TransactionApi* | [**apiMerchantV3TransactionTransactionIdRefundPost**](docs/Api/TransactionApi.md#apimerchantv3transactiontransactionidrefundpost) | **POST** /api/merchant/v3/transaction/{transactionId}/refund | Report a refund for a transaction according to its unique functional identifier
-*TransactionApi* | [**apiPaymentV3TransactionPost**](docs/Api/TransactionApi.md#apipaymentv3transactionpost) | **POST** /api/payment/v3/transaction | Initiates a transaction based on the given request
+*TransactionApi* | [**apiPaymentV3TransactionPost**](docs/Api/TransactionApi.md#apipaymentv3transactionpost) | **POST** /api/payment/v3/transaction | Initiates an ecommerce or direct sales transaction based on the given request
 *TransactionApi* | [**apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPost**](docs/Api/TransactionApi.md#apipaymentv3transactiontechnicaltransactionidauthorizationpost) | **POST** /api/payment/v3/transaction/{technicalTransactionId}/authorization | Authorizes a transaction after finishing the process in a webshop
+*TransactionApi* | [**apiPaymentV3TransactionTechnicalTransactionIdCancellationPost**](docs/Api/TransactionApi.md#apipaymentv3transactiontechnicaltransactionidcancellationpost) | **POST** /api/payment/v3/transaction/{technicalTransactionId}/cancellation | Cancel a transaction. This operation is only allowed for shops of type Direct Sales.
 *TransactionApi* | [**apiPaymentV3TransactionTechnicalTransactionIdGet**](docs/Api/TransactionApi.md#apipaymentv3transactiontechnicaltransactionidget) | **GET** /api/payment/v3/transaction/{technicalTransactionId} | Get the necessary information about the transaction
 *TransactionApi* | [**apiPaymentV3TransactionTechnicalTransactionIdPatch**](docs/Api/TransactionApi.md#apipaymentv3transactiontechnicaltransactionidpatch) | **PATCH** /api/payment/v3/transaction/{technicalTransactionId} | Updates a transaction based on the given request
 *TransactionApi* | [**apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPost**](docs/Api/TransactionApi.md#apipaymentv3transactiontechnicaltransactionidswitchpaymentmethodpost) | **POST** /api/payment/v3/transaction/{technicalTransactionId}/switchPaymentMethod | Switch payment method
 *WebshopApi* | [**apiPaymentV3WebshopGet**](docs/Api/WebshopApi.md#apipaymentv3webshopget) | **GET** /api/payment/v3/webshop | Get the necessary information about the webshop
 *WebshopApi* | [**apiPaymentV3WebshopIntegrationcheckPost**](docs/Api/WebshopApi.md#apipaymentv3webshopintegrationcheckpost) | **POST** /api/payment/v3/webshop/integrationcheck | Verifies the correctness of the merchant&#39;s authentication credentials and, if enabled, the body signature
+*WebshopApi* | [**apiPaymentV3WebshopTexteWebshopIdGet**](docs/Api/WebshopApi.md#apipaymentv3webshoptextewebshopidget) | **GET** /api/payment/v3/webshop/texte/{webshopId} | Get the necessary confirmation texts about the webshop
 *WebshopApi* | [**apiPaymentV3WebshopWebshopIdGet**](docs/Api/WebshopApi.md#apipaymentv3webshopwebshopidget) | **GET** /api/payment/v3/webshop/{webshopId} | Get the necessary information about the webshop
 
 ## Models
@@ -125,6 +126,7 @@ Class | Method | HTTP request | Description
 - [InstallmentPlanResponse](docs/Model/InstallmentPlanResponse.md)
 - [IntegrationCheckRequest](docs/Model/IntegrationCheckRequest.md)
 - [IntegrationCheckResponse](docs/Model/IntegrationCheckResponse.md)
+- [InterestRateFlexibilisation](docs/Model/InterestRateFlexibilisation.md)
 - [Interests](docs/Model/Interests.md)
 - [InvoiceAddress](docs/Model/InvoiceAddress.md)
 - [MTan](docs/Model/MTan.md)
@@ -155,6 +157,7 @@ Class | Method | HTTP request | Description
 - [TransactionUpdate](docs/Model/TransactionUpdate.md)
 - [TransmitMtan](docs/Model/TransmitMtan.md)
 - [WebshopResponse](docs/Model/WebshopResponse.md)
+- [WebshopTextResponse](docs/Model/WebshopTextResponse.md)
 
 ## Authorization
 

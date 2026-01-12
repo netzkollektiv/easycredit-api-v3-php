@@ -8,7 +8,6 @@
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
  * @link     https://netzkollektiv.com
-
  */
 
 namespace Teambank\EasyCreditApiV3\Model;
@@ -20,7 +19,7 @@ use \Teambank\EasyCreditApiV3\ObjectSerializer;
  * RedirectLinks Class Doc Comment
  *
  * @category Class
- * @description Redirect url addresses in case of success, cancellation and denial
+ * @description &#39; Redirect url addresses in case of success, cancellation and denial. For direct sales shop initializations, urlSuccess, urlCancellation, and urlDenial are optional. For eCommerce shop initializations, however, all three urls are required. If one or more urls are missing, the API will return a 400 BAD REQUEST response. urlAuthorizationCallback and urlStatusChangeNotifyCallback remain optional for all shopTypes. &#39;
  * @package  Teambank\EasyCreditApiV3
  * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
@@ -46,7 +45,8 @@ class RedirectLinks implements ModelInterface, ArrayAccess, \JsonSerializable
         'urlSuccess' => 'string',
         'urlCancellation' => 'string',
         'urlDenial' => 'string',
-        'urlAuthorizationCallback' => 'string'
+        'urlAuthorizationCallback' => 'string',
+        'urlStatusChangeNotifyCallback' => 'string'
     ];
 
     /**
@@ -60,7 +60,8 @@ class RedirectLinks implements ModelInterface, ArrayAccess, \JsonSerializable
         'urlSuccess' => null,
         'urlCancellation' => null,
         'urlDenial' => null,
-        'urlAuthorizationCallback' => null
+        'urlAuthorizationCallback' => null,
+        'urlStatusChangeNotifyCallback' => null
     ];
 
     /**
@@ -93,7 +94,8 @@ class RedirectLinks implements ModelInterface, ArrayAccess, \JsonSerializable
         'urlSuccess' => 'urlSuccess',
         'urlCancellation' => 'urlCancellation',
         'urlDenial' => 'urlDenial',
-        'urlAuthorizationCallback' => 'urlAuthorizationCallback'
+        'urlAuthorizationCallback' => 'urlAuthorizationCallback',
+        'urlStatusChangeNotifyCallback' => 'urlStatusChangeNotifyCallback'
     ];
 
     /**
@@ -105,7 +107,8 @@ class RedirectLinks implements ModelInterface, ArrayAccess, \JsonSerializable
         'urlSuccess' => 'setUrlSuccess',
         'urlCancellation' => 'setUrlCancellation',
         'urlDenial' => 'setUrlDenial',
-        'urlAuthorizationCallback' => 'setUrlAuthorizationCallback'
+        'urlAuthorizationCallback' => 'setUrlAuthorizationCallback',
+        'urlStatusChangeNotifyCallback' => 'setUrlStatusChangeNotifyCallback'
     ];
 
     /**
@@ -117,7 +120,8 @@ class RedirectLinks implements ModelInterface, ArrayAccess, \JsonSerializable
         'urlSuccess' => 'getUrlSuccess',
         'urlCancellation' => 'getUrlCancellation',
         'urlDenial' => 'getUrlDenial',
-        'urlAuthorizationCallback' => 'getUrlAuthorizationCallback'
+        'urlAuthorizationCallback' => 'getUrlAuthorizationCallback',
+        'urlStatusChangeNotifyCallback' => 'getUrlStatusChangeNotifyCallback'
     ];
 
     /**
@@ -175,12 +179,13 @@ class RedirectLinks implements ModelInterface, ArrayAccess, \JsonSerializable
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(array $data = null)
+    public function __construct(?array $data = null)
     {
         $this->container['urlSuccess'] = $data['urlSuccess'] ?? null;
         $this->container['urlCancellation'] = $data['urlCancellation'] ?? null;
         $this->container['urlDenial'] = $data['urlDenial'] ?? null;
         $this->container['urlAuthorizationCallback'] = $data['urlAuthorizationCallback'] ?? null;
+        $this->container['urlStatusChangeNotifyCallback'] = $data['urlStatusChangeNotifyCallback'] ?? null;
     }
 
     /**
@@ -192,15 +197,6 @@ class RedirectLinks implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['urlSuccess'] === null) {
-            $invalidProperties[] = "'urlSuccess' can't be null";
-        }
-        if ($this->container['urlCancellation'] === null) {
-            $invalidProperties[] = "'urlCancellation' can't be null";
-        }
-        if ($this->container['urlDenial'] === null) {
-            $invalidProperties[] = "'urlDenial' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -219,7 +215,7 @@ class RedirectLinks implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets urlSuccess
      *
-     * @return string
+     * @return string|null
      */
     public function getUrlSuccess()
     {
@@ -229,7 +225,7 @@ class RedirectLinks implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets urlSuccess
      *
-     * @param string $urlSuccess urlErfolg -> Return url address if the transaction is successful
+     * @param string|null $urlSuccess urlErfolg -> Return url address if the transaction is successful
      *
      * @return self
      */
@@ -243,7 +239,7 @@ class RedirectLinks implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets urlCancellation
      *
-     * @return string
+     * @return string|null
      */
     public function getUrlCancellation()
     {
@@ -253,7 +249,7 @@ class RedirectLinks implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets urlCancellation
      *
-     * @param string $urlCancellation urlAbbruch -> Return url address if the transaction is canceled
+     * @param string|null $urlCancellation urlAbbruch -> Return url address if the transaction is canceled
      *
      * @return self
      */
@@ -267,7 +263,7 @@ class RedirectLinks implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets urlDenial
      *
-     * @return string
+     * @return string|null
      */
     public function getUrlDenial()
     {
@@ -277,7 +273,7 @@ class RedirectLinks implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets urlDenial
      *
-     * @param string $urlDenial urlAblehnung -> Return url address if the transaction is denied
+     * @param string|null $urlDenial urlAblehnung -> Return url address if the transaction is denied
      *
      * @return self
      */
@@ -308,6 +304,30 @@ class RedirectLinks implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setUrlAuthorizationCallback($urlAuthorizationCallback)
     {
         $this->container['urlAuthorizationCallback'] = $urlAuthorizationCallback;
+
+        return $this;
+    }
+
+    /**
+     * Gets urlStatusChangeNotifyCallback
+     *
+     * @return string|null
+     */
+    public function getUrlStatusChangeNotifyCallback()
+    {
+        return $this->container['urlStatusChangeNotifyCallback'];
+    }
+
+    /**
+     * Sets urlStatusChangeNotifyCallback
+     *
+     * @param string|null $urlStatusChangeNotifyCallback ' Optional Status-Change-Notify-Url for transaction status changes. If the transaction changes status the provided callback will be called with a GET request. If you provide a callback-url like https://www.example.com you will be notified about the transaction through GET https://www.example.com?transactionId=<technicalTransactionId> '
+     *
+     * @return self
+     */
+    public function setUrlStatusChangeNotifyCallback($urlStatusChangeNotifyCallback)
+    {
+        $this->container['urlStatusChangeNotifyCallback'] = $urlStatusChangeNotifyCallback;
 
         return $this;
     }

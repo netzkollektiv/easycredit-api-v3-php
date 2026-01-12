@@ -8,13 +8,11 @@
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
  * @link     https://netzkollektiv.com
-
  */
 
 namespace Teambank\EasyCreditApiV3;
 
 use Teambank\EasyCreditApiV3\Model\ModelInterface;
-use GuzzleHttp\Psr7\Utils;
 
 class ObjectSerializer
 {
@@ -323,37 +321,11 @@ class ObjectSerializer
             }
         }
 
-        if ($class === '\SplFileObject') {
-            $data = Utils::streamFor($data);
-
-            /** @var \Psr\Http\Message\StreamInterface $data */
-
-            // determine file name
-            if (
-                is_array($httpHeaders)
-                && array_key_exists('Content-Disposition', $httpHeaders) 
-                && preg_match('/inline; filename=[\'"]?([^\'"\s]+)[\'"]?$/i', $httpHeaders['Content-Disposition'], $match)
-            ) {
-                $filename = Configuration::getDefaultConfiguration()->getTempFolderPath() . DIRECTORY_SEPARATOR . self::sanitizeFilename($match[1]);
-            } else {
-                $filename = tempnam(Configuration::getDefaultConfiguration()->getTempFolderPath(), '');
-            }
-
-            $file = fopen($filename, 'w');
-            while ($chunk = $data->read(200)) {
-                fwrite($file, $chunk);
-            }
-            fclose($file);
-
-            return new \SplFileObject($filename, 'r');
-        }
-
         /** @psalm-suppress ParadoxicalCondition */
         if (in_array($class, ['\DateTime', '\SplFileObject', 'array', 'bool', 'boolean', 'byte', 'float', 'int', 'integer', 'mixed', 'number', 'object', 'string', 'void'], true)) {
             settype($data, $class);
             return $data;
         }
-
 
         if (method_exists($class, 'getAllowableEnumValues')) {
             if (!in_array($data, $class::getAllowableEnumValues(), true)) {

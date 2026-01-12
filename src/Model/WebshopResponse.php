@@ -8,7 +8,6 @@
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
  * @link     https://netzkollektiv.com
-
  */
 
 namespace Teambank\EasyCreditApiV3\Model;
@@ -58,7 +57,8 @@ class WebshopResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'minBillingValue' => 'float',
         'maxBillingValue' => 'float',
         'minInstallmentValue' => 'float',
-        'maxInstallmentValue' => 'float'
+        'maxInstallmentValue' => 'float',
+        'interestRateFlexibilisation' => '\Teambank\EasyCreditApiV3\Model\InterestRateFlexibilisation'
     ];
 
     /**
@@ -85,7 +85,8 @@ class WebshopResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'minBillingValue' => null,
         'maxBillingValue' => null,
         'minInstallmentValue' => null,
-        'maxInstallmentValue' => null
+        'maxInstallmentValue' => null,
+        'interestRateFlexibilisation' => null
     ];
 
     /**
@@ -131,7 +132,8 @@ class WebshopResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'minBillingValue' => 'minBillingValue',
         'maxBillingValue' => 'maxBillingValue',
         'minInstallmentValue' => 'minInstallmentValue',
-        'maxInstallmentValue' => 'maxInstallmentValue'
+        'maxInstallmentValue' => 'maxInstallmentValue',
+        'interestRateFlexibilisation' => 'interestRateFlexibilisation'
     ];
 
     /**
@@ -156,7 +158,8 @@ class WebshopResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'minBillingValue' => 'setMinBillingValue',
         'maxBillingValue' => 'setMaxBillingValue',
         'minInstallmentValue' => 'setMinInstallmentValue',
-        'maxInstallmentValue' => 'setMaxInstallmentValue'
+        'maxInstallmentValue' => 'setMaxInstallmentValue',
+        'interestRateFlexibilisation' => 'setInterestRateFlexibilisation'
     ];
 
     /**
@@ -181,7 +184,8 @@ class WebshopResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'minBillingValue' => 'getMinBillingValue',
         'maxBillingValue' => 'getMaxBillingValue',
         'minInstallmentValue' => 'getMinInstallmentValue',
-        'maxInstallmentValue' => 'getMaxInstallmentValue'
+        'maxInstallmentValue' => 'getMaxInstallmentValue',
+        'interestRateFlexibilisation' => 'getInterestRateFlexibilisation'
     ];
 
     /**
@@ -239,7 +243,7 @@ class WebshopResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(array $data = null)
+    public function __construct(?array $data = null)
     {
         $this->container['maxFinancingAmount'] = $data['maxFinancingAmount'] ?? null;
         $this->container['minFinancingAmount'] = $data['minFinancingAmount'] ?? null;
@@ -258,6 +262,7 @@ class WebshopResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['maxBillingValue'] = $data['maxBillingValue'] ?? null;
         $this->container['minInstallmentValue'] = $data['minInstallmentValue'] ?? null;
         $this->container['maxInstallmentValue'] = $data['maxInstallmentValue'] ?? null;
+        $this->container['interestRateFlexibilisation'] = $data['interestRateFlexibilisation'] ?? null;
     }
 
     /**
@@ -688,6 +693,30 @@ class WebshopResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setMaxInstallmentValue($maxInstallmentValue)
     {
         $this->container['maxInstallmentValue'] = $maxInstallmentValue;
+
+        return $this;
+    }
+
+    /**
+     * Gets interestRateFlexibilisation
+     *
+     * @return \Teambank\EasyCreditApiV3\Model\InterestRateFlexibilisation|null
+     */
+    public function getInterestRateFlexibilisation()
+    {
+        return $this->container['interestRateFlexibilisation'];
+    }
+
+    /**
+     * Sets interestRateFlexibilisation
+     *
+     * @param \Teambank\EasyCreditApiV3\Model\InterestRateFlexibilisation|null $interestRateFlexibilisation interestRateFlexibilisation
+     *
+     * @return self
+     */
+    public function setInterestRateFlexibilisation($interestRateFlexibilisation)
+    {
+        $this->container['interestRateFlexibilisation'] = $interestRateFlexibilisation;
 
         return $this;
     }

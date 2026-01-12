@@ -21,5 +21,6 @@ Name | Type | Description | Notes
 **maxBillingValue** | **float** |  | [optional]
 **minInstallmentValue** | **float** |  | [optional]
 **maxInstallmentValue** | **float** |  | [optional]
+**interestRateFlexibilisation** | [**\Teambank\EasyCreditApiV3\Model\InterestRateFlexibilisation**](InterestRateFlexibilisation.md) |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

@@ -8,7 +8,6 @@
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
  * @link     https://netzkollektiv.com
-
  */
 
 namespace Teambank\EasyCreditApiV3\Model;
@@ -179,7 +178,7 @@ class PaymentPlan implements ModelInterface, ArrayAccess, \JsonSerializable
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(array $data = null)
+    public function __construct(?array $data = null)
     {
         $this->container['numberOfInstallments'] = $data['numberOfInstallments'] ?? null;
         $this->container['firstInstallmentDate'] = $data['firstInstallmentDate'] ?? null;

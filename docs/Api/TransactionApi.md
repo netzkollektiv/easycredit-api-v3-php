@@ -1,5 +1,7 @@
 # Teambank\EasyCreditApiV3\TransactionApi
 
+endpoints used to process a transaction
+
 All URIs are relative to https://partner.easycredit-ratenkauf.de, except if the operation defines another base path.
 
 | Method | HTTP request | Description |
@@ -8,8 +10,9 @@ All URIs are relative to https://partner.easycredit-ratenkauf.de, except if the 
 | [**apiMerchantV3TransactionTransactionIdCapturePost()**](TransactionApi.md#apiMerchantV3TransactionTransactionIdCapturePost) | **POST** /api/merchant/v3/transaction/{transactionId}/capture | Report a capture for a transaction according to its unique functional identifier |
 | [**apiMerchantV3TransactionTransactionIdGet()**](TransactionApi.md#apiMerchantV3TransactionTransactionIdGet) | **GET** /api/merchant/v3/transaction/{transactionId} | Retrieve a transaction of a merchant according to a unique functional identifier |
 | [**apiMerchantV3TransactionTransactionIdRefundPost()**](TransactionApi.md#apiMerchantV3TransactionTransactionIdRefundPost) | **POST** /api/merchant/v3/transaction/{transactionId}/refund | Report a refund for a transaction according to its unique functional identifier |
-| [**apiPaymentV3TransactionPost()**](TransactionApi.md#apiPaymentV3TransactionPost) | **POST** /api/payment/v3/transaction | Initiates a transaction based on the given request |
+| [**apiPaymentV3TransactionPost()**](TransactionApi.md#apiPaymentV3TransactionPost) | **POST** /api/payment/v3/transaction | Initiates an ecommerce or direct sales transaction based on the given request |
 | [**apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPost()**](TransactionApi.md#apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPost) | **POST** /api/payment/v3/transaction/{technicalTransactionId}/authorization | Authorizes a transaction after finishing the process in a webshop |
+| [**apiPaymentV3TransactionTechnicalTransactionIdCancellationPost()**](TransactionApi.md#apiPaymentV3TransactionTechnicalTransactionIdCancellationPost) | **POST** /api/payment/v3/transaction/{technicalTransactionId}/cancellation | Cancel a transaction. This operation is only allowed for shops of type Direct Sales. |
 | [**apiPaymentV3TransactionTechnicalTransactionIdGet()**](TransactionApi.md#apiPaymentV3TransactionTechnicalTransactionIdGet) | **GET** /api/payment/v3/transaction/{technicalTransactionId} | Get the necessary information about the transaction |
 | [**apiPaymentV3TransactionTechnicalTransactionIdPatch()**](TransactionApi.md#apiPaymentV3TransactionTechnicalTransactionIdPatch) | **PATCH** /api/payment/v3/transaction/{technicalTransactionId} | Updates a transaction based on the given request |
 | [**apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPost()**](TransactionApi.md#apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPost) | **POST** /api/payment/v3/transaction/{technicalTransactionId}/switchPaymentMethod | Switch payment method |
@@ -293,7 +296,7 @@ void (empty response body)
 apiPaymentV3TransactionPost($transaction): \Teambank\EasyCreditApiV3\Model\TransactionInitResponse
 ```
 
-Initiates a transaction based on the given request
+Initiates an ecommerce or direct sales transaction based on the given request
 
 ' A transaction is created with unique identifiers (a TeamBank identifier <technicalTransactionId> and a functional identifier <transactionId>). The data in the request is validated and normalised and, if necessary, corresponding error messages are returned. Supports body signature. '
 
@@ -408,6 +411,68 @@ void (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: `application/json`
+- **Accept**: `application/problem+json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `apiPaymentV3TransactionTechnicalTransactionIdCancellationPost()`
+
+```php
+apiPaymentV3TransactionTechnicalTransactionIdCancellationPost($technicalTransactionId)
+```
+
+Cancel a transaction. This operation is only allowed for shops of type Direct Sales.
+
+' The cancellation of a transaction is only possible for shops of type Direct Sales. The transaction has to be in Status PREAUTHORIZED. '
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure HTTP basic authorization: basicAuth
+$config = Teambank\EasyCreditApiV3\Configuration::getDefaultConfiguration()
+              ->setHost('https://ratenkauf.easycredit.de')
+              ->setUsername('1.de.1234.1') // use your "Webshop-ID"
+              ->setPassword('YOUR_API_KEY'); // use your "API-Kennwort"
+
+
+$apiInstance = new Teambank\EasyCreditApiV3\Api\TransactionApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$technicalTransactionId = 'technicalTransactionId_example'; // string | Unique TeamBank transaction identifier
+
+try {
+    $apiInstance->apiPaymentV3TransactionTechnicalTransactionIdCancellationPost($technicalTransactionId);
+} catch (Exception $e) {
+    echo 'Exception when calling TransactionApi->apiPaymentV3TransactionTechnicalTransactionIdCancellationPost: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **technicalTransactionId** | **string**| Unique TeamBank transaction identifier | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[basicAuth](../../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: `application/problem+json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)

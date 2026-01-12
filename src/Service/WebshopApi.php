@@ -8,7 +8,6 @@
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
  * @link     https://netzkollektiv.com
-
  */
 
 namespace Teambank\EasyCreditApiV3\Service;
@@ -57,9 +56,9 @@ class WebshopApi
      * @param int             $hostIndex (Optional) host index to select the list of hosts if defined in the OpenAPI spec
      */
     public function __construct(
-        ClientInterface $client = null,
-        Configuration $config = null,
-        HeaderSelector $selector = null,
+        ?ClientInterface $client = null,
+        ?Configuration $config = null,
+        ?HeaderSelector $selector = null,
         $hostIndex = 0
     ) {
         $this->client = $client ?: new Client();
@@ -127,7 +126,6 @@ class WebshopApi
         $request = $this->apiPaymentV3WebshopGetRequest();
 
         try {
-            // $options = $this->createHttpClientOption();
             try {
                 $response = $this->client->sendRequest($request);
             } catch (RequestException $e) {
@@ -163,11 +161,7 @@ class WebshopApi
 
             switch($statusCode) {
                 case 200:
-                    if ('\Teambank\EasyCreditApiV3\Model\WebshopResponse' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
+                    $content = (string) $response->getBody();
 
                     return [
                         ObjectSerializer::deserialize($content, '\Teambank\EasyCreditApiV3\Model\WebshopResponse', []),
@@ -175,11 +169,7 @@ class WebshopApi
                         $response->getHeaders()
                     ];
                 case 401:
-                    if ('\Teambank\EasyCreditApiV3\Model\AuthenticationError' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
+                    $content = (string) $response->getBody();
 
                     return [
                         ObjectSerializer::deserialize($content, '\Teambank\EasyCreditApiV3\Model\AuthenticationError', []),
@@ -187,11 +177,7 @@ class WebshopApi
                         $response->getHeaders()
                     ];
                 case 403:
-                    if ('\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
+                    $content = (string) $response->getBody();
 
                     return [
                         ObjectSerializer::deserialize($content, '\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation', []),
@@ -201,11 +187,7 @@ class WebshopApi
             }
 
             $returnType = '\Teambank\EasyCreditApiV3\Model\WebshopResponse';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-            }
+            $content = (string) $response->getBody();
 
             return [
                 ObjectSerializer::deserialize($content, $returnType, []),
@@ -263,9 +245,6 @@ class WebshopApi
 
 
 
-
-        /*
-        */
 
         if ($multipart) {
             $headers = $this->headerSelector->selectHeadersForMultipart(
@@ -364,7 +343,6 @@ class WebshopApi
         $request = $this->apiPaymentV3WebshopIntegrationcheckPostRequest($integrationCheckRequest);
 
         try {
-            // $options = $this->createHttpClientOption();
             try {
                 $response = $this->client->sendRequest($request);
             } catch (RequestException $e) {
@@ -400,11 +378,7 @@ class WebshopApi
 
             switch($statusCode) {
                 case 200:
-                    if ('\Teambank\EasyCreditApiV3\Model\IntegrationCheckResponse' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
+                    $content = (string) $response->getBody();
 
                     return [
                         ObjectSerializer::deserialize($content, '\Teambank\EasyCreditApiV3\Model\IntegrationCheckResponse', []),
@@ -412,11 +386,7 @@ class WebshopApi
                         $response->getHeaders()
                     ];
                 case 400:
-                    if ('\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
+                    $content = (string) $response->getBody();
 
                     return [
                         ObjectSerializer::deserialize($content, '\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation', []),
@@ -424,11 +394,7 @@ class WebshopApi
                         $response->getHeaders()
                     ];
                 case 401:
-                    if ('\Teambank\EasyCreditApiV3\Model\AuthenticationError' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
+                    $content = (string) $response->getBody();
 
                     return [
                         ObjectSerializer::deserialize($content, '\Teambank\EasyCreditApiV3\Model\AuthenticationError', []),
@@ -436,11 +402,7 @@ class WebshopApi
                         $response->getHeaders()
                     ];
                 case 403:
-                    if ('\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
+                    $content = (string) $response->getBody();
 
                     return [
                         ObjectSerializer::deserialize($content, '\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation', []),
@@ -450,11 +412,7 @@ class WebshopApi
             }
 
             $returnType = '\Teambank\EasyCreditApiV3\Model\IntegrationCheckResponse';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-            }
+            $content = (string) $response->getBody();
 
             return [
                 ObjectSerializer::deserialize($content, $returnType, []),
@@ -521,9 +479,6 @@ class WebshopApi
 
 
 
-
-        /*
-        */
 
         if ($multipart) {
             $headers = $this->headerSelector->selectHeadersForMultipart(
@@ -596,39 +551,38 @@ class WebshopApi
     }
 
     /**
-     * Operation apiPaymentV3WebshopWebshopIdGet
+     * Operation apiPaymentV3WebshopTexteWebshopIdGet
      *
-     * Get the necessary information about the webshop
+     * Get the necessary confirmation texts about the webshop
      *
      * @param  string $webshopId Identifier of a webshop (required)
      *
      * @throws \Teambank\EasyCreditApiV3\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Teambank\EasyCreditApiV3\Model\WebshopResponse|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation
+     * @return \Teambank\EasyCreditApiV3\Model\WebshopTextResponse|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation
      */
-    public function apiPaymentV3WebshopWebshopIdGet($webshopId)
+    public function apiPaymentV3WebshopTexteWebshopIdGet($webshopId)
     {
-        list($response) = $this->apiPaymentV3WebshopWebshopIdGetWithHttpInfo($webshopId);
+        list($response) = $this->apiPaymentV3WebshopTexteWebshopIdGetWithHttpInfo($webshopId);
         return $response;
     }
 
     /**
-     * Operation apiPaymentV3WebshopWebshopIdGetWithHttpInfo
+     * Operation apiPaymentV3WebshopTexteWebshopIdGetWithHttpInfo
      *
-     * Get the necessary information about the webshop
+     * Get the necessary confirmation texts about the webshop
      *
      * @param  string $webshopId Identifier of a webshop (required)
      *
      * @throws \Teambank\EasyCreditApiV3\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Teambank\EasyCreditApiV3\Model\WebshopResponse|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Teambank\EasyCreditApiV3\Model\WebshopTextResponse|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation, HTTP status code, HTTP response headers (array of strings)
      */
-    public function apiPaymentV3WebshopWebshopIdGetWithHttpInfo($webshopId)
+    public function apiPaymentV3WebshopTexteWebshopIdGetWithHttpInfo($webshopId)
     {
-        $request = $this->apiPaymentV3WebshopWebshopIdGetRequest($webshopId);
+        $request = $this->apiPaymentV3WebshopTexteWebshopIdGetRequest($webshopId);
 
         try {
-            // $options = $this->createHttpClientOption();
             try {
                 $response = $this->client->sendRequest($request);
             } catch (RequestException $e) {
@@ -664,11 +618,216 @@ class WebshopApi
 
             switch($statusCode) {
                 case 200:
-                    if ('\Teambank\EasyCreditApiV3\Model\WebshopResponse' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
+                    $content = (string) $response->getBody();
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Teambank\EasyCreditApiV3\Model\WebshopTextResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 404:
+                    $content = (string) $response->getBody();
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\Teambank\EasyCreditApiV3\Model\WebshopTextResponse';
+            $content = (string) $response->getBody();
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Teambank\EasyCreditApiV3\Model\WebshopTextResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Create request for operation 'apiPaymentV3WebshopTexteWebshopIdGet'
+     *
+     * @param  string $webshopId Identifier of a webshop (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return Request
+     */
+    public function apiPaymentV3WebshopTexteWebshopIdGetRequest($webshopId)
+    {
+        // verify the required parameter 'webshopId' is set
+        if ($webshopId === null || (is_array($webshopId) && count($webshopId) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $webshopId when calling apiPaymentV3WebshopTexteWebshopIdGet'
+            );
+        }
+
+        $resourcePath = '/api/payment/v3/webshop/texte/{webshopId}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($webshopId !== null) {
+            $resourcePath = str_replace(
+                '{' . 'webshopId' . '}',
+                ObjectSerializer::toPathValue($webshopId),
+                $resourcePath
+            );
+        }
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json', 'application/problem+json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json', 'application/problem+json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
                     }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \http_build_query($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = http_build_query($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation apiPaymentV3WebshopWebshopIdGet
+     *
+     * Get the necessary information about the webshop
+     *
+     * @param  string $webshopId Identifier of a webshop (required)
+     *
+     * @throws \Teambank\EasyCreditApiV3\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \Teambank\EasyCreditApiV3\Model\WebshopResponse|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation
+     */
+    public function apiPaymentV3WebshopWebshopIdGet($webshopId)
+    {
+        list($response) = $this->apiPaymentV3WebshopWebshopIdGetWithHttpInfo($webshopId);
+        return $response;
+    }
+
+    /**
+     * Operation apiPaymentV3WebshopWebshopIdGetWithHttpInfo
+     *
+     * Get the necessary information about the webshop
+     *
+     * @param  string $webshopId Identifier of a webshop (required)
+     *
+     * @throws \Teambank\EasyCreditApiV3\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \Teambank\EasyCreditApiV3\Model\WebshopResponse|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function apiPaymentV3WebshopWebshopIdGetWithHttpInfo($webshopId)
+    {
+        $request = $this->apiPaymentV3WebshopWebshopIdGetRequest($webshopId);
+
+        try {
+            try {
+                $response = $this->client->sendRequest($request);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    $content = (string) $response->getBody();
 
                     return [
                         ObjectSerializer::deserialize($content, '\Teambank\EasyCreditApiV3\Model\WebshopResponse', []),
@@ -676,11 +835,7 @@ class WebshopApi
                         $response->getHeaders()
                     ];
                 case 404:
-                    if ('\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                    }
+                    $content = (string) $response->getBody();
 
                     return [
                         ObjectSerializer::deserialize($content, '\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation', []),
@@ -690,11 +845,7 @@ class WebshopApi
             }
 
             $returnType = '\Teambank\EasyCreditApiV3\Model\WebshopResponse';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-            }
+            $content = (string) $response->getBody();
 
             return [
                 ObjectSerializer::deserialize($content, $returnType, []),
@@ -760,9 +911,6 @@ class WebshopApi
             );
         }
 
-        /*
-        */
-
         if ($multipart) {
             $headers = $this->headerSelector->selectHeadersForMultipart(
                 ['application/json', 'application/problem+json']
@@ -820,22 +968,4 @@ class WebshopApi
         );
     }
 
-    /**
-     * Create http client option
-     *
-     * @throws \RuntimeException on file opening failure
-     * @return array of http client options
-     */
-    protected function createHttpClientOption()
-    {
-        $options = [];
-        if ($this->config->getDebug()) {
-            $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
-            if (!$options[RequestOptions::DEBUG]) {
-                throw new \RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
-            }
-        }
-
-        return $options;
-    }
 }

@@ -8,7 +8,6 @@
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
  * @link     https://netzkollektiv.com
-
  */
 
 namespace Teambank\EasyCreditApiV3;
@@ -434,7 +433,7 @@ class Configuration
      * @param array|null $variables hash of variable and the corresponding value (optional)
      * @return string URL based on host settings
      */
-    public function getHostFromSettings($index, $variables = null)
+    public function getHostFromSettings($index, ?array $variables = null)
     {
         if (null === $variables) {
             $variables = [];

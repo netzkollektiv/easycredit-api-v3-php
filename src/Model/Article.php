@@ -8,7 +8,6 @@
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
  * @link     https://netzkollektiv.com
-
  */
 
 namespace Teambank\EasyCreditApiV3\Model;
@@ -169,7 +168,7 @@ class Article implements ModelInterface, ArrayAccess, \JsonSerializable
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(array $data = null)
+    public function __construct(?array $data = null)
     {
         $this->container['identifier'] = $data['identifier'] ?? null;
         $this->container['price'] = $data['price'] ?? null;
@@ -261,7 +260,7 @@ class Article implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets withoutFlexprice
      *
-     * @param bool|null $withoutFlexprice Indicator if a flexprice should NOT be used if available
+     * @param bool|null $withoutFlexprice Indicator should always be FALSE except a flex price should not be shown, although it is available
      *
      * @return self
      */

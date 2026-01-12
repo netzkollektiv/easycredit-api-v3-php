@@ -1,5 +1,7 @@
 # Teambank\EasyCreditApiV3\InstallmentplanApi
 
+endpoints for operations regarding a installmentplans
+
 All URIs are relative to https://partner.easycredit-ratenkauf.de, except if the operation defines another base path.
 
 | Method | HTTP request | Description |

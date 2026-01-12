@@ -8,7 +8,6 @@
  * Transaction-V3 API Definition
  * @author   NETZKOLLEKTIV GmbH
  * @link     https://netzkollektiv.com
-
  */
 
 namespace Teambank\EasyCreditApiV3\Model;
@@ -189,7 +188,7 @@ class OrderDetails implements ModelInterface, ArrayAccess, \JsonSerializable
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(array $data = null)
+    public function __construct(?array $data = null)
     {
         $this->container['orderValue'] = $data['orderValue'] ?? null;
         $this->container['orderId'] = $data['orderId'] ?? null;
@@ -264,7 +263,7 @@ class OrderDetails implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets orderId
      *
-     * @param string|null $orderId Shop transaction identifier (allows the shop to store its own reference for the transaction)
+     * @param string|null $orderId Shop transaction identifier (allows the shop to store its own reference for the transaction). This is a required field for direct sales transactions.
      *
      * @return self
      */
@@ -312,7 +311,7 @@ class OrderDetails implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets withoutFlexprice
      *
-     * @param bool|null $withoutFlexprice Indicator if a flexprice should NOT be used if available
+     * @param bool|null $withoutFlexprice Indicator should always be FALSE except a flex price should not be shown, although it is available
      *
      * @return self
      */
