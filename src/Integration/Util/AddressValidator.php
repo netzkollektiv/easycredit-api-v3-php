@@ -24,9 +24,18 @@ class AddressValidator {
         return true;
     }
 
-    public function hashAddress($address) {
+    /**
+     * @param \Teambank\EasyCreditApiV3\Model\InvoiceAddress|\Teambank\EasyCreditApiV3\Model\ShippingAddress|null $address
+     * @return string
+     */
+    public function hashAddress($address)
+    {
+        if ($address instanceof ModelInterface) {
+            $address = \json_encode($this->convert($address, true));
+        }
         return sha1((string) $address);
     }
+
 
     public function addressesEqual(Transaction $request) {
         $diff = array_diff_assoc(

@@ -97,10 +97,6 @@ class Checkout implements CheckoutInterface {
             ->set('address_hash', $this->addressValidator->hashAddress($request->getOrderDetails()->getShippingAddress()));
     }
 
-    public function getConfig() {
-        return $this->_api->getConfig();
-    }
-
     public function isInitialized() {
         try {
             $this->_getToken();

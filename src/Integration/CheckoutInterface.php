@@ -7,7 +7,6 @@ interface CheckoutInterface {
 
     public function getRedirectUrl();
     public function start(Transaction $request);
-    public function getConfig();
     public function isInitialized();
     public function loadTransaction();
     public function authorize($orderId = null);
