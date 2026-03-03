@@ -79,7 +79,7 @@ class Client implements ClientInterface
                 'method' => $request->getMethod(),
                 'header' => implode("\r\n", $_headers),
                 'protocol_version' => $request->getProtocolVersion(),
-                'timeout' => 45,
+                'timeout' => 10,
                 'ignore_errors' => true
             )
         );
