@@ -31,15 +31,15 @@
         "ext-json": "*",
         "ext-mbstring": "*"
     },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "*",
+        "phpcompatibility/php-compatibility": "^9.3",
+        "phpstan/phpstan": "^2.1"
+    },
     "autoload": {
         "psr-4": { "Teambank\\EasyCreditApiV3\\" : "src//" }
     },
     "autoload-dev": {
         "psr-4": { "Teambank\\EasyCreditApiV3\\Test\\" : "test/" }
-    },
-    "require-dev": {
-        "squizlabs/php_codesniffer": "*",
-        "phpcompatibility/php-compatibility": "^9.3",
-        "phpstan/phpstan": "^2.1"
     }
 }

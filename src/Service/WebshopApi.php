@@ -13,6 +13,8 @@
 namespace Teambank\EasyCreditApiV3\Service;
 
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Client\ClientExceptionInterface;
+use Psr\Http\Client\NetworkExceptionInterface;
 
 use Teambank\EasyCreditApiV3\ApiException;
 use Teambank\EasyCreditApiV3\Configuration;
@@ -59,7 +61,7 @@ class WebshopApi
         ?ClientInterface $client = null,
         ?Configuration $config = null,
         ?HeaderSelector $selector = null,
-        $hostIndex = 0
+        int $hostIndex = 0
     ) {
         $this->client = $client ?: new Client();
         $this->config = $config ?: new Configuration();
@@ -72,7 +74,7 @@ class WebshopApi
      *
      * @param int $hostIndex Host index (required)
      */
-    public function setHostIndex($hostIndex): void
+    public function setHostIndex(int $hostIndex): void
     {
         $this->hostIndex = $hostIndex;
     }
@@ -82,7 +84,7 @@ class WebshopApi
      *
      * @return int Host index
      */
-    public function getHostIndex()
+    public function getHostIndex(): int
     {
         return $this->hostIndex;
     }
@@ -90,7 +92,7 @@ class WebshopApi
     /**
      * @return Configuration
      */
-    public function getConfig()
+    public function getConfig(): Configuration
     {
         return $this->config;
     }
@@ -121,21 +123,19 @@ class WebshopApi
      * @throws \InvalidArgumentException
      * @return array of \Teambank\EasyCreditApiV3\Model\WebshopResponse|\Teambank\EasyCreditApiV3\Model\AuthenticationError|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation, HTTP status code, HTTP response headers (array of strings)
      */
-    public function apiPaymentV3WebshopGetWithHttpInfo()
+    public function apiPaymentV3WebshopGetWithHttpInfo(): array
     {
         $request = $this->apiPaymentV3WebshopGetRequest();
 
         try {
             try {
                 $response = $this->client->sendRequest($request);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
+            } catch (ClientExceptionInterface $e) {
+                if ($e instanceof NetworkExceptionInterface) {
+                    // Propagate network-level failures (e.g. connection issues)
+                    throw $e;
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -233,7 +233,7 @@ class WebshopApi
      * @throws \InvalidArgumentException
      * @return Request
      */
-    public function apiPaymentV3WebshopGetRequest()
+    public function apiPaymentV3WebshopGetRequest(): Request
     {
 
         $resourcePath = '/api/payment/v3/webshop';
@@ -241,41 +241,19 @@ class WebshopApi
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
-        $multipart = false;
 
 
 
 
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json', 'application/problem+json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json', 'application/problem+json'],
-                []
-            );
-        }
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json'],
+            []
+        );
 
         // for model (json/xml)
         if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
+            if ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \http_build_query($formParams);
@@ -338,21 +316,19 @@ class WebshopApi
      * @throws \InvalidArgumentException
      * @return array of \Teambank\EasyCreditApiV3\Model\IntegrationCheckResponse|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation|\Teambank\EasyCreditApiV3\Model\AuthenticationError|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation, HTTP status code, HTTP response headers (array of strings)
      */
-    public function apiPaymentV3WebshopIntegrationcheckPostWithHttpInfo($integrationCheckRequest = null)
+    public function apiPaymentV3WebshopIntegrationcheckPostWithHttpInfo($integrationCheckRequest = null): array
     {
         $request = $this->apiPaymentV3WebshopIntegrationcheckPostRequest($integrationCheckRequest);
 
         try {
             try {
                 $response = $this->client->sendRequest($request);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
+            } catch (ClientExceptionInterface $e) {
+                if ($e instanceof NetworkExceptionInterface) {
+                    // Propagate network-level failures (e.g. connection issues)
+                    throw $e;
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -467,7 +443,7 @@ class WebshopApi
      * @throws \InvalidArgumentException
      * @return Request
      */
-    public function apiPaymentV3WebshopIntegrationcheckPostRequest($integrationCheckRequest = null)
+    public function apiPaymentV3WebshopIntegrationcheckPostRequest($integrationCheckRequest = null): Request
     {
 
         $resourcePath = '/api/payment/v3/webshop/integrationcheck';
@@ -475,21 +451,14 @@ class WebshopApi
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
-        $multipart = false;
 
 
 
 
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/problem+json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/problem+json'],
-                ['application/json']
-            );
-        }
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/problem+json'],
+            ['application/json']
+        );
 
         // for model (json/xml)
         if (isset($integrationCheckRequest)) {
@@ -499,23 +468,8 @@ class WebshopApi
                 $httpBody = $integrationCheckRequest;
             }
         } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
+            if ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \http_build_query($formParams);
@@ -578,21 +532,19 @@ class WebshopApi
      * @throws \InvalidArgumentException
      * @return array of \Teambank\EasyCreditApiV3\Model\WebshopTextResponse|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation, HTTP status code, HTTP response headers (array of strings)
      */
-    public function apiPaymentV3WebshopTexteWebshopIdGetWithHttpInfo($webshopId)
+    public function apiPaymentV3WebshopTexteWebshopIdGetWithHttpInfo($webshopId): array
     {
         $request = $this->apiPaymentV3WebshopTexteWebshopIdGetRequest($webshopId);
 
         try {
             try {
                 $response = $this->client->sendRequest($request);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
+            } catch (ClientExceptionInterface $e) {
+                if ($e instanceof NetworkExceptionInterface) {
+                    // Propagate network-level failures (e.g. connection issues)
+                    throw $e;
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -675,7 +627,7 @@ class WebshopApi
      * @throws \InvalidArgumentException
      * @return Request
      */
-    public function apiPaymentV3WebshopTexteWebshopIdGetRequest($webshopId)
+    public function apiPaymentV3WebshopTexteWebshopIdGetRequest($webshopId): Request
     {
         // verify the required parameter 'webshopId' is set
         if ($webshopId === null || (is_array($webshopId) && count($webshopId) === 0)) {
@@ -689,7 +641,6 @@ class WebshopApi
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
-        $multipart = false;
 
 
 
@@ -702,36 +653,15 @@ class WebshopApi
             );
         }
 
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json', 'application/problem+json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json', 'application/problem+json'],
-                []
-            );
-        }
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json'],
+            []
+        );
 
         // for model (json/xml)
         if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
+            if ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \http_build_query($formParams);
@@ -787,21 +717,19 @@ class WebshopApi
      * @throws \InvalidArgumentException
      * @return array of \Teambank\EasyCreditApiV3\Model\WebshopResponse|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation, HTTP status code, HTTP response headers (array of strings)
      */
-    public function apiPaymentV3WebshopWebshopIdGetWithHttpInfo($webshopId)
+    public function apiPaymentV3WebshopWebshopIdGetWithHttpInfo($webshopId): array
     {
         $request = $this->apiPaymentV3WebshopWebshopIdGetRequest($webshopId);
 
         try {
             try {
                 $response = $this->client->sendRequest($request);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
+            } catch (ClientExceptionInterface $e) {
+                if ($e instanceof NetworkExceptionInterface) {
+                    // Propagate network-level failures (e.g. connection issues)
+                    throw $e;
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -884,7 +812,7 @@ class WebshopApi
      * @throws \InvalidArgumentException
      * @return Request
      */
-    public function apiPaymentV3WebshopWebshopIdGetRequest($webshopId)
+    public function apiPaymentV3WebshopWebshopIdGetRequest($webshopId): Request
     {
         // verify the required parameter 'webshopId' is set
         if ($webshopId === null || (is_array($webshopId) && count($webshopId) === 0)) {
@@ -898,7 +826,6 @@ class WebshopApi
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
-        $multipart = false;
 
 
 
@@ -911,36 +838,15 @@ class WebshopApi
             );
         }
 
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json', 'application/problem+json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json', 'application/problem+json'],
-                []
-            );
-        }
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json'],
+            []
+        );
 
         // for model (json/xml)
         if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
+            if ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \http_build_query($formParams);

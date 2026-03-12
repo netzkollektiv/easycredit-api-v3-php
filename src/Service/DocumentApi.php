@@ -13,6 +13,8 @@
 namespace Teambank\EasyCreditApiV3\Service;
 
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Client\ClientExceptionInterface;
+use Psr\Http\Client\NetworkExceptionInterface;
 
 use Teambank\EasyCreditApiV3\ApiException;
 use Teambank\EasyCreditApiV3\Configuration;
@@ -59,7 +61,7 @@ class DocumentApi
         ?ClientInterface $client = null,
         ?Configuration $config = null,
         ?HeaderSelector $selector = null,
-        $hostIndex = 0
+        int $hostIndex = 0
     ) {
         $this->client = $client ?: new Client();
         $this->config = $config ?: new Configuration();
@@ -72,7 +74,7 @@ class DocumentApi
      *
      * @param int $hostIndex Host index (required)
      */
-    public function setHostIndex($hostIndex): void
+    public function setHostIndex(int $hostIndex): void
     {
         $this->hostIndex = $hostIndex;
     }
@@ -82,7 +84,7 @@ class DocumentApi
      *
      * @return int Host index
      */
-    public function getHostIndex()
+    public function getHostIndex(): int
     {
         return $this->hostIndex;
     }
@@ -90,7 +92,7 @@ class DocumentApi
     /**
      * @return Configuration
      */
-    public function getConfig()
+    public function getConfig(): Configuration
     {
         return $this->config;
     }
@@ -129,21 +131,19 @@ class DocumentApi
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\Teambank\EasyCreditApiV3\Model\ConstraintViolation|\Teambank\EasyCreditApiV3\Model\AuthenticationError|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation, HTTP status code, HTTP response headers (array of strings)
      */
-    public function apiMerchantV3DocumentsGetWithHttpInfo($billingDateFrom = null, $billingDateTo = null, $documentType = null, $fileType = null)
+    public function apiMerchantV3DocumentsGetWithHttpInfo($billingDateFrom = null, $billingDateTo = null, $documentType = null, $fileType = null): array
     {
         $request = $this->apiMerchantV3DocumentsGetRequest($billingDateFrom, $billingDateTo, $documentType, $fileType);
 
         try {
             try {
                 $response = $this->client->sendRequest($request);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
+            } catch (ClientExceptionInterface $e) {
+                if ($e instanceof NetworkExceptionInterface) {
+                    // Propagate network-level failures (e.g. connection issues)
+                    throw $e;
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -261,7 +261,7 @@ class DocumentApi
      * @throws \InvalidArgumentException
      * @return Request
      */
-    public function apiMerchantV3DocumentsGetRequest($billingDateFrom = null, $billingDateTo = null, $documentType = null, $fileType = null)
+    public function apiMerchantV3DocumentsGetRequest($billingDateFrom = null, $billingDateTo = null, $documentType = null, $fileType = null): Request
     {
 
         $resourcePath = '/api/merchant/v3/documents';
@@ -269,7 +269,6 @@ class DocumentApi
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
-        $multipart = false;
 
         // query params
         if ($billingDateFrom !== null) {
@@ -318,36 +317,15 @@ class DocumentApi
 
 
 
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/zip', 'application/problem+json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/zip', 'application/problem+json'],
-                []
-            );
-        }
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/zip', 'application/problem+json'],
+            []
+        );
 
         // for model (json/xml)
         if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
+            if ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \http_build_query($formParams);

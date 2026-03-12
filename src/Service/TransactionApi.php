@@ -13,6 +13,8 @@
 namespace Teambank\EasyCreditApiV3\Service;
 
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Client\ClientExceptionInterface;
+use Psr\Http\Client\NetworkExceptionInterface;
 
 use Teambank\EasyCreditApiV3\ApiException;
 use Teambank\EasyCreditApiV3\Configuration;
@@ -59,7 +61,7 @@ class TransactionApi
         ?ClientInterface $client = null,
         ?Configuration $config = null,
         ?HeaderSelector $selector = null,
-        $hostIndex = 0
+        int $hostIndex = 0
     ) {
         $this->client = $client ?: new Client();
         $this->config = $config ?: new Configuration();
@@ -72,7 +74,7 @@ class TransactionApi
      *
      * @param int $hostIndex Host index (required)
      */
-    public function setHostIndex($hostIndex): void
+    public function setHostIndex(int $hostIndex): void
     {
         $this->hostIndex = $hostIndex;
     }
@@ -82,7 +84,7 @@ class TransactionApi
      *
      * @return int Host index
      */
-    public function getHostIndex()
+    public function getHostIndex(): int
     {
         return $this->hostIndex;
     }
@@ -90,7 +92,7 @@ class TransactionApi
     /**
      * @return Configuration
      */
-    public function getConfig()
+    public function getConfig(): Configuration
     {
         return $this->config;
     }
@@ -141,21 +143,19 @@ class TransactionApi
      * @throws \InvalidArgumentException
      * @return array of \Teambank\EasyCreditApiV3\Model\TransactionListInfo|\Teambank\EasyCreditApiV3\Model\ConstraintViolation|\Teambank\EasyCreditApiV3\Model\AuthenticationError|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation, HTTP status code, HTTP response headers (array of strings)
      */
-    public function apiMerchantV3TransactionGetWithHttpInfo($firstname = null, $lastname = null, $orderId = null, $pageSize = 100, $page = null, $status = null, $minOrderValue = null, $maxOrderValue = null, $tId = null, $webshopIds = null)
+    public function apiMerchantV3TransactionGetWithHttpInfo($firstname = null, $lastname = null, $orderId = null, $pageSize = 100, $page = null, $status = null, $minOrderValue = null, $maxOrderValue = null, $tId = null, $webshopIds = null): array
     {
         $request = $this->apiMerchantV3TransactionGetRequest($firstname, $lastname, $orderId, $pageSize, $page, $status, $minOrderValue, $maxOrderValue, $tId, $webshopIds);
 
         try {
             try {
                 $response = $this->client->sendRequest($request);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
+            } catch (ClientExceptionInterface $e) {
+                if ($e instanceof NetworkExceptionInterface) {
+                    // Propagate network-level failures (e.g. connection issues)
+                    throw $e;
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -295,7 +295,7 @@ class TransactionApi
      * @throws \InvalidArgumentException
      * @return Request
      */
-    public function apiMerchantV3TransactionGetRequest($firstname = null, $lastname = null, $orderId = null, $pageSize = 100, $page = null, $status = null, $minOrderValue = null, $maxOrderValue = null, $tId = null, $webshopIds = null)
+    public function apiMerchantV3TransactionGetRequest($firstname = null, $lastname = null, $orderId = null, $pageSize = 100, $page = null, $status = null, $minOrderValue = null, $maxOrderValue = null, $tId = null, $webshopIds = null): Request
     {
         if ($tId !== null && count($tId) > 1000) {
             throw new \InvalidArgumentException('invalid value for "$tId" when calling TransactionApi.apiMerchantV3TransactionGet, number of items must be less than or equal to 1000.');
@@ -311,7 +311,6 @@ class TransactionApi
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
-        $multipart = false;
 
         // query params
         if ($firstname !== null) {
@@ -426,36 +425,15 @@ class TransactionApi
 
 
 
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/hal+json', 'application/problem+json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/hal+json', 'application/problem+json'],
-                []
-            );
-        }
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/hal+json', 'application/problem+json'],
+            []
+        );
 
         // for model (json/xml)
         if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
+            if ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \http_build_query($formParams);
@@ -519,21 +497,19 @@ class TransactionApi
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function apiMerchantV3TransactionTransactionIdCapturePostWithHttpInfo($transactionId, $captureRequest = null)
+    public function apiMerchantV3TransactionTransactionIdCapturePostWithHttpInfo($transactionId, $captureRequest = null): array
     {
         $request = $this->apiMerchantV3TransactionTransactionIdCapturePostRequest($transactionId, $captureRequest);
 
         try {
             try {
                 $response = $this->client->sendRequest($request);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
+            } catch (ClientExceptionInterface $e) {
+                if ($e instanceof NetworkExceptionInterface) {
+                    // Propagate network-level failures (e.g. connection issues)
+                    throw $e;
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -615,7 +591,7 @@ class TransactionApi
      * @throws \InvalidArgumentException
      * @return Request
      */
-    public function apiMerchantV3TransactionTransactionIdCapturePostRequest($transactionId, $captureRequest = null)
+    public function apiMerchantV3TransactionTransactionIdCapturePostRequest($transactionId, $captureRequest = null): Request
     {
         // verify the required parameter 'transactionId' is set
         if ($transactionId === null || (is_array($transactionId) && count($transactionId) === 0)) {
@@ -629,7 +605,6 @@ class TransactionApi
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
-        $multipart = false;
 
 
 
@@ -642,16 +617,10 @@ class TransactionApi
             );
         }
 
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/problem+json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/problem+json'],
-                ['application/json']
-            );
-        }
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/problem+json'],
+            ['application/json']
+        );
 
         // for model (json/xml)
         if (isset($captureRequest)) {
@@ -661,23 +630,8 @@ class TransactionApi
                 $httpBody = $captureRequest;
             }
         } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
+            if ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \http_build_query($formParams);
@@ -740,21 +694,19 @@ class TransactionApi
      * @throws \InvalidArgumentException
      * @return array of \Teambank\EasyCreditApiV3\Model\TransactionResponse|\Teambank\EasyCreditApiV3\Model\ConstraintViolation|\Teambank\EasyCreditApiV3\Model\AuthenticationError|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation, HTTP status code, HTTP response headers (array of strings)
      */
-    public function apiMerchantV3TransactionTransactionIdGetWithHttpInfo($transactionId)
+    public function apiMerchantV3TransactionTransactionIdGetWithHttpInfo($transactionId): array
     {
         $request = $this->apiMerchantV3TransactionTransactionIdGetRequest($transactionId);
 
         try {
             try {
                 $response = $this->client->sendRequest($request);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
+            } catch (ClientExceptionInterface $e) {
+                if ($e instanceof NetworkExceptionInterface) {
+                    // Propagate network-level failures (e.g. connection issues)
+                    throw $e;
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -885,7 +837,7 @@ class TransactionApi
      * @throws \InvalidArgumentException
      * @return Request
      */
-    public function apiMerchantV3TransactionTransactionIdGetRequest($transactionId)
+    public function apiMerchantV3TransactionTransactionIdGetRequest($transactionId): Request
     {
         // verify the required parameter 'transactionId' is set
         if ($transactionId === null || (is_array($transactionId) && count($transactionId) === 0)) {
@@ -899,7 +851,6 @@ class TransactionApi
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
-        $multipart = false;
 
 
 
@@ -912,36 +863,15 @@ class TransactionApi
             );
         }
 
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/hal+json', 'application/problem+json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/hal+json', 'application/problem+json'],
-                []
-            );
-        }
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/hal+json', 'application/problem+json'],
+            []
+        );
 
         // for model (json/xml)
         if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
+            if ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \http_build_query($formParams);
@@ -1005,21 +935,19 @@ class TransactionApi
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function apiMerchantV3TransactionTransactionIdRefundPostWithHttpInfo($transactionId, $refundRequest = null)
+    public function apiMerchantV3TransactionTransactionIdRefundPostWithHttpInfo($transactionId, $refundRequest = null): array
     {
         $request = $this->apiMerchantV3TransactionTransactionIdRefundPostRequest($transactionId, $refundRequest);
 
         try {
             try {
                 $response = $this->client->sendRequest($request);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
+            } catch (ClientExceptionInterface $e) {
+                if ($e instanceof NetworkExceptionInterface) {
+                    // Propagate network-level failures (e.g. connection issues)
+                    throw $e;
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -1093,7 +1021,7 @@ class TransactionApi
      * @throws \InvalidArgumentException
      * @return Request
      */
-    public function apiMerchantV3TransactionTransactionIdRefundPostRequest($transactionId, $refundRequest = null)
+    public function apiMerchantV3TransactionTransactionIdRefundPostRequest($transactionId, $refundRequest = null): Request
     {
         // verify the required parameter 'transactionId' is set
         if ($transactionId === null || (is_array($transactionId) && count($transactionId) === 0)) {
@@ -1107,7 +1035,6 @@ class TransactionApi
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
-        $multipart = false;
 
 
 
@@ -1120,16 +1047,10 @@ class TransactionApi
             );
         }
 
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/problem+json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/problem+json'],
-                ['application/json']
-            );
-        }
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/problem+json'],
+            ['application/json']
+        );
 
         // for model (json/xml)
         if (isset($refundRequest)) {
@@ -1139,23 +1060,8 @@ class TransactionApi
                 $httpBody = $refundRequest;
             }
         } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
+            if ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \http_build_query($formParams);
@@ -1218,21 +1124,19 @@ class TransactionApi
      * @throws \InvalidArgumentException
      * @return array of \Teambank\EasyCreditApiV3\Model\TransactionInitResponse|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation|\Teambank\EasyCreditApiV3\Model\AuthenticationError|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation, HTTP status code, HTTP response headers (array of strings)
      */
-    public function apiPaymentV3TransactionPostWithHttpInfo($transaction = null)
+    public function apiPaymentV3TransactionPostWithHttpInfo($transaction = null): array
     {
         $request = $this->apiPaymentV3TransactionPostRequest($transaction);
 
         try {
             try {
                 $response = $this->client->sendRequest($request);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
+            } catch (ClientExceptionInterface $e) {
+                if ($e instanceof NetworkExceptionInterface) {
+                    // Propagate network-level failures (e.g. connection issues)
+                    throw $e;
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -1347,7 +1251,7 @@ class TransactionApi
      * @throws \InvalidArgumentException
      * @return Request
      */
-    public function apiPaymentV3TransactionPostRequest($transaction = null)
+    public function apiPaymentV3TransactionPostRequest($transaction = null): Request
     {
 
         $resourcePath = '/api/payment/v3/transaction';
@@ -1355,21 +1259,14 @@ class TransactionApi
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
-        $multipart = false;
 
 
 
 
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/hal+json', 'application/problem+json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/hal+json', 'application/problem+json'],
-                ['application/json']
-            );
-        }
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/hal+json', 'application/problem+json'],
+            ['application/json']
+        );
 
         // for model (json/xml)
         if (isset($transaction)) {
@@ -1379,23 +1276,8 @@ class TransactionApi
                 $httpBody = $transaction;
             }
         } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
+            if ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \http_build_query($formParams);
@@ -1459,21 +1341,19 @@ class TransactionApi
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPostWithHttpInfo($technicalTransactionId, $authorizationRequest = null)
+    public function apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPostWithHttpInfo($technicalTransactionId, $authorizationRequest = null): array
     {
         $request = $this->apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPostRequest($technicalTransactionId, $authorizationRequest);
 
         try {
             try {
                 $response = $this->client->sendRequest($request);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
+            } catch (ClientExceptionInterface $e) {
+                if ($e instanceof NetworkExceptionInterface) {
+                    // Propagate network-level failures (e.g. connection issues)
+                    throw $e;
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -1547,7 +1427,7 @@ class TransactionApi
      * @throws \InvalidArgumentException
      * @return Request
      */
-    public function apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPostRequest($technicalTransactionId, $authorizationRequest = null)
+    public function apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPostRequest($technicalTransactionId, $authorizationRequest = null): Request
     {
         // verify the required parameter 'technicalTransactionId' is set
         if ($technicalTransactionId === null || (is_array($technicalTransactionId) && count($technicalTransactionId) === 0)) {
@@ -1561,7 +1441,6 @@ class TransactionApi
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
-        $multipart = false;
 
 
 
@@ -1574,16 +1453,10 @@ class TransactionApi
             );
         }
 
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/problem+json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/problem+json'],
-                ['application/json']
-            );
-        }
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/problem+json'],
+            ['application/json']
+        );
 
         // for model (json/xml)
         if (isset($authorizationRequest)) {
@@ -1593,23 +1466,8 @@ class TransactionApi
                 $httpBody = $authorizationRequest;
             }
         } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
+            if ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \http_build_query($formParams);
@@ -1671,21 +1529,19 @@ class TransactionApi
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function apiPaymentV3TransactionTechnicalTransactionIdCancellationPostWithHttpInfo($technicalTransactionId)
+    public function apiPaymentV3TransactionTechnicalTransactionIdCancellationPostWithHttpInfo($technicalTransactionId): array
     {
         $request = $this->apiPaymentV3TransactionTechnicalTransactionIdCancellationPostRequest($technicalTransactionId);
 
         try {
             try {
                 $response = $this->client->sendRequest($request);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
+            } catch (ClientExceptionInterface $e) {
+                if ($e instanceof NetworkExceptionInterface) {
+                    // Propagate network-level failures (e.g. connection issues)
+                    throw $e;
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -1758,7 +1614,7 @@ class TransactionApi
      * @throws \InvalidArgumentException
      * @return Request
      */
-    public function apiPaymentV3TransactionTechnicalTransactionIdCancellationPostRequest($technicalTransactionId)
+    public function apiPaymentV3TransactionTechnicalTransactionIdCancellationPostRequest($technicalTransactionId): Request
     {
         // verify the required parameter 'technicalTransactionId' is set
         if ($technicalTransactionId === null || (is_array($technicalTransactionId) && count($technicalTransactionId) === 0)) {
@@ -1772,7 +1628,6 @@ class TransactionApi
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
-        $multipart = false;
 
 
 
@@ -1785,36 +1640,15 @@ class TransactionApi
             );
         }
 
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/problem+json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/problem+json'],
-                []
-            );
-        }
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/problem+json'],
+            []
+        );
 
         // for model (json/xml)
         if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
+            if ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \http_build_query($formParams);
@@ -1877,21 +1711,19 @@ class TransactionApi
      * @throws \InvalidArgumentException
      * @return array of \Teambank\EasyCreditApiV3\Model\TransactionInformation|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation|\Teambank\EasyCreditApiV3\Model\AuthenticationError|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation, HTTP status code, HTTP response headers (array of strings)
      */
-    public function apiPaymentV3TransactionTechnicalTransactionIdGetWithHttpInfo($technicalTransactionId)
+    public function apiPaymentV3TransactionTechnicalTransactionIdGetWithHttpInfo($technicalTransactionId): array
     {
         $request = $this->apiPaymentV3TransactionTechnicalTransactionIdGetRequest($technicalTransactionId);
 
         try {
             try {
                 $response = $this->client->sendRequest($request);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
+            } catch (ClientExceptionInterface $e) {
+                if ($e instanceof NetworkExceptionInterface) {
+                    // Propagate network-level failures (e.g. connection issues)
+                    throw $e;
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -2022,7 +1854,7 @@ class TransactionApi
      * @throws \InvalidArgumentException
      * @return Request
      */
-    public function apiPaymentV3TransactionTechnicalTransactionIdGetRequest($technicalTransactionId)
+    public function apiPaymentV3TransactionTechnicalTransactionIdGetRequest($technicalTransactionId): Request
     {
         // verify the required parameter 'technicalTransactionId' is set
         if ($technicalTransactionId === null || (is_array($technicalTransactionId) && count($technicalTransactionId) === 0)) {
@@ -2036,7 +1868,6 @@ class TransactionApi
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
-        $multipart = false;
 
 
 
@@ -2049,36 +1880,15 @@ class TransactionApi
             );
         }
 
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/hal+json', 'application/problem+json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/hal+json', 'application/problem+json'],
-                []
-            );
-        }
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/hal+json', 'application/problem+json'],
+            []
+        );
 
         // for model (json/xml)
         if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
+            if ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \http_build_query($formParams);
@@ -2143,21 +1953,19 @@ class TransactionApi
      * @throws \InvalidArgumentException
      * @return array of \Teambank\EasyCreditApiV3\Model\TransactionSummary|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation|\Teambank\EasyCreditApiV3\Model\AuthenticationError|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation, HTTP status code, HTTP response headers (array of strings)
      */
-    public function apiPaymentV3TransactionTechnicalTransactionIdPatchWithHttpInfo($technicalTransactionId, $transactionUpdate = null)
+    public function apiPaymentV3TransactionTechnicalTransactionIdPatchWithHttpInfo($technicalTransactionId, $transactionUpdate = null): array
     {
         $request = $this->apiPaymentV3TransactionTechnicalTransactionIdPatchRequest($technicalTransactionId, $transactionUpdate);
 
         try {
             try {
                 $response = $this->client->sendRequest($request);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
+            } catch (ClientExceptionInterface $e) {
+                if ($e instanceof NetworkExceptionInterface) {
+                    // Propagate network-level failures (e.g. connection issues)
+                    throw $e;
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -2289,7 +2097,7 @@ class TransactionApi
      * @throws \InvalidArgumentException
      * @return Request
      */
-    public function apiPaymentV3TransactionTechnicalTransactionIdPatchRequest($technicalTransactionId, $transactionUpdate = null)
+    public function apiPaymentV3TransactionTechnicalTransactionIdPatchRequest($technicalTransactionId, $transactionUpdate = null): Request
     {
         // verify the required parameter 'technicalTransactionId' is set
         if ($technicalTransactionId === null || (is_array($technicalTransactionId) && count($technicalTransactionId) === 0)) {
@@ -2303,7 +2111,6 @@ class TransactionApi
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
-        $multipart = false;
 
 
 
@@ -2316,16 +2123,10 @@ class TransactionApi
             );
         }
 
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/hal+json', 'application/problem+json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/hal+json', 'application/problem+json'],
-                ['application/json']
-            );
-        }
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/hal+json', 'application/problem+json'],
+            ['application/json']
+        );
 
         // for model (json/xml)
         if (isset($transactionUpdate)) {
@@ -2335,23 +2136,8 @@ class TransactionApi
                 $httpBody = $transactionUpdate;
             }
         } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
+            if ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \http_build_query($formParams);
@@ -2414,21 +2200,19 @@ class TransactionApi
      * @throws \InvalidArgumentException
      * @return array of \Teambank\EasyCreditApiV3\Model\TransactionInformation|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation|\Teambank\EasyCreditApiV3\Model\AuthenticationError|\Teambank\EasyCreditApiV3\Model\PaymentConstraintViolation, HTTP status code, HTTP response headers (array of strings)
      */
-    public function apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPostWithHttpInfo($technicalTransactionId)
+    public function apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPostWithHttpInfo($technicalTransactionId): array
     {
         $request = $this->apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPostRequest($technicalTransactionId);
 
         try {
             try {
                 $response = $this->client->sendRequest($request);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
+            } catch (ClientExceptionInterface $e) {
+                if ($e instanceof NetworkExceptionInterface) {
+                    // Propagate network-level failures (e.g. connection issues)
+                    throw $e;
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -2543,7 +2327,7 @@ class TransactionApi
      * @throws \InvalidArgumentException
      * @return Request
      */
-    public function apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPostRequest($technicalTransactionId)
+    public function apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPostRequest($technicalTransactionId): Request
     {
         // verify the required parameter 'technicalTransactionId' is set
         if ($technicalTransactionId === null || (is_array($technicalTransactionId) && count($technicalTransactionId) === 0)) {
@@ -2557,7 +2341,6 @@ class TransactionApi
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
-        $multipart = false;
 
 
 
@@ -2570,36 +2353,15 @@ class TransactionApi
             );
         }
 
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/hal+json', 'application/problem+json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/hal+json', 'application/problem+json'],
-                []
-            );
-        }
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/hal+json', 'application/problem+json'],
+            []
+        );
 
         // for model (json/xml)
         if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
+            if ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \http_build_query($formParams);

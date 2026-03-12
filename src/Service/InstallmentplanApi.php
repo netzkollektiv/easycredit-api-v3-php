@@ -13,6 +13,8 @@
 namespace Teambank\EasyCreditApiV3\Service;
 
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Client\ClientExceptionInterface;
+use Psr\Http\Client\NetworkExceptionInterface;
 
 use Teambank\EasyCreditApiV3\ApiException;
 use Teambank\EasyCreditApiV3\Configuration;
@@ -59,7 +61,7 @@ class InstallmentplanApi
         ?ClientInterface $client = null,
         ?Configuration $config = null,
         ?HeaderSelector $selector = null,
-        $hostIndex = 0
+        int $hostIndex = 0
     ) {
         $this->client = $client ?: new Client();
         $this->config = $config ?: new Configuration();
@@ -72,7 +74,7 @@ class InstallmentplanApi
      *
      * @param int $hostIndex Host index (required)
      */
-    public function setHostIndex($hostIndex): void
+    public function setHostIndex(int $hostIndex): void
     {
         $this->hostIndex = $hostIndex;
     }
@@ -82,7 +84,7 @@ class InstallmentplanApi
      *
      * @return int Host index
      */
-    public function getHostIndex()
+    public function getHostIndex(): int
     {
         return $this->hostIndex;
     }
@@ -90,7 +92,7 @@ class InstallmentplanApi
     /**
      * @return Configuration
      */
-    public function getConfig()
+    public function getConfig(): Configuration
     {
         return $this->config;
     }
@@ -125,21 +127,19 @@ class InstallmentplanApi
      * @throws \InvalidArgumentException
      * @return array of \Teambank\EasyCreditApiV3\Model\InstallmentPlanResponse|\Teambank\EasyCreditApiV3\Model\ConstraintViolation|\Teambank\EasyCreditApiV3\Model\ConstraintViolation, HTTP status code, HTTP response headers (array of strings)
      */
-    public function apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPostWithHttpInfo($shopIdentifier, $installmentPlanRequest = null)
+    public function apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPostWithHttpInfo($shopIdentifier, $installmentPlanRequest = null): array
     {
         $request = $this->apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPostRequest($shopIdentifier, $installmentPlanRequest);
 
         try {
             try {
                 $response = $this->client->sendRequest($request);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
+            } catch (ClientExceptionInterface $e) {
+                if ($e instanceof NetworkExceptionInterface) {
+                    // Propagate network-level failures (e.g. connection issues)
+                    throw $e;
+                }
+
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -239,7 +239,7 @@ class InstallmentplanApi
      * @throws \InvalidArgumentException
      * @return Request
      */
-    public function apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPostRequest($shopIdentifier, $installmentPlanRequest = null)
+    public function apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPostRequest($shopIdentifier, $installmentPlanRequest = null): Request
     {
         // verify the required parameter 'shopIdentifier' is set
         if ($shopIdentifier === null || (is_array($shopIdentifier) && count($shopIdentifier) === 0)) {
@@ -253,7 +253,6 @@ class InstallmentplanApi
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
-        $multipart = false;
 
 
 
@@ -266,16 +265,10 @@ class InstallmentplanApi
             );
         }
 
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/problem+json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/problem+json'],
-                ['application/json']
-            );
-        }
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/problem+json'],
+            ['application/json']
+        );
 
         // for model (json/xml)
         if (isset($installmentPlanRequest)) {
@@ -285,23 +278,8 @@ class InstallmentplanApi
                 $httpBody = $installmentPlanRequest;
             }
         } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
+            if ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \http_build_query($formParams);
