@@ -112,10 +112,8 @@ class ObjectSerializer
      *
      * @return string the shorten timestamp
      */
-    public static function sanitizeTimestamp($timestamp)
+    public static function sanitizeTimestamp(string $timestamp): string
     {
-        if (!is_string($timestamp)) return $timestamp;
-
         return preg_replace('/(:\d{2}.\d{6})\d*/', '$1', $timestamp);
     }
 
@@ -175,17 +173,13 @@ class ObjectSerializer
      * the http body (form parameter). If it's a string, pass through unchanged
      * If it's a datetime object, format it in ISO8601
      *
-     * @param string|\SplFileObject $value the value of the form parameter
+     * @param mixed $value the value of the form parameter
      *
      * @return string the form string
      */
     public static function toFormValue($value)
     {
-        if ($value instanceof \SplFileObject) {
-            return $value->getRealPath();
-        } else {
-            return self::toString($value);
-        }
+        return self::toString($value);
     }
 
     /**
@@ -249,10 +243,9 @@ class ObjectSerializer
     /**
      * Deserialize a JSON string into an object
      *
-     * @param mixed    $data          object or primitive to be deserialized
-     * @param string   $class         class name is passed as a string
-     * @param string[] $httpHeaders   HTTP headers
-     * @param string   $discriminator discriminator if polymorphism is used
+     * @param mixed    $data        object or primitive to be deserialized
+     * @param string   $class       class name is passed as a string
+     * @param string[] $httpHeaders HTTP headers
      *
      * @return object|array|null a single or an array of $class instances
      */

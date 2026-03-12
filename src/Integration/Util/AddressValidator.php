@@ -61,11 +61,11 @@ class AddressValidator {
 
         if (!$convertForCompare && $address instanceof ShippingAddress) {
             $_address = array_merge($_address, array(
-                'vorname' => $address->getFirstname(),
-                'nachname'  => $address->getLastname()
+                'vorname' => $address->getFirstName(),
+                'nachname'  => $address->getLastName()
             ));
 
-            if ($address->getIsPackstation()) {
+            if ($address->getPackageStation()) {
                 $_address['packstation'] = true;
             }
         }

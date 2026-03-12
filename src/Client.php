@@ -84,8 +84,9 @@ class Client implements ClientInterface
             )
         );
 
-        if ($request->getBody()) {
-            $context['http']['content'] = (string)$request->getBody();
+        $body = (string)$request->getBody();
+        if ($body !== '') {
+            $context['http']['content'] = $body;
         }
 
         $responseBody = @file_get_contents($request->getUri(), false, stream_context_create($context));

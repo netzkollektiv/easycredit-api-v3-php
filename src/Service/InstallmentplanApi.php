@@ -121,7 +121,7 @@ class InstallmentplanApi
      * Calculates the installmentplan
      *
      * @param  string $shopIdentifier Shop Identifier (required)
-     * @param  \Teambank\EasyCreditApiV3\Model\InstallmentPlanRequest $installmentPlanRequest integration check request (optional)
+     * @param  \Teambank\EasyCreditApiV3\Model\InstallmentPlanRequest|null $installmentPlanRequest integration check request (optional)
      *
      * @throws \Teambank\EasyCreditApiV3\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -151,6 +151,11 @@ class InstallmentplanApi
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
+                $responseHeaders = [];
+                foreach ($response->getHeaders() as $name => $values) {
+                    $responseHeaders[$name] = implode(', ', $values);
+                }
+
                 throw new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
@@ -158,7 +163,7 @@ class InstallmentplanApi
                         (string) $request->getUri()
                     ),
                     $statusCode,
-                    $response->getHeaders(),
+                    $responseHeaders,
                     (string) $response->getBody()
                 );
             }
@@ -234,22 +239,15 @@ class InstallmentplanApi
      * Create request for operation 'apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPost'
      *
      * @param  string $shopIdentifier Shop Identifier (required)
-     * @param  \Teambank\EasyCreditApiV3\Model\InstallmentPlanRequest $installmentPlanRequest integration check request (optional)
+     * @param  \Teambank\EasyCreditApiV3\Model\InstallmentPlanRequest|null $installmentPlanRequest integration check request (optional)
      *
      * @throws \InvalidArgumentException
      * @return Request
      */
     public function apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPostRequest($shopIdentifier, $installmentPlanRequest = null): Request
     {
-        // verify the required parameter 'shopIdentifier' is set
-        if ($shopIdentifier === null || (is_array($shopIdentifier) && count($shopIdentifier) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $shopIdentifier when calling apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPost'
-            );
-        }
 
         $resourcePath = '/api/ratenrechner/v3/webshop/{shopIdentifier}/installmentplans';
-        $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
@@ -257,13 +255,11 @@ class InstallmentplanApi
 
 
         // path params
-        if ($shopIdentifier !== null) {
-            $resourcePath = str_replace(
-                '{' . 'shopIdentifier' . '}',
-                ObjectSerializer::toPathValue($shopIdentifier),
-                $resourcePath
-            );
-        }
+        $resourcePath = str_replace(
+            '{' . 'shopIdentifier' . '}',
+            ObjectSerializer::toPathValue($shopIdentifier),
+            $resourcePath
+        );
 
         $headers = $this->headerSelector->selectHeaders(
             ['application/problem+json'],
@@ -276,13 +272,6 @@ class InstallmentplanApi
                 $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($installmentPlanRequest));
             } else {
                 $httpBody = $installmentPlanRequest;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \http_build_query($formParams);
             }
         }
 

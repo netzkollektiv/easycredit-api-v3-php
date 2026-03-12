@@ -18,9 +18,6 @@ use \Teambank\EasyCreditApiV3\ObjectSerializer;
  *
  * @category Class
  * @package  Teambank\EasyCreditApiV3
- * @implements \ArrayAccess<TKey, TValue>
- * @template TKey int|null
- * @template TValue mixed|null
  */
 class RefundBooking extends Booking
 {

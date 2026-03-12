@@ -122,10 +122,10 @@ class DocumentApi
      *
      * Download billing documents of a merchant.
      *
-     * @param  \DateTime $billingDateFrom set by default to the last month if not specified (optional)
-     * @param  \DateTime $billingDateTo set by default to billingDateFrom + one month if not specified (optional)
-     * @param  string[] $documentType set by default to all options if not specified (optional)
-     * @param  string[] $fileType set by default to all options if not specified (optional)
+     * @param  \DateTime|null $billingDateFrom set by default to the last month if not specified (optional)
+     * @param  \DateTime|null $billingDateTo set by default to billingDateFrom + one month if not specified (optional)
+     * @param  string[]|null $documentType set by default to all options if not specified (optional)
+     * @param  string[]|null $fileType set by default to all options if not specified (optional)
      *
      * @throws \Teambank\EasyCreditApiV3\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -155,6 +155,11 @@ class DocumentApi
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
+                $responseHeaders = [];
+                foreach ($response->getHeaders() as $name => $values) {
+                    $responseHeaders[$name] = implode(', ', $values);
+                }
+
                 throw new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
@@ -162,7 +167,7 @@ class DocumentApi
                         (string) $request->getUri()
                     ),
                     $statusCode,
-                    $response->getHeaders(),
+                    $responseHeaders,
                     (string) $response->getBody()
                 );
             }
@@ -253,10 +258,10 @@ class DocumentApi
     /**
      * Create request for operation 'apiMerchantV3DocumentsGet'
      *
-     * @param  \DateTime $billingDateFrom set by default to the last month if not specified (optional)
-     * @param  \DateTime $billingDateTo set by default to billingDateFrom + one month if not specified (optional)
-     * @param  string[] $documentType set by default to all options if not specified (optional)
-     * @param  string[] $fileType set by default to all options if not specified (optional)
+     * @param  \DateTime|null $billingDateFrom set by default to the last month if not specified (optional)
+     * @param  \DateTime|null $billingDateTo set by default to billingDateFrom + one month if not specified (optional)
+     * @param  string[]|null $documentType set by default to all options if not specified (optional)
+     * @param  string[]|null $fileType set by default to all options if not specified (optional)
      *
      * @throws \InvalidArgumentException
      * @return Request
@@ -265,54 +270,33 @@ class DocumentApi
     {
 
         $resourcePath = '/api/merchant/v3/documents';
-        $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
 
         // query params
         if ($billingDateFrom !== null) {
-            if('form' === 'form' && is_array($billingDateFrom)) {
-                foreach($billingDateFrom as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['billingDateFrom'] = $billingDateFrom;
-            }
+            $queryParams['billingDateFrom'] = $billingDateFrom;
         }
         // query params
         if ($billingDateTo !== null) {
-            if('form' === 'form' && is_array($billingDateTo)) {
-                foreach($billingDateTo as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['billingDateTo'] = $billingDateTo;
-            }
+            $queryParams['billingDateTo'] = $billingDateTo;
         }
         // query params
         if ($documentType !== null) {
-            if('form' === 'form' && is_array($documentType)) {
-                foreach($documentType as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['documentType'] = $documentType;
-            }
+            $queryParams['documentType'] = ObjectSerializer::serializeCollection(
+                $documentType,
+                'form',
+                true
+            );
         }
         // query params
         if ($fileType !== null) {
-            if('form' === 'form' && is_array($fileType)) {
-                foreach($fileType as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['fileType'] = $fileType;
-            }
+            $queryParams['fileType'] = ObjectSerializer::serializeCollection(
+                $fileType,
+                'form',
+                true
+            );
         }
 
 
@@ -323,14 +307,6 @@ class DocumentApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \http_build_query($formParams);
-            }
-        }
 
         // this endpoint requires HTTP basic authentication
         if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {

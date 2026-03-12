@@ -147,6 +147,11 @@ class WebshopApi
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
+                $responseHeaders = [];
+                foreach ($response->getHeaders() as $name => $values) {
+                    $responseHeaders[$name] = implode(', ', $values);
+                }
+
                 throw new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
@@ -154,7 +159,7 @@ class WebshopApi
                         (string) $request->getUri()
                     ),
                     $statusCode,
-                    $response->getHeaders(),
+                    $responseHeaders,
                     (string) $response->getBody()
                 );
             }
@@ -237,7 +242,6 @@ class WebshopApi
     {
 
         $resourcePath = '/api/payment/v3/webshop';
-        $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
@@ -251,14 +255,6 @@ class WebshopApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \http_build_query($formParams);
-            }
-        }
 
         // this endpoint requires HTTP basic authentication
         if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
@@ -310,7 +306,7 @@ class WebshopApi
      *
      * Verifies the correctness of the merchant&#39;s authentication credentials and, if enabled, the body signature
      *
-     * @param  \Teambank\EasyCreditApiV3\Model\IntegrationCheckRequest $integrationCheckRequest integration check request (optional)
+     * @param  \Teambank\EasyCreditApiV3\Model\IntegrationCheckRequest|null $integrationCheckRequest integration check request (optional)
      *
      * @throws \Teambank\EasyCreditApiV3\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -340,6 +336,11 @@ class WebshopApi
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
+                $responseHeaders = [];
+                foreach ($response->getHeaders() as $name => $values) {
+                    $responseHeaders[$name] = implode(', ', $values);
+                }
+
                 throw new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
@@ -347,7 +348,7 @@ class WebshopApi
                         (string) $request->getUri()
                     ),
                     $statusCode,
-                    $response->getHeaders(),
+                    $responseHeaders,
                     (string) $response->getBody()
                 );
             }
@@ -438,7 +439,7 @@ class WebshopApi
     /**
      * Create request for operation 'apiPaymentV3WebshopIntegrationcheckPost'
      *
-     * @param  \Teambank\EasyCreditApiV3\Model\IntegrationCheckRequest $integrationCheckRequest integration check request (optional)
+     * @param  \Teambank\EasyCreditApiV3\Model\IntegrationCheckRequest|null $integrationCheckRequest integration check request (optional)
      *
      * @throws \InvalidArgumentException
      * @return Request
@@ -447,7 +448,6 @@ class WebshopApi
     {
 
         $resourcePath = '/api/payment/v3/webshop/integrationcheck';
-        $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
@@ -466,13 +466,6 @@ class WebshopApi
                 $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($integrationCheckRequest));
             } else {
                 $httpBody = $integrationCheckRequest;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \http_build_query($formParams);
             }
         }
 
@@ -556,6 +549,11 @@ class WebshopApi
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
+                $responseHeaders = [];
+                foreach ($response->getHeaders() as $name => $values) {
+                    $responseHeaders[$name] = implode(', ', $values);
+                }
+
                 throw new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
@@ -563,7 +561,7 @@ class WebshopApi
                         (string) $request->getUri()
                     ),
                     $statusCode,
-                    $response->getHeaders(),
+                    $responseHeaders,
                     (string) $response->getBody()
                 );
             }
@@ -629,15 +627,8 @@ class WebshopApi
      */
     public function apiPaymentV3WebshopTexteWebshopIdGetRequest($webshopId): Request
     {
-        // verify the required parameter 'webshopId' is set
-        if ($webshopId === null || (is_array($webshopId) && count($webshopId) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $webshopId when calling apiPaymentV3WebshopTexteWebshopIdGet'
-            );
-        }
 
         $resourcePath = '/api/payment/v3/webshop/texte/{webshopId}';
-        $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
@@ -645,13 +636,11 @@ class WebshopApi
 
 
         // path params
-        if ($webshopId !== null) {
-            $resourcePath = str_replace(
-                '{' . 'webshopId' . '}',
-                ObjectSerializer::toPathValue($webshopId),
-                $resourcePath
-            );
-        }
+        $resourcePath = str_replace(
+            '{' . 'webshopId' . '}',
+            ObjectSerializer::toPathValue($webshopId),
+            $resourcePath
+        );
 
         $headers = $this->headerSelector->selectHeaders(
             ['application/json', 'application/problem+json'],
@@ -659,14 +648,6 @@ class WebshopApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \http_build_query($formParams);
-            }
-        }
 
 
         $defaultHeaders = [];
@@ -741,6 +722,11 @@ class WebshopApi
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
+                $responseHeaders = [];
+                foreach ($response->getHeaders() as $name => $values) {
+                    $responseHeaders[$name] = implode(', ', $values);
+                }
+
                 throw new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
@@ -748,7 +734,7 @@ class WebshopApi
                         (string) $request->getUri()
                     ),
                     $statusCode,
-                    $response->getHeaders(),
+                    $responseHeaders,
                     (string) $response->getBody()
                 );
             }
@@ -814,15 +800,8 @@ class WebshopApi
      */
     public function apiPaymentV3WebshopWebshopIdGetRequest($webshopId): Request
     {
-        // verify the required parameter 'webshopId' is set
-        if ($webshopId === null || (is_array($webshopId) && count($webshopId) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $webshopId when calling apiPaymentV3WebshopWebshopIdGet'
-            );
-        }
 
         $resourcePath = '/api/payment/v3/webshop/{webshopId}';
-        $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
@@ -830,13 +809,11 @@ class WebshopApi
 
 
         // path params
-        if ($webshopId !== null) {
-            $resourcePath = str_replace(
-                '{' . 'webshopId' . '}',
-                ObjectSerializer::toPathValue($webshopId),
-                $resourcePath
-            );
-        }
+        $resourcePath = str_replace(
+            '{' . 'webshopId' . '}',
+            ObjectSerializer::toPathValue($webshopId),
+            $resourcePath
+        );
 
         $headers = $this->headerSelector->selectHeaders(
             ['application/json', 'application/problem+json'],
@@ -844,14 +821,6 @@ class WebshopApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \http_build_query($formParams);
-            }
-        }
 
 
         $defaultHeaders = [];

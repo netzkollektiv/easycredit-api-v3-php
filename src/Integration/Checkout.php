@@ -1,4 +1,5 @@
 <?php
+
 namespace Teambank\EasyCreditApiV3\Integration;
 
 use Teambank\EasyCreditApiV3\Service\TransactionApi;
@@ -18,7 +19,8 @@ use Teambank\EasyCreditApiV3\Model\IntegrationCheckRequest;
 use Teambank\EasyCreditApiV3\Model\InstallmentPlanRequest;
 use Teambank\EasyCreditApiV3\Model\Article;
 
-class Checkout implements CheckoutInterface {
+class Checkout implements CheckoutInterface
+{
 
     protected $webshopApi;
     protected $transactionApi;
@@ -46,7 +48,8 @@ class Checkout implements CheckoutInterface {
         $this->logger = $logger;
     }
 
-    public function getRedirectUrl() {
+    public function getRedirectUrl()
+    {
         return $this->storage->get('redirect_url');
     }
 
@@ -76,9 +79,9 @@ class Checkout implements CheckoutInterface {
             $this->storage->get('token'),
             new TransactionUpdate([
                 'orderValue' => round($orderDetails->getOrderValue() - $this->storage->get('interest_amount'), 2),
-                'numberOfProductsInShoppingCart' => $orderDetails->getNumberOfProductsInShoppingCart(), 
-                'orderId' => $orderDetails->getOrderId(), 
-                'shoppingCartInformation' => $orderDetails->getShoppingCartInformation(), 
+                'numberOfProductsInShoppingCart' => $orderDetails->getNumberOfProductsInShoppingCart(),
+                'orderId' => $orderDetails->getOrderId(),
+                'shoppingCartInformation' => $orderDetails->getShoppingCartInformation(),
             ])
         );
 
@@ -93,11 +96,12 @@ class Checkout implements CheckoutInterface {
     public function finalizeExpress(
         Transaction $request
     ) {
-       $this->storage
+        $this->storage
             ->set('address_hash', $this->addressValidator->hashAddress($request->getOrderDetails()->getShippingAddress()));
     }
 
-    public function isInitialized() {
+    public function isInitialized()
+    {
         try {
             $this->_getToken();
             return true;
@@ -106,7 +110,8 @@ class Checkout implements CheckoutInterface {
         }
     }
 
-    protected function _getToken() {
+    protected function _getToken()
+    {
         $token = $this->storage->get('token');
 
         if (empty($token)) {
@@ -114,8 +119,9 @@ class Checkout implements CheckoutInterface {
         }
         return $token;
     }
-    
-    public function loadTransaction($txId = null) {
+
+    public function loadTransaction($txId = null)
+    {
         if ($txId === null) {
             $txId = $this->_getToken();
         }
@@ -128,7 +134,7 @@ class Checkout implements CheckoutInterface {
             case TransactionInformation::STATUS_OPEN:
             case TransactionInformation::STATUS_DECLINED:
             case TransactionInformation::STATUS_EXPIRED:
-                throw new InitializationException('easyCredit transaction is not valid, status: '.$result->getStatus());
+                throw new InitializationException('easyCredit transaction is not valid, status: ' . $result->getStatus());
 
             case TransactionInformation::STATUS_PREAUTHORIZED:
                 $this->storage->set(
@@ -142,7 +148,8 @@ class Checkout implements CheckoutInterface {
         return $result;
     }
 
-    public function isApproved(): bool {
+    public function isApproved(): bool
+    {
         $summaryJson = $this->storage->get('summary');
 
         if ($summaryJson === null) {
@@ -160,7 +167,8 @@ class Checkout implements CheckoutInterface {
             TransactionSummary::DECISION_OUTCOME_POSITIVE === $summary->decisionOutcome;
     }
 
-    public function authorize($orderId = null) {
+    public function authorize($orderId = null)
+    {
         try {
             list($response, $statusCode) = $this->transactionApi->apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPostWithHttpInfo(
                 $this->_getToken(),
@@ -170,8 +178,9 @@ class Checkout implements CheckoutInterface {
             );
             if ((int) $statusCode === 202) {
                 $this->storage->set(
-                    'is_authorized', 1
-                );              
+                    'is_authorized',
+                    1
+                );
                 return true;
             }
         } catch (ApiException $e) {
@@ -180,22 +189,25 @@ class Checkout implements CheckoutInterface {
         return false;
     }
 
-    public function getInstallmentValues($amount) {
+    public function getInstallmentValues($amount)
+    {
         return $this->installmentplanApi->apiRatenrechnerV3WebshopShopIdentifierInstallmentplansPost(
             $this->webshopApi->getConfig()->getUsername(),
             new InstallmentPlanRequest([
-                'articles'=> [
-                    new Article(['identifier' => 'single', 'price' => $amount ])
+                'articles' => [
+                    new Article(['identifier' => 'single', 'price' => $amount])
                 ]
             ])
         );
     }
 
-    public function getWebshopDetails() {
+    public function getWebshopDetails()
+    {
         return $this->webshopApi->apiPaymentV3WebshopGet();
     }
 
-    public function verifyCredentials($apiKey, $apiToken, $apiSignature = null) {
+    public function verifyCredentials($apiKey, $apiToken, $apiSignature = null)
+    {
         $this->webshopApi->getConfig()
             ->setUsername($apiKey)
             ->setPassword($apiToken)
@@ -203,7 +215,7 @@ class Checkout implements CheckoutInterface {
 
         try {
             $this->webshopApi->apiPaymentV3WebshopIntegrationcheckPost(
-                new IntegrationCheckRequest(['message'=>''])
+                new IntegrationCheckRequest(['message' => ''])
             );
         } catch (ApiException $e) {
             if ($e->getCode() === 401) {
@@ -216,17 +228,17 @@ class Checkout implements CheckoutInterface {
         }
     }
 
-    public function isAvailable(Transaction $request, $checkAmount = false) {
+    public function isAvailable(Transaction $request, $checkAmount = false)
+    {
 
         $this->addressValidator->validate($request);
 
         if ($checkAmount) {
-            $request = $request->getTransaction();
             try {
                 $this->getInstallmentValues($request->getOrderDetails()->getOrderValue());
             } catch (ApiException $e) {
                 if ($e->getCode() === 400) {
-                    throw new AmountOutOfRange();
+                    throw new AmountOutOfRangeException();
                 }
                 throw $e;
             }
@@ -235,7 +247,8 @@ class Checkout implements CheckoutInterface {
         return true;
     }
 
-    public function verifyAddress(Transaction $request, $preCheck = false) {
+    public function verifyAddress(Transaction $request, $preCheck = false)
+    {
         $initialHash = $this->storage->get('address_hash');
 
         $billingHash = null;
@@ -255,36 +268,40 @@ class Checkout implements CheckoutInterface {
         );
     }
 
-    public function isAmountValid(Transaction $request): bool {
+    public function isAmountValid(Transaction $request): bool
+    {
 
-        $amount = $request->getOrderDetails()->getOrderValue();
+        $amount = (float) $request->getOrderDetails()->getOrderValue();
         $authorizedAmount = (float) $this->storage->get('authorized_amount');
         $interestAmount = (float) $this->storage->get('interest_amount');
 
         if (
-            $amount === null ||
-            !is_numeric($amount) ||
             round($amount, 2) !== round($authorizedAmount + $interestAmount, 2)
         ) {
             $this->logger->debug(sprintf(
                 'Amount not valid: %.2f (order) !== %.2f (authorized) + %.2f (interest)',
-                $amount, $authorizedAmount, $interestAmount
+                $amount,
+                $authorizedAmount,
+                $interestAmount
             ));
             return false;
         }
         return true;
     }
 
-    public function isValid(Transaction $request) {
+    public function isValid(Transaction $request)
+    {
         return $this->isAmountValid($request) &&
             $this->verifyAddress($request);
     }
 
-    public function isPrefixValid($prefix) {
+    public function isPrefixValid($prefix)
+    {
         return $this->prefixConverter->convert($prefix) !== null;
     }
 
-    public function clear() {
+    public function clear()
+    {
         return $this->storage->clear();
     }
 }

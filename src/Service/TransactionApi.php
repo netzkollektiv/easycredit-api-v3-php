@@ -128,16 +128,16 @@ class TransactionApi
      *
      * Find transactions of a merchant according to some search parameters.
      *
-     * @param  string $firstname (optional)
-     * @param  string $lastname (optional)
-     * @param  string $orderId (optional)
-     * @param  int $pageSize (optional, default to 100)
-     * @param  int $page (optional)
-     * @param  string[] $status (optional)
-     * @param  float $minOrderValue (optional)
-     * @param  float $maxOrderValue (optional)
-     * @param  string[] $tId Multiple unique functional transaction identifier (consists of 6 characters) provided through the query (optional)
-     * @param  string[] $webshopIds (optional)
+     * @param  string|null $firstname (optional)
+     * @param  string|null $lastname (optional)
+     * @param  string|null $orderId (optional)
+     * @param  int|null $pageSize (optional, default to 100)
+     * @param  int|null $page (optional)
+     * @param  string[]|null $status (optional)
+     * @param  float|null $minOrderValue (optional)
+     * @param  float|null $maxOrderValue (optional)
+     * @param  string[]|null $tId Multiple unique functional transaction identifier (consists of 6 characters) provided through the query (optional)
+     * @param  string[]|null $webshopIds (optional)
      *
      * @throws \Teambank\EasyCreditApiV3\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -167,6 +167,11 @@ class TransactionApi
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
+                $responseHeaders = [];
+                foreach ($response->getHeaders() as $name => $values) {
+                    $responseHeaders[$name] = implode(', ', $values);
+                }
+
                 throw new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
@@ -174,7 +179,7 @@ class TransactionApi
                         (string) $request->getUri()
                     ),
                     $statusCode,
-                    $response->getHeaders(),
+                    $responseHeaders,
                     (string) $response->getBody()
                 );
             }
@@ -281,16 +286,16 @@ class TransactionApi
     /**
      * Create request for operation 'apiMerchantV3TransactionGet'
      *
-     * @param  string $firstname (optional)
-     * @param  string $lastname (optional)
-     * @param  string $orderId (optional)
-     * @param  int $pageSize (optional, default to 100)
-     * @param  int $page (optional)
-     * @param  string[] $status (optional)
-     * @param  float $minOrderValue (optional)
-     * @param  float $maxOrderValue (optional)
-     * @param  string[] $tId Multiple unique functional transaction identifier (consists of 6 characters) provided through the query (optional)
-     * @param  string[] $webshopIds (optional)
+     * @param  string|null $firstname (optional)
+     * @param  string|null $lastname (optional)
+     * @param  string|null $orderId (optional)
+     * @param  int|null $pageSize (optional, default to 100)
+     * @param  int|null $page (optional)
+     * @param  string[]|null $status (optional)
+     * @param  float|null $minOrderValue (optional)
+     * @param  float|null $maxOrderValue (optional)
+     * @param  string[]|null $tId Multiple unique functional transaction identifier (consists of 6 characters) provided through the query (optional)
+     * @param  string[]|null $webshopIds (optional)
      *
      * @throws \InvalidArgumentException
      * @return Request
@@ -307,120 +312,61 @@ class TransactionApi
 
 
         $resourcePath = '/api/merchant/v3/transaction';
-        $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
 
         // query params
         if ($firstname !== null) {
-            if('form' === 'form' && is_array($firstname)) {
-                foreach($firstname as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['firstname'] = $firstname;
-            }
+            $queryParams['firstname'] = $firstname;
         }
         // query params
         if ($lastname !== null) {
-            if('form' === 'form' && is_array($lastname)) {
-                foreach($lastname as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['lastname'] = $lastname;
-            }
+            $queryParams['lastname'] = $lastname;
         }
         // query params
         if ($orderId !== null) {
-            if('form' === 'form' && is_array($orderId)) {
-                foreach($orderId as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['orderId'] = $orderId;
-            }
+            $queryParams['orderId'] = $orderId;
         }
         // query params
         if ($pageSize !== null) {
-            if('form' === 'form' && is_array($pageSize)) {
-                foreach($pageSize as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['pageSize'] = $pageSize;
-            }
+            $queryParams['pageSize'] = $pageSize;
         }
         // query params
         if ($page !== null) {
-            if('form' === 'form' && is_array($page)) {
-                foreach($page as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['page'] = $page;
-            }
+            $queryParams['page'] = $page;
         }
         // query params
         if ($status !== null) {
-            if('form' === 'form' && is_array($status)) {
-                foreach($status as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['status'] = $status;
-            }
+            $queryParams['status'] = ObjectSerializer::serializeCollection(
+                $status,
+                'form',
+                true
+            );
         }
         // query params
         if ($minOrderValue !== null) {
-            if('form' === 'form' && is_array($minOrderValue)) {
-                foreach($minOrderValue as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['minOrderValue'] = $minOrderValue;
-            }
+            $queryParams['minOrderValue'] = $minOrderValue;
         }
         // query params
         if ($maxOrderValue !== null) {
-            if('form' === 'form' && is_array($maxOrderValue)) {
-                foreach($maxOrderValue as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['maxOrderValue'] = $maxOrderValue;
-            }
+            $queryParams['maxOrderValue'] = $maxOrderValue;
         }
         // query params
         if ($tId !== null) {
-            if('form' === 'form' && is_array($tId)) {
-                foreach($tId as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['tId'] = $tId;
-            }
+            $queryParams['tId'] = ObjectSerializer::serializeCollection(
+                $tId,
+                'form',
+                true
+            );
         }
         // query params
         if ($webshopIds !== null) {
-            if('form' === 'form' && is_array($webshopIds)) {
-                foreach($webshopIds as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['webshopIds'] = $webshopIds;
-            }
+            $queryParams['webshopIds'] = ObjectSerializer::serializeCollection(
+                $webshopIds,
+                'form',
+                true
+            );
         }
 
 
@@ -431,14 +377,6 @@ class TransactionApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \http_build_query($formParams);
-            }
-        }
 
         // this endpoint requires HTTP basic authentication
         if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
@@ -491,7 +429,7 @@ class TransactionApi
      * Report a capture for a transaction according to its unique functional identifier
      *
      * @param  string $transactionId Unique functional transaction identifier (consists of 6 characters) (required)
-     * @param  \Teambank\EasyCreditApiV3\Model\CaptureRequest $captureRequest Capture Request Object (optional)
+     * @param  \Teambank\EasyCreditApiV3\Model\CaptureRequest|null $captureRequest Capture Request Object (optional)
      *
      * @throws \Teambank\EasyCreditApiV3\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -521,6 +459,11 @@ class TransactionApi
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
+                $responseHeaders = [];
+                foreach ($response->getHeaders() as $name => $values) {
+                    $responseHeaders[$name] = implode(', ', $values);
+                }
+
                 throw new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
@@ -528,7 +471,7 @@ class TransactionApi
                         (string) $request->getUri()
                     ),
                     $statusCode,
-                    $response->getHeaders(),
+                    $responseHeaders,
                     (string) $response->getBody()
                 );
             }
@@ -586,22 +529,15 @@ class TransactionApi
      * Create request for operation 'apiMerchantV3TransactionTransactionIdCapturePost'
      *
      * @param  string $transactionId Unique functional transaction identifier (consists of 6 characters) (required)
-     * @param  \Teambank\EasyCreditApiV3\Model\CaptureRequest $captureRequest Capture Request Object (optional)
+     * @param  \Teambank\EasyCreditApiV3\Model\CaptureRequest|null $captureRequest Capture Request Object (optional)
      *
      * @throws \InvalidArgumentException
      * @return Request
      */
     public function apiMerchantV3TransactionTransactionIdCapturePostRequest($transactionId, $captureRequest = null): Request
     {
-        // verify the required parameter 'transactionId' is set
-        if ($transactionId === null || (is_array($transactionId) && count($transactionId) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $transactionId when calling apiMerchantV3TransactionTransactionIdCapturePost'
-            );
-        }
 
         $resourcePath = '/api/merchant/v3/transaction/{transactionId}/capture';
-        $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
@@ -609,13 +545,11 @@ class TransactionApi
 
 
         // path params
-        if ($transactionId !== null) {
-            $resourcePath = str_replace(
-                '{' . 'transactionId' . '}',
-                ObjectSerializer::toPathValue($transactionId),
-                $resourcePath
-            );
-        }
+        $resourcePath = str_replace(
+            '{' . 'transactionId' . '}',
+            ObjectSerializer::toPathValue($transactionId),
+            $resourcePath
+        );
 
         $headers = $this->headerSelector->selectHeaders(
             ['application/problem+json'],
@@ -628,13 +562,6 @@ class TransactionApi
                 $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($captureRequest));
             } else {
                 $httpBody = $captureRequest;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \http_build_query($formParams);
             }
         }
 
@@ -718,6 +645,11 @@ class TransactionApi
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
+                $responseHeaders = [];
+                foreach ($response->getHeaders() as $name => $values) {
+                    $responseHeaders[$name] = implode(', ', $values);
+                }
+
                 throw new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
@@ -725,7 +657,7 @@ class TransactionApi
                         (string) $request->getUri()
                     ),
                     $statusCode,
-                    $response->getHeaders(),
+                    $responseHeaders,
                     (string) $response->getBody()
                 );
             }
@@ -839,15 +771,8 @@ class TransactionApi
      */
     public function apiMerchantV3TransactionTransactionIdGetRequest($transactionId): Request
     {
-        // verify the required parameter 'transactionId' is set
-        if ($transactionId === null || (is_array($transactionId) && count($transactionId) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $transactionId when calling apiMerchantV3TransactionTransactionIdGet'
-            );
-        }
 
         $resourcePath = '/api/merchant/v3/transaction/{transactionId}';
-        $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
@@ -855,13 +780,11 @@ class TransactionApi
 
 
         // path params
-        if ($transactionId !== null) {
-            $resourcePath = str_replace(
-                '{' . 'transactionId' . '}',
-                ObjectSerializer::toPathValue($transactionId),
-                $resourcePath
-            );
-        }
+        $resourcePath = str_replace(
+            '{' . 'transactionId' . '}',
+            ObjectSerializer::toPathValue($transactionId),
+            $resourcePath
+        );
 
         $headers = $this->headerSelector->selectHeaders(
             ['application/hal+json', 'application/problem+json'],
@@ -869,14 +792,6 @@ class TransactionApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \http_build_query($formParams);
-            }
-        }
 
         // this endpoint requires HTTP basic authentication
         if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
@@ -929,7 +844,7 @@ class TransactionApi
      * Report a refund for a transaction according to its unique functional identifier
      *
      * @param  string $transactionId Unique functional transaction identifier (consists of 6 characters) (required)
-     * @param  \Teambank\EasyCreditApiV3\Model\RefundRequest $refundRequest Refund Request Object (optional)
+     * @param  \Teambank\EasyCreditApiV3\Model\RefundRequest|null $refundRequest Refund Request Object (optional)
      *
      * @throws \Teambank\EasyCreditApiV3\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -959,6 +874,11 @@ class TransactionApi
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
+                $responseHeaders = [];
+                foreach ($response->getHeaders() as $name => $values) {
+                    $responseHeaders[$name] = implode(', ', $values);
+                }
+
                 throw new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
@@ -966,7 +886,7 @@ class TransactionApi
                         (string) $request->getUri()
                     ),
                     $statusCode,
-                    $response->getHeaders(),
+                    $responseHeaders,
                     (string) $response->getBody()
                 );
             }
@@ -1016,22 +936,15 @@ class TransactionApi
      * Create request for operation 'apiMerchantV3TransactionTransactionIdRefundPost'
      *
      * @param  string $transactionId Unique functional transaction identifier (consists of 6 characters) (required)
-     * @param  \Teambank\EasyCreditApiV3\Model\RefundRequest $refundRequest Refund Request Object (optional)
+     * @param  \Teambank\EasyCreditApiV3\Model\RefundRequest|null $refundRequest Refund Request Object (optional)
      *
      * @throws \InvalidArgumentException
      * @return Request
      */
     public function apiMerchantV3TransactionTransactionIdRefundPostRequest($transactionId, $refundRequest = null): Request
     {
-        // verify the required parameter 'transactionId' is set
-        if ($transactionId === null || (is_array($transactionId) && count($transactionId) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $transactionId when calling apiMerchantV3TransactionTransactionIdRefundPost'
-            );
-        }
 
         $resourcePath = '/api/merchant/v3/transaction/{transactionId}/refund';
-        $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
@@ -1039,13 +952,11 @@ class TransactionApi
 
 
         // path params
-        if ($transactionId !== null) {
-            $resourcePath = str_replace(
-                '{' . 'transactionId' . '}',
-                ObjectSerializer::toPathValue($transactionId),
-                $resourcePath
-            );
-        }
+        $resourcePath = str_replace(
+            '{' . 'transactionId' . '}',
+            ObjectSerializer::toPathValue($transactionId),
+            $resourcePath
+        );
 
         $headers = $this->headerSelector->selectHeaders(
             ['application/problem+json'],
@@ -1058,13 +969,6 @@ class TransactionApi
                 $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($refundRequest));
             } else {
                 $httpBody = $refundRequest;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \http_build_query($formParams);
             }
         }
 
@@ -1118,7 +1022,7 @@ class TransactionApi
      *
      * Initiates an ecommerce or direct sales transaction based on the given request
      *
-     * @param  \Teambank\EasyCreditApiV3\Model\Transaction $transaction init request (optional)
+     * @param  \Teambank\EasyCreditApiV3\Model\Transaction|null $transaction init request (optional)
      *
      * @throws \Teambank\EasyCreditApiV3\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -1148,6 +1052,11 @@ class TransactionApi
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
+                $responseHeaders = [];
+                foreach ($response->getHeaders() as $name => $values) {
+                    $responseHeaders[$name] = implode(', ', $values);
+                }
+
                 throw new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
@@ -1155,7 +1064,7 @@ class TransactionApi
                         (string) $request->getUri()
                     ),
                     $statusCode,
-                    $response->getHeaders(),
+                    $responseHeaders,
                     (string) $response->getBody()
                 );
             }
@@ -1246,7 +1155,7 @@ class TransactionApi
     /**
      * Create request for operation 'apiPaymentV3TransactionPost'
      *
-     * @param  \Teambank\EasyCreditApiV3\Model\Transaction $transaction init request (optional)
+     * @param  \Teambank\EasyCreditApiV3\Model\Transaction|null $transaction init request (optional)
      *
      * @throws \InvalidArgumentException
      * @return Request
@@ -1255,7 +1164,6 @@ class TransactionApi
     {
 
         $resourcePath = '/api/payment/v3/transaction';
-        $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
@@ -1274,13 +1182,6 @@ class TransactionApi
                 $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($transaction));
             } else {
                 $httpBody = $transaction;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \http_build_query($formParams);
             }
         }
 
@@ -1335,7 +1236,7 @@ class TransactionApi
      * Authorizes a transaction after finishing the process in a webshop
      *
      * @param  string $technicalTransactionId Unique TeamBank transaction identifier (required)
-     * @param  \Teambank\EasyCreditApiV3\Model\AuthorizationRequest $authorizationRequest authorization request (optional)
+     * @param  \Teambank\EasyCreditApiV3\Model\AuthorizationRequest|null $authorizationRequest authorization request (optional)
      *
      * @throws \Teambank\EasyCreditApiV3\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -1365,6 +1266,11 @@ class TransactionApi
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
+                $responseHeaders = [];
+                foreach ($response->getHeaders() as $name => $values) {
+                    $responseHeaders[$name] = implode(', ', $values);
+                }
+
                 throw new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
@@ -1372,7 +1278,7 @@ class TransactionApi
                         (string) $request->getUri()
                     ),
                     $statusCode,
-                    $response->getHeaders(),
+                    $responseHeaders,
                     (string) $response->getBody()
                 );
             }
@@ -1422,22 +1328,15 @@ class TransactionApi
      * Create request for operation 'apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPost'
      *
      * @param  string $technicalTransactionId Unique TeamBank transaction identifier (required)
-     * @param  \Teambank\EasyCreditApiV3\Model\AuthorizationRequest $authorizationRequest authorization request (optional)
+     * @param  \Teambank\EasyCreditApiV3\Model\AuthorizationRequest|null $authorizationRequest authorization request (optional)
      *
      * @throws \InvalidArgumentException
      * @return Request
      */
     public function apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPostRequest($technicalTransactionId, $authorizationRequest = null): Request
     {
-        // verify the required parameter 'technicalTransactionId' is set
-        if ($technicalTransactionId === null || (is_array($technicalTransactionId) && count($technicalTransactionId) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $technicalTransactionId when calling apiPaymentV3TransactionTechnicalTransactionIdAuthorizationPost'
-            );
-        }
 
         $resourcePath = '/api/payment/v3/transaction/{technicalTransactionId}/authorization';
-        $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
@@ -1445,13 +1344,11 @@ class TransactionApi
 
 
         // path params
-        if ($technicalTransactionId !== null) {
-            $resourcePath = str_replace(
-                '{' . 'technicalTransactionId' . '}',
-                ObjectSerializer::toPathValue($technicalTransactionId),
-                $resourcePath
-            );
-        }
+        $resourcePath = str_replace(
+            '{' . 'technicalTransactionId' . '}',
+            ObjectSerializer::toPathValue($technicalTransactionId),
+            $resourcePath
+        );
 
         $headers = $this->headerSelector->selectHeaders(
             ['application/problem+json'],
@@ -1464,13 +1361,6 @@ class TransactionApi
                 $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($authorizationRequest));
             } else {
                 $httpBody = $authorizationRequest;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \http_build_query($formParams);
             }
         }
 
@@ -1553,6 +1443,11 @@ class TransactionApi
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
+                $responseHeaders = [];
+                foreach ($response->getHeaders() as $name => $values) {
+                    $responseHeaders[$name] = implode(', ', $values);
+                }
+
                 throw new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
@@ -1560,7 +1455,7 @@ class TransactionApi
                         (string) $request->getUri()
                     ),
                     $statusCode,
-                    $response->getHeaders(),
+                    $responseHeaders,
                     (string) $response->getBody()
                 );
             }
@@ -1616,15 +1511,8 @@ class TransactionApi
      */
     public function apiPaymentV3TransactionTechnicalTransactionIdCancellationPostRequest($technicalTransactionId): Request
     {
-        // verify the required parameter 'technicalTransactionId' is set
-        if ($technicalTransactionId === null || (is_array($technicalTransactionId) && count($technicalTransactionId) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $technicalTransactionId when calling apiPaymentV3TransactionTechnicalTransactionIdCancellationPost'
-            );
-        }
 
         $resourcePath = '/api/payment/v3/transaction/{technicalTransactionId}/cancellation';
-        $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
@@ -1632,13 +1520,11 @@ class TransactionApi
 
 
         // path params
-        if ($technicalTransactionId !== null) {
-            $resourcePath = str_replace(
-                '{' . 'technicalTransactionId' . '}',
-                ObjectSerializer::toPathValue($technicalTransactionId),
-                $resourcePath
-            );
-        }
+        $resourcePath = str_replace(
+            '{' . 'technicalTransactionId' . '}',
+            ObjectSerializer::toPathValue($technicalTransactionId),
+            $resourcePath
+        );
 
         $headers = $this->headerSelector->selectHeaders(
             ['application/problem+json'],
@@ -1646,14 +1532,6 @@ class TransactionApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \http_build_query($formParams);
-            }
-        }
 
         // this endpoint requires HTTP basic authentication
         if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
@@ -1735,6 +1613,11 @@ class TransactionApi
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
+                $responseHeaders = [];
+                foreach ($response->getHeaders() as $name => $values) {
+                    $responseHeaders[$name] = implode(', ', $values);
+                }
+
                 throw new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
@@ -1742,7 +1625,7 @@ class TransactionApi
                         (string) $request->getUri()
                     ),
                     $statusCode,
-                    $response->getHeaders(),
+                    $responseHeaders,
                     (string) $response->getBody()
                 );
             }
@@ -1856,15 +1739,8 @@ class TransactionApi
      */
     public function apiPaymentV3TransactionTechnicalTransactionIdGetRequest($technicalTransactionId): Request
     {
-        // verify the required parameter 'technicalTransactionId' is set
-        if ($technicalTransactionId === null || (is_array($technicalTransactionId) && count($technicalTransactionId) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $technicalTransactionId when calling apiPaymentV3TransactionTechnicalTransactionIdGet'
-            );
-        }
 
         $resourcePath = '/api/payment/v3/transaction/{technicalTransactionId}';
-        $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
@@ -1872,13 +1748,11 @@ class TransactionApi
 
 
         // path params
-        if ($technicalTransactionId !== null) {
-            $resourcePath = str_replace(
-                '{' . 'technicalTransactionId' . '}',
-                ObjectSerializer::toPathValue($technicalTransactionId),
-                $resourcePath
-            );
-        }
+        $resourcePath = str_replace(
+            '{' . 'technicalTransactionId' . '}',
+            ObjectSerializer::toPathValue($technicalTransactionId),
+            $resourcePath
+        );
 
         $headers = $this->headerSelector->selectHeaders(
             ['application/hal+json', 'application/problem+json'],
@@ -1886,14 +1760,6 @@ class TransactionApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \http_build_query($formParams);
-            }
-        }
 
         // this endpoint requires HTTP basic authentication
         if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
@@ -1947,7 +1813,7 @@ class TransactionApi
      * Updates a transaction based on the given request
      *
      * @param  string $technicalTransactionId Unique TeamBank transaction identifier (required)
-     * @param  \Teambank\EasyCreditApiV3\Model\TransactionUpdate $transactionUpdate update request (optional)
+     * @param  \Teambank\EasyCreditApiV3\Model\TransactionUpdate|null $transactionUpdate update request (optional)
      *
      * @throws \Teambank\EasyCreditApiV3\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -1977,6 +1843,11 @@ class TransactionApi
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
+                $responseHeaders = [];
+                foreach ($response->getHeaders() as $name => $values) {
+                    $responseHeaders[$name] = implode(', ', $values);
+                }
+
                 throw new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
@@ -1984,7 +1855,7 @@ class TransactionApi
                         (string) $request->getUri()
                     ),
                     $statusCode,
-                    $response->getHeaders(),
+                    $responseHeaders,
                     (string) $response->getBody()
                 );
             }
@@ -2092,22 +1963,15 @@ class TransactionApi
      * Create request for operation 'apiPaymentV3TransactionTechnicalTransactionIdPatch'
      *
      * @param  string $technicalTransactionId Unique TeamBank transaction identifier (required)
-     * @param  \Teambank\EasyCreditApiV3\Model\TransactionUpdate $transactionUpdate update request (optional)
+     * @param  \Teambank\EasyCreditApiV3\Model\TransactionUpdate|null $transactionUpdate update request (optional)
      *
      * @throws \InvalidArgumentException
      * @return Request
      */
     public function apiPaymentV3TransactionTechnicalTransactionIdPatchRequest($technicalTransactionId, $transactionUpdate = null): Request
     {
-        // verify the required parameter 'technicalTransactionId' is set
-        if ($technicalTransactionId === null || (is_array($technicalTransactionId) && count($technicalTransactionId) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $technicalTransactionId when calling apiPaymentV3TransactionTechnicalTransactionIdPatch'
-            );
-        }
 
         $resourcePath = '/api/payment/v3/transaction/{technicalTransactionId}';
-        $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
@@ -2115,13 +1979,11 @@ class TransactionApi
 
 
         // path params
-        if ($technicalTransactionId !== null) {
-            $resourcePath = str_replace(
-                '{' . 'technicalTransactionId' . '}',
-                ObjectSerializer::toPathValue($technicalTransactionId),
-                $resourcePath
-            );
-        }
+        $resourcePath = str_replace(
+            '{' . 'technicalTransactionId' . '}',
+            ObjectSerializer::toPathValue($technicalTransactionId),
+            $resourcePath
+        );
 
         $headers = $this->headerSelector->selectHeaders(
             ['application/hal+json', 'application/problem+json'],
@@ -2134,13 +1996,6 @@ class TransactionApi
                 $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($transactionUpdate));
             } else {
                 $httpBody = $transactionUpdate;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \http_build_query($formParams);
             }
         }
 
@@ -2224,6 +2079,11 @@ class TransactionApi
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
+                $responseHeaders = [];
+                foreach ($response->getHeaders() as $name => $values) {
+                    $responseHeaders[$name] = implode(', ', $values);
+                }
+
                 throw new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
@@ -2231,7 +2091,7 @@ class TransactionApi
                         (string) $request->getUri()
                     ),
                     $statusCode,
-                    $response->getHeaders(),
+                    $responseHeaders,
                     (string) $response->getBody()
                 );
             }
@@ -2329,15 +2189,8 @@ class TransactionApi
      */
     public function apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPostRequest($technicalTransactionId): Request
     {
-        // verify the required parameter 'technicalTransactionId' is set
-        if ($technicalTransactionId === null || (is_array($technicalTransactionId) && count($technicalTransactionId) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $technicalTransactionId when calling apiPaymentV3TransactionTechnicalTransactionIdSwitchPaymentMethodPost'
-            );
-        }
 
         $resourcePath = '/api/payment/v3/transaction/{technicalTransactionId}/switchPaymentMethod';
-        $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
@@ -2345,13 +2198,11 @@ class TransactionApi
 
 
         // path params
-        if ($technicalTransactionId !== null) {
-            $resourcePath = str_replace(
-                '{' . 'technicalTransactionId' . '}',
-                ObjectSerializer::toPathValue($technicalTransactionId),
-                $resourcePath
-            );
-        }
+        $resourcePath = str_replace(
+            '{' . 'technicalTransactionId' . '}',
+            ObjectSerializer::toPathValue($technicalTransactionId),
+            $resourcePath
+        );
 
         $headers = $this->headerSelector->selectHeaders(
             ['application/hal+json', 'application/problem+json'],
@@ -2359,14 +2210,6 @@ class TransactionApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \http_build_query($formParams);
-            }
-        }
 
 
         $defaultHeaders = [];
