@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="./vendor/autoload.php" colors="true" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true" stopOnFailure="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
-  <coverage processUncoveredFiles="true">
-    <include>
-      <directory suffix=".php">./src/Service</directory>
-      <directory suffix=".php">./src/Model</directory>
-    </include>
-  </coverage>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="./vendor/autoload.php" colors="true" stopOnFailure="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/13.1/phpunit.xsd" cacheDirectory=".phpunit.cache">
   <testsuites>
     <testsuite name="tests">
       <directory>./test/Api</directory>
       <directory>./test/Model</directory>
+      <directory>./test/Integration</directory>
     </testsuite>
   </testsuites>
   <php>
@@ -17,4 +12,10 @@
     <env name="EASYCREDIT_USER" value="not-set"/>
     <env name="EASYCREDIT_PASSWORD" value="not-set"/>
   </php>
+  <source>
+    <include>
+      <directory suffix=".php">./src/Service</directory>
+      <directory suffix=".php">./src/Model</directory>
+    </include>
+  </source>
 </phpunit>
