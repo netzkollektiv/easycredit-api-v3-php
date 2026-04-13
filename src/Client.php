@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 
  *
@@ -89,9 +90,8 @@ class Client implements ClientInterface
             $context['http']['content'] = $body;
         }
 
-        $responseBody = @file_get_contents($request->getUri(), false, stream_context_create($context));
-
-        if ($responseBody === false) {
+        $stream = @fopen((string)$request->getUri(), 'rb', false, stream_context_create($context));
+        if ($stream === false) {
             $error = error_get_last();
             $message = $error['message'] ?? 'Network request failed';
             throw new NetworkException(
@@ -99,9 +99,21 @@ class Client implements ClientInterface
                 $request
             );
         }
+        $meta = stream_get_meta_data($stream);
+        $responseBody = stream_get_contents($stream);
+        fclose($stream);
 
-        $responseHeaders = $this->parseHeaders($http_response_header);
-        $statusHeader = $this->parseStatusHeader($http_response_header);
+        if ($responseBody === false) {
+            $responseBody = '';
+        }
+
+        $rawHeaders = [];
+        if (isset($meta['wrapper_data']) && is_array($meta['wrapper_data'])) {
+            $rawHeaders = $meta['wrapper_data'];
+        }
+
+        $responseHeaders = $this->parseHeaders($rawHeaders);
+        $statusHeader = $this->parseStatusHeader($rawHeaders);
 
         $response = new Response(
             $statusHeader['status'],
