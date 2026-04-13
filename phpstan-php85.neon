@@ -1,5 +1,6 @@
 includes:
     - phpstan.neon
+    - vendor/phpstan/phpstan-deprecation-rules/rules.neon
 
 parameters:
     phpVersion: 80500
